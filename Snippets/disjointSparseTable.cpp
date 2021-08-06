@@ -67,3 +67,16 @@ template < typename T >
 			return Monoid {}(mat[level][l], mat[level][r]);
 		}
 	};
+
+/*
+Usage:
+
+1. Change the Monoid struct to whichever binary
+operation you need
+
+2. Create disjointSparseTable for type T as:
+	disjointSparseTable <T>	 ST(vector<T>, T identity_element);
+
+Example for XOR over int:
+	disjointSparseTable <int> ST(vector <int>, 0);
+*/
