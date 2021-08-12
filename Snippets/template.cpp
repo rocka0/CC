@@ -20,6 +20,7 @@ using namespace __gnu_pbds;
 
 // Typedefs
 using ll = long long;
+using ull = unsigned long long;
 using ld = long double;
 using vi = vector<int>;
 using pi = pair<int, int>;
@@ -117,10 +118,10 @@ bool chkmin(T &x, T y)
 // https://codeforces.com/blog/entry/62393
 // struct safe_hash {
 //     static uint64_t splitmix64(uint64_t x) {
-//         // http://xorshift.di.unimi.it/splitmix64.c
+//        	// http://xorshift.di.unimi.it/splitmix64.c
 //         x += 0x9e3779b97f4a7c15;
-//         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
-//         x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+//         x = (x ^ (x >> 30)) *0xbf58476d1ce4e5b9;
+//         x = (x ^ (x >> 27)) *0x94d049bb133111eb;
 //         return x ^ (x >> 31);
 //     }
 
@@ -129,9 +130,6 @@ bool chkmin(T &x, T y)
 //         return splitmix64(x + FIXED_RANDOM);
 //     }
 // };
-
-// Constants
-const ll MOD = 1e9 + 7;
 
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
