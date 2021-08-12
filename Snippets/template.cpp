@@ -147,7 +147,7 @@ but you yourself alone.
 
 void solve()
 {
-    
+
     return;
 }
 

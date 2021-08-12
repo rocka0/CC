@@ -1,37 +1,82 @@
 /*
-Usage: Matrix <int> M(4, 5) creates a 4X5 matrix of <int>
+Usage: Matrix <int> M(4,5) creates a 4X5 matrix M of <int>(s)
 Type T must have +, -, *, += operators defined/overloaded
 */
 template <typename T>
 struct Matrix
 {
     vector<vector<T>> mat;
-    int row;
-    int col;
+    int row_size;
+    int col_size;
 
-    Matrix(int rowsize, int colsize)
+    Matrix(int R, int C)
     {
-        assert(rowsize > 0);
-        assert(colsize > 0);
-        row = rowsize;
-        col = colsize;
-        mat.resize(rowsize);
-        for (int i = 0; i < rowsize; ++i)
+        assert(R > 0);
+        assert(C > 0);
+        row_size = R;
+        col_size = C;
+        mat.resize(R);
+        for (int i = 0; i < row_size; ++i)
+            mat[i].resize(C);
+    }
+
+    vector<T> &operator[](size_t x)
+    {
+        assert(x < row_size);
+        return mat[x];
+    }
+
+    const vector<T> &operator[](size_t x) const
+    {
+        assert(x < row_size);
+        return mat[x];
+    }
+
+    friend istream &operator>>(istream &in, Matrix &x)
+    {
+        for (int i = 0; i < x.row_size; i++)
         {
-            mat[i].resize(colsize);
+            for (int j = 0; j < x.col_size; j++)
+            {
+                in >> x[i][j];
+            }
         }
+        return in;
+    }
+
+    friend ostream &operator<<(ostream &out, const Matrix &x)
+    {
+        for (int i = 0; i < x.row_size; i++)
+        {
+            for (int j = 0; j < x.col_size; j++)
+            {
+                out << x[i][j];
+                if (j == x.col_size - 1)
+                {
+                    if (i != x.row_size - 1)
+                    {
+                        out << '\n';
+                    }
+                }
+                else
+                {
+                    out << ' ';
+                }
+            }
+        }
+        return out;
     }
 
     Matrix add(const Matrix &A, const Matrix &B)
     {
-        assert(A.row == B.row);
-        assert(A.col == B.col);
-        Matrix ans(A.row, B.col);
-        for (int i = 0; i < A.row; ++i)
+        assert(A.row_size == B.row_size);
+        assert(A.col_size == B.col_size);
+        Matrix ans(A.row_size, B.col_size);
+        for (int i = 0; i < A.row_size; ++i)
         {
-            for (int j = 0; j < B.col; ++j)
+            for (int j = 0; j < B.col_size; ++j)
             {
-                ans.mat[i][j] = A.mat[i][j] + B.mat[i][j];
+                ans[i][j] = A[i][j] + B[i][j];
             }
         }
         return ans;
@@ -39,14 +84,14 @@ struct Matrix
 
     Matrix subtract(const Matrix &A, const Matrix &B)
     {
-        assert(A.row == B.row);
-        assert(A.col == B.col);
-        Matrix ans(A.row, B.col);
-        for (int i = 0; i < A.row; ++i)
+        assert(A.row_size == B.row_size);
+        assert(A.col_size == B.col_size);
+        Matrix ans(A.row_size, B.col_size);
+        for (int i = 0; i < A.row_size; ++i)
         {
-            for (int j = 0; j < B.col; ++j)
+            for (int j = 0; j < B.col_size; ++j)
             {
-                ans.mat[i][j] = A.mat[i][j] - B.mat[i][j];
+                ans[i][j] = A[i][j] - B[i][j];
             }
         }
         return ans;
@@ -54,16 +99,15 @@ struct Matrix
 
     Matrix multiply(const Matrix &A, const Matrix &B)
     {
-        assert(A.col == B.row);
-        Matrix ans(A.row, B.col);
-        for (int i = 0; i < A.row; ++i)
+        assert(A.col_size == B.row_size);
+        Matrix ans(A.row_size, B.col_size);
+        for (int i = 0; i < A.row_size; ++i)
         {
-            for (int j = 0; j < B.col; ++j)
+            for (int j = 0; j < B.col_size; ++j)
             {
-                ans.mat[i][j] = T(0);
-                for (int k = 0; k < A.col; ++k)
+                for (int k = 0; k < A.col_size; ++k)
                 {
-                    ans.mat[i][j] += (A.mat[i][k] * B.mat[k][j]);
+                    ans[i][j] += (A[i][k] * B[k][j]);
                 }
             }
         }
