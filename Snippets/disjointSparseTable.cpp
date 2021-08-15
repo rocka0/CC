@@ -1,10 +1,12 @@
 // https://codeforces.com/blog/entry/79108
 
-/*T is the type of the element
- *Monoid is the Associative Binary Operation
- *Identity is the identity element of the Monoid
- *(e.g. 0 for addition/xor and inf for minimum)
- */
+/*
+	T is the type of the element
+	Monoid is the Associative Binary Operation
+	Identity is the identity element of the Monoid
+	(e.g. 0 for addition/xor and inf for minimum)
+*/
+
 template <typename T>
 class disjointSparseTable
 {
@@ -51,7 +53,7 @@ public:
 			}
 		}
 	}
-	/*Returns operation over range [l, r) */
+	/* Returns operation over range [l, r) */
 	T query(int l, int r) const
 	{
 		assert(l < r);
@@ -69,16 +71,3 @@ public:
 		return Monoid{}(mat[level][l], mat[level][r]);
 	}
 };
-
-/*
-Usage:
-
-1. Change the Monoid struct to whichever binary
-operation you need
-
-2. Create disjointSparseTable for type T as:
-	disjointSparseTable <T>	 ST(vector<T>, T identity_element);
-
-Example for XOR over int:
-	disjointSparseTable <int> ST(vector <int>, 0);
-*/
