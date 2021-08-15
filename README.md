@@ -9,6 +9,7 @@ Index
     * [DSU](/Snippets/dsu.cpp)
     * [Matrix](/Snippets/matrix.cpp)
     * [Modint](/Snippets/modint.cpp)
+    * [Sieve](/Snippets/sieve.cpp)
 
 2. Scripts
     * [Stress Testing](/Scripts/stress_test.sh)
