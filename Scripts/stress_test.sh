@@ -50,6 +50,7 @@ if [ $diff_found -eq 1 ]
 then
     echo "${blue}${bold}Input: ${reset}"
     cat input.txt
+    cat input.txt > breaking_case.txt
     echo ""
 
     echo "${red}${bold}Output: ${reset}"
