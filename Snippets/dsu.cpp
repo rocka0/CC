@@ -60,9 +60,9 @@ public:
         }
         result.erase(
             remove_if(result.begin(), result.end(),
-                           [&](const vector<int> &v)
-                           { return v.empty(); }),
-            result.end());
+                      [&](const vector<int> &v)
+        { return v.empty(); }),
+        result.end());
         return result;
     }
 

@@ -87,7 +87,7 @@ struct Modint
     template <class T>
     constexpr Modint(T x) noexcept
     {
-        using U = typename conditional<sizeof(T) >= 4, T, int>::type;
+        using U = typename conditional<sizeof(T) >= 4, T, int >::type;
         U y = x;
         y %= U(mod);
         if (y < 0)

@@ -2,7 +2,7 @@
 const int nax = 1e7;
 
 // spf[x] = smallest prime factor of x: 2 <= x <= nax
-array<int, nax + 1> spf;
+array < int, nax + 1 > spf;
 vi primes;
 void initSieve()
 {
