@@ -28,20 +28,11 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 // Debugging Template
-string to_string(string s)
-{
-    return '"' + s + '"';
-}
+string to_string(string s) { return '"' + s + '"'; }
 
-string to_string(const char *s)
-{
-    return to_string((string)s);
-}
+string to_string(const char* s) { return to_string((string)s); }
 
-string to_string(bool b)
-{
-    return (b ? "true" : "false");
-}
+string to_string(bool b) { return (b ? "true" : "false"); }
 
 template <typename A, typename B>
 string to_string(pair<A, B> p)
@@ -54,10 +45,8 @@ string to_string(A v)
 {
     bool first = true;
     string res = "{";
-    for (const auto &x : v)
-    {
-        if (!first)
-        {
+    for (const auto& x : v) {
+        if (!first) {
             res += ", ";
         }
         first = false;
@@ -67,10 +56,7 @@ string to_string(A v)
     return res;
 }
 
-void debug_out()
-{
-    cerr << endl;
-}
+void debug_out() { cerr << endl; }
 
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T)
@@ -81,36 +67,38 @@ void debug_out(Head H, Tail... T)
 
 // Recursive Lambda Y Combinator
 template <class Fun>
-class y_combinator_result
-{
+class y_combinator_result {
     Fun fun_;
 
 public:
     template <class T>
-    explicit y_combinator_result(T &&fun) : fun_(std::forward<T>(fun)) {}
+    explicit y_combinator_result(T&& fun)
+        : fun_(std::forward<T>(fun))
+    {
+    }
 
     template <class... Args>
-    decltype(auto) operator()(Args &&...args)
+    decltype(auto) operator()(Args&&... args)
     {
         return fun_(std::ref(*this), std::forward<Args>(args)...);
     }
 };
 
 template <class Fun>
-decltype(auto) y_combinator(Fun &&fun)
+decltype(auto) y_combinator(Fun&& fun)
 {
     return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
 }
 
 // Self max/min functions
 template <typename T>
-bool chkmax(T &x, T y)
+bool chkmax(T& x, T y)
 {
     return x < y ? x = y, true : false;
 }
 
 template <typename T>
-bool chkmin(T &x, T y)
+bool chkmin(T& x, T y)
 {
     return x > y ? x = y, true : false;
 }
@@ -126,8 +114,9 @@ bool chkmin(T &x, T y)
 //     }
 
 //     size_t operator()(uint64_t x) const {
-//         static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
-//         return splitmix64(x + FIXED_RANDOM);
+//         static const uint64_t FIXED_RANDOM =
+//         chrono::steady_clock::now().time_since_epoch().count(); return
+//         splitmix64(x + FIXED_RANDOM);
 //     }
 // };
 
@@ -163,8 +152,7 @@ int main()
     int t = 1;
     cin >> t;
 
-    while (t--)
-    {
+    while (t--) {
         solve();
     }
 

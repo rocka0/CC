@@ -1,10 +1,17 @@
 // https://github.com/atcoder/ac-library
 
-struct dsu
-{
+struct dsu {
 public:
-    dsu() : _n(0) {}
-    explicit dsu(int n) : _n(n), parent_or_size(n, -1) {}
+    dsu()
+        : _n(0)
+    {
+    }
+
+    explicit dsu(int n)
+        : _n(n)
+        , parent_or_size(n, -1)
+    {
+    }
 
     int merge(int a, int b)
     {
@@ -44,25 +51,20 @@ public:
     vector<vector<int>> groups()
     {
         vector<int> leader_buf(_n), group_size(_n);
-        for (int i = 0; i < _n; i++)
-        {
+        for (int i = 0; i < _n; i++) {
             leader_buf[i] = leader(i);
             group_size[leader_buf[i]]++;
         }
         vector<vector<int>> result(_n);
-        for (int i = 0; i < _n; i++)
-        {
+        for (int i = 0; i < _n; i++) {
             result[i].reserve(group_size[i]);
         }
-        for (int i = 0; i < _n; i++)
-        {
+        for (int i = 0; i < _n; i++) {
             result[leader_buf[i]].push_back(i);
         }
-        result.erase(
-            remove_if(result.begin(), result.end(),
-                      [&](const vector<int> &v)
-        { return v.empty(); }),
-        result.end());
+        result.erase(remove_if(result.begin(), result.end(),
+                         [&](const vector<int>& v) { return v.empty(); }),
+            result.end());
         return result;
     }
 

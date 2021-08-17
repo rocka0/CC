@@ -2,20 +2,19 @@
 
 const unsigned mod = 1000000007;
 
-struct Modint
-{
+struct Modint {
     unsigned num = 0;
 
-    constexpr Modint() noexcept {}
+    constexpr Modint() noexcept { }
 
-    constexpr Modint(const Modint &x) noexcept : num(x.num) {}
-
-    inline constexpr operator ll() const noexcept
+    constexpr Modint(const Modint& x) noexcept
+        : num(x.num)
     {
-        return num;
     }
 
-    inline constexpr Modint &operator+=(Modint x) noexcept
+    inline constexpr operator ll() const noexcept { return num; }
+
+    inline constexpr Modint& operator+=(Modint x) noexcept
     {
         num += x.num;
         if (num >= mod)
@@ -23,7 +22,7 @@ struct Modint
         return *this;
     }
 
-    inline constexpr Modint &operator++() noexcept
+    inline constexpr Modint& operator++() noexcept
     {
         if (num == mod - 1)
             num = 0;
@@ -49,7 +48,7 @@ struct Modint
         return Modint(*this) -= x;
     }
 
-    inline constexpr Modint &operator-=(Modint x) noexcept
+    inline constexpr Modint& operator-=(Modint x) noexcept
     {
         if (num < x.num)
             num += mod;
@@ -57,7 +56,7 @@ struct Modint
         return *this;
     }
 
-    inline constexpr Modint &operator--() noexcept
+    inline constexpr Modint& operator--() noexcept
     {
         if (num == 0)
             num = mod - 1;
@@ -73,13 +72,13 @@ struct Modint
         return ans;
     }
 
-    inline constexpr Modint &operator*=(Modint x) noexcept
+    inline constexpr Modint& operator*=(Modint x) noexcept
     {
         num = ull(num) * x.num % mod;
         return *this;
     }
 
-    inline constexpr Modint &operator/=(Modint x) noexcept
+    inline constexpr Modint& operator/=(Modint x) noexcept
     {
         return operator*=(x.inv());
     }
@@ -87,7 +86,7 @@ struct Modint
     template <class T>
     constexpr Modint(T x) noexcept
     {
-        using U = typename conditional<sizeof(T) >= 4, T, int >::type;
+        using U = typename conditional<sizeof(T) >= 4, T, int>::type;
         U y = x;
         y %= U(mod);
         if (y < 0)
@@ -102,7 +101,7 @@ struct Modint
     }
 
     template <class T>
-    inline constexpr Modint &operator+=(T x) noexcept
+    inline constexpr Modint& operator+=(T x) noexcept
     {
         return operator+=(Modint(x));
     }
@@ -114,7 +113,7 @@ struct Modint
     }
 
     template <class T>
-    inline constexpr Modint &operator-=(T x) noexcept
+    inline constexpr Modint& operator-=(T x) noexcept
     {
         return operator-=(Modint(x));
     }
@@ -126,7 +125,7 @@ struct Modint
     }
 
     template <class T>
-    inline constexpr Modint &operator*=(T x) noexcept
+    inline constexpr Modint& operator*=(T x) noexcept
     {
         return operator*=(Modint(x));
     }
@@ -138,7 +137,7 @@ struct Modint
     }
 
     template <class T>
-    inline constexpr Modint &operator/=(T x) noexcept
+    inline constexpr Modint& operator/=(T x) noexcept
     {
         return operator/=(Modint(x));
     }
@@ -150,13 +149,12 @@ struct Modint
         return x;
     }
 
-    static inline constexpr ll extgcd(ll a, ll b, ll &x, ll &y) noexcept
+    static inline constexpr ll extgcd(ll a, ll b, ll& x, ll& y) noexcept
     {
         ll g = a;
         x = 1;
         y = 0;
-        if (b)
-        {
+        if (b) {
             g = extgcd(b, a % b, y, x);
             y -= a / b * x;
         }
@@ -166,8 +164,7 @@ struct Modint
     inline constexpr Modint pow(ull x) const noexcept
     {
         Modint ans = 1, cnt = *this;
-        while (x)
-        {
+        while (x) {
             if (x & 1)
                 ans *= cnt;
             cnt *= cnt;
@@ -177,7 +174,7 @@ struct Modint
     }
 };
 
-istream &operator>>(istream &is, Modint &x) noexcept
+istream& operator>>(istream& is, Modint& x) noexcept
 {
     ll a;
     cin >> a;
@@ -185,10 +182,7 @@ istream &operator>>(istream &is, Modint &x) noexcept
     return is;
 }
 
-inline constexpr Modint operator"" _M(ull x) noexcept
-{
-    return Modint(x);
-}
+inline constexpr Modint operator"" _M(ull x) noexcept { return Modint(x); }
 
 vector<Modint> fac(1, 1), inv(1, 1);
 
@@ -220,8 +214,7 @@ Modint perm(ll n, ll r)
 {
     if (r < 0 || n < r)
         return 0;
-    if (n >> 24)
-    {
+    if (n >> 24) {
         Modint ans = 1;
         for (ll i = 0; i < r; i++)
             ans *= n--;
