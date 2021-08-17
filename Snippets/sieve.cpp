@@ -1,13 +1,14 @@
 // https://github.com/the-hyp0cr1t3/CC
-const int nax = 1e7;
 
-// spf[x] = smallest prime factor of x: 2 <= x <= nax
+const int nax = 2e7;
 array < int, nax + 1 > spf;
 vi primes;
+
 void initSieve()
 {
     iota(all(spf), 0);
-    primes.reserve(nax);
+    // There are 1270607 primes less than 2e7
+    primes.reserve(1270607);
     primes.pb(2);
     for (int i = 4; i <= nax; i += 2)
     {
@@ -35,3 +36,5 @@ void initSieve()
         }
     }
 }
+
+// Don't forget to call initSieve() in main!
