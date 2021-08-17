@@ -194,17 +194,17 @@ vector<Modint> fac(1, 1), inv(1, 1);
 
 void reserve(ll a)
 {
-    if (fac.size() >= a)
+    if (sz(fac) >= a)
         return;
-    if (a < fac.size() * 2)
-        a = fac.size() * 2;
+    if (a < sz(fac) * 2)
+        a = sz(fac) * 2;
     if (a >= mod)
         a = mod;
-    while (fac.size() < a)
-        fac.push_back(fac.back() * Modint(fac.size()));
-    inv.resize(fac.size());
+    while (sz(fac) < a)
+        fac.push_back(fac.back() * Modint(sz(fac)));
+    inv.resize(sz(fac));
     inv.back() = fac.back().inv();
-    for (ll i = inv.size() - 1; !inv[i - 1]; i--)
+    for (ll i = sz(inv) - 1; !inv[i - 1]; i--)
         inv[i - 1] = inv[i] * i;
 }
 
