@@ -4,6 +4,8 @@ const int nax = 2e7;
 array < int, nax + 1 > spf;
 vi primes;
 
+// call initSieve() in main()!
+
 void initSieve()
 {
     iota(all(spf), 0);
@@ -36,5 +38,3 @@ void initSieve()
         }
     }
 }
-
-// Don't forget to call initSieve() in main!

@@ -21,51 +21,16 @@ struct Matrix
             mat[i].resize(C);
     }
 
-    vector<T> &operator[](size_t x)
+    vector<T> &operator[](int x)
     {
         assert(x < row_size);
         return mat[x];
     }
 
-    const vector<T> &operator[](size_t x) const
+    const vector<T> &operator[](int x) const
     {
         assert(x < row_size);
         return mat[x];
-    }
-
-    friend istream &operator>>(istream &in, Matrix &x)
-    {
-        for (int i = 0; i < x.row_size; i++)
-        {
-            for (int j = 0; j < x.col_size; j++)
-            {
-                in >> x[i][j];
-            }
-        }
-        return in;
-    }
-
-    friend ostream &operator<<(ostream &out, const Matrix &x)
-    {
-        for (int i = 0; i < x.row_size; i++)
-        {
-            for (int j = 0; j < x.col_size; j++)
-            {
-                out << x[i][j];
-                if (j == x.col_size - 1)
-                {
-                    if (i != x.row_size - 1)
-                    {
-                        out << '\n';
-                    }
-                }
-                else
-                {
-                    out << ' ';
-                }
-            }
-        }
-        return out;
     }
 
     Matrix add(const Matrix &A, const Matrix &B)
@@ -115,7 +80,7 @@ struct Matrix
         return ans;
     }
 
-    Matrix power(const Matrix &M, int p)
+    Matrix power(const Matrix &M, ll p)
     {
         assert(p >= 1);
         if (p == 1)

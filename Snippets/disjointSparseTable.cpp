@@ -33,8 +33,8 @@ public:
 		{
 			for (int block = 0; block < 1 << level; ++block)
 			{
-				const auto start = block << (mat.size() - level);
-				const auto end = (block + 1) << (mat.size() - level);
+				const auto start = block << (sz(mat) - level);
+				const auto end = (block + 1) << (sz(mat) - level);
 				const auto middle = (end + start) / 2;
 				auto val = arr[middle];
 				mat[level][middle] = val;
@@ -67,7 +67,7 @@ public:
 			return mat.back()[l];
 		}
 		const auto pos_diff = (sizeof(ll) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
-		const auto level = mat.size() - 1 - pos_diff;
+		const auto level = sz(mat) - 1 - pos_diff;
 		return Monoid{}(mat[level][l], mat[level][r]);
 	}
 };
