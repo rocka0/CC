@@ -1,8 +1,3 @@
-/*
-    Usage: Matrix <int> M(4,5) creates a 4X5 matrix M of <int>(s)
-    Type T must have +, -, *, += operators defined/overloaded
-*/
-
 template <typename T>
 struct Matrix {
     vector<vector<T>> mat;
