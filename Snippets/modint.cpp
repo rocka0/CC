@@ -566,3 +566,44 @@ namespace internal {
 
 using namespace atcoder;
 using mint = modint1000000007;
+
+const int nax = 2e5;
+
+array<mint, nax + 1> fact;
+array<mint, nax + 1> invFact;
+bool setupDone = false;
+
+void setupModint()
+{
+    fact[0] = 1;
+    invFact[0] = 1;
+    for (int i = 1; i <= nax; ++i) {
+        fact[i] = fact[i - 1] * i;
+        invFact[i] = fact[i].inv();
+    }
+    setupDone = true;
+}
+
+mint factorial(ll x)
+{
+    assert(setupDone);
+    return fact[x];
+}
+
+mint inverseFactorial(ll x)
+{
+    assert(setupDone);
+    return invFact[x];
+}
+
+mint nPr(ll n, ll r)
+{
+    assert(setupDone);
+    return factorial(n) * inverseFactorial(n - r);
+}
+
+mint nCr(ll n, ll r)
+{
+    assert(setupDone);
+    return nPr(n, r) * inverseFactorial(r);
+}
