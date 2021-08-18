@@ -1,6 +1,6 @@
 // https://github.com/atcoder/ac-library
 
-struct dsu {
+class dsu {
 public:
     dsu()
         : _n(0)

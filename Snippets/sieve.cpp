@@ -4,7 +4,7 @@ const int nax = 2e7;
 array<int, nax + 1> spf;
 vi primes;
 
-// call initSieve() in main()!
+// DON'T FORGET TO CALL initSieve() IN main()!
 
 void initSieve()
 {

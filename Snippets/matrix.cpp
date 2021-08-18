@@ -1,6 +1,8 @@
 template <typename T>
-struct Matrix {
+class Matrix {
     vector<vector<T>> mat;
+
+public:
     int row_size;
     int col_size;
 
