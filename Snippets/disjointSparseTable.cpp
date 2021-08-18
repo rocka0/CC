@@ -12,7 +12,7 @@ class disjointSparseTable {
     struct Monoid {
         constexpr T operator()(const T& lhs, const T& rhs) const
         {
-            return (lhs ^ rhs);
+            return gcd(lhs, rhs);
         }
     };
     vector<vector<T>> mat;
@@ -25,6 +25,8 @@ public:
         int pow2 = 1, cnt = 0;
         for (; pow2 < sz(arr); pow2 <<= 1, ++cnt)
             ;
+        if (sz(arr) == 1)
+            cnt = 1;
         arr.resize(pow2, identity);
         mat.resize(cnt, vector<T>(pow2));
         for (int level = 0; level < sz(mat); ++level) {
