@@ -48,14 +48,10 @@ public:
         }
     }
 
-    /* Returns operation over range [l, r) */
+    /* Returns operation over range [l, r] */
     T query(int l, int r) const
     {
-        assert(l < r);
-        --r;
-        if (r == l - 1) {
-            return identity;
-        }
+        assert(l <= r);
         if (l == r) {
             return mat.back()[l];
         }
