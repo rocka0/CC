@@ -31,7 +31,7 @@ class handler(BaseHTTPRequestHandler):
         # Create folder
         executed = exec(f"mkdir {folderName}")
         if not executed:
-            print(term.green(term.bold("[WARN]")), term.bold(term.blue("Deleting old folder")))
+            print(term.red(term.bold("[WARN]")), term.bold(term.blue("Deleting old folder")))
             exec(f"rm -r {folderName}")
             exec(f"mkdir {folderName}")
 
@@ -68,12 +68,12 @@ class handler(BaseHTTPRequestHandler):
         print(term.green(term.bold("[OK]")), term.bold(term.blue("Parsed problem statement!")))
         print(term.blue("Saved to:"), term.bold(term.red(folderName)))
 
-        # Kills program after parsing data
-        exit(0)
-
 def main():
-    with HTTPServer(('localhost', 1327), handler) as server:
-        server.serve_forever()
+    try:
+        with HTTPServer(('localhost', 1327), handler) as server:
+            server.serve_forever()
+    except KeyboardInterrupt:
+        print(term.red(term.bold("\n[DONE]")), term.bold(term.blue("Shutting down parser.")))
 
     return 0
 

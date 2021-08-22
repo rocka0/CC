@@ -12,6 +12,7 @@ Index
     * [Sieve](/Snippets/sieve.cpp)
 
 2. Scripts
+    * [Code Compilation](/Scripts/compile.py)
     * [Stress Testing](/Scripts/stress_test.sh)
     * [Test Case Parser](/Scripts/parse.py)
     * [Test Case Runner](/Scripts/run.py)
