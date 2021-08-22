@@ -13,3 +13,5 @@ Index
 
 2. Scripts
     * [Stress Testing](/Scripts/stress_test.sh)
+    * [Test Case Parser](/Scripts/parse.py)
+    * [Test Case Runner](/Scripts/run.py)
