@@ -44,6 +44,12 @@ class handler(BaseHTTPRequestHandler):
         # Creates custom input file
         system(f"touch {folderName}/in")
 
+        # Copies Compile python file
+        system(f"cp compile.py {folderName}/compile")
+
+        # Makes Compile python file executable
+        system(f"chmod +x {folderName}/compile")
+
         # Copies Runner python file
         system(f"cp run.py {folderName}/run")
 
