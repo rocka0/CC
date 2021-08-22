@@ -43,12 +43,11 @@ class handler(BaseHTTPRequestHandler):
         # Creates CPP file
         system(f"touch {folderName}/{MAIN_CODE_FILE}")
 
-        # Creates custom input output file
+        # Creates custom input file
         system(f"touch {folderName}/in")
-        system(f"touch {folderName}/out")
 
-        # Open CPP+in+out files in Sublime Text
-        system(f"subl {folderName}/{MAIN_CODE_FILE} {folderName}/in {folderName}/out")
+        # Open CPP files in Sublime Text
+        system(f"subl {folderName}/{MAIN_CODE_FILE}")
 
         # Copies Runner python file
         system(f"cp run.py {folderName}/run")
