@@ -1,9 +1,7 @@
 #! /usr/bin/python
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
-from sys import exit
 from json import loads
-from subprocess import run
 from blessings import Terminal
 from os import system
 
@@ -16,13 +14,9 @@ MAIN_CODE_EXTENSION = "cpp"
 MAIN_CODE_FILE = MAIN_CODE_BASE_NAME + '.' + MAIN_CODE_EXTENSION
 
 # Function to execute command locally
-def exec(cmd, cwd="."):
-    try:
-        res = run(cmd, cwd=cwd, capture_output=True, check=True)
-        return (True, res.stdout.decode('utf-8'))
-    except:
-        res = run(cmd, cwd=cwd, capture_output=True)
-        return (False, res.stderr.decode('utf-8'))
+def exec(cmd):
+    res = system(cmd)
+    return res == 0
 
 # Server to parse the Competitive Companion
 class handler(BaseHTTPRequestHandler):
@@ -35,19 +29,20 @@ class handler(BaseHTTPRequestHandler):
         folderName = data['languages']['java']['taskClass']
 
         # Create folder
-        executed = exec(["mkdir", folderName])[0]
+        executed = exec(f"mkdir {folderName}")
         if not executed:
-            exec(["rm", "-rf", folderName])
-            exec(["mkdir", folderName])
+            print(term.green(term.bold("[WARN]")), term.bold(term.blue("Deleting old folder")))
+            exec(f"rm -r {folderName}")
+            exec(f"mkdir {folderName}")
 
         # Creates CPP file
         system(f"touch {folderName}/{MAIN_CODE_FILE}")
 
+        # Opens CPP File in Sublime
+        system(f"subl {folderName}/{MAIN_CODE_FILE}")
+
         # Creates custom input file
         system(f"touch {folderName}/in")
-
-        # Open CPP files in Sublime Text
-        system(f"subl {folderName}/{MAIN_CODE_FILE}")
 
         # Copies Runner python file
         system(f"cp run.py {folderName}/run")
@@ -73,6 +68,7 @@ class handler(BaseHTTPRequestHandler):
 def main():
     with HTTPServer(('localhost', 1327), handler) as server:
         server.serve_forever()
+
     return 0
 
 if __name__ == "__main__":
