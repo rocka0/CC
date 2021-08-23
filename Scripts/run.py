@@ -26,7 +26,7 @@ def main():
                 inData = file.read().strip()
 
             with open(f"out{test_at}", "r") as file:
-                correctOutput = file.read().strip()
+                correctOutput = "\n".join([x.strip() for x in file.read().strip().splitlines()])
 
             ok = exec(f"./{MAIN_CODE_BASE_NAME} < in{test_at} > {MAIN_CODE_BASE_NAME}out{test_at}")
             if not ok:
@@ -36,7 +36,7 @@ def main():
                 exit(1)
 
             with open(f"{MAIN_CODE_BASE_NAME}out{test_at}", "r") as file:
-                programOutput = file.read().strip()
+                programOutput = "\n".join([x.strip() for x in file.read().strip().splitlines()])
 
             exec(f"rm {MAIN_CODE_BASE_NAME}out{test_at}")
 
