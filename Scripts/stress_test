@@ -34,6 +34,8 @@ def main():
     assert fileExists("brute"), "Brute Force must exist as ./brute"
     assert fileExists("gen"), "Generator must exist as ./gen"
 
+    exec("./compile")
+
     t = int(input("Enter the number of tests: "))
 
     test_at = 0
@@ -68,7 +70,6 @@ def main():
         else:
             with open("brute_stress_test_out", "r") as file:
                 bruteOutput = "\n".join([x.strip() for x in file.read().strip().splitlines()])
-
         if bruteOutput == programOutput:
             print(term.bold(term.green(f"[AC] Test {test_at}")))
         else:
@@ -83,9 +84,9 @@ def main():
             cleanup()
             exit(1)
 
-        cleanup()
-
         t -= 1
+
+    cleanup()
 
     return 0
 
