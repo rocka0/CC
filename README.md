@@ -13,7 +13,7 @@ Index
 
 2. Scripts
     * [Code Compilation](/Scripts/compile.py)
-    * [Stress Testing](/Scripts/stress_test.sh)
+    * [Stress Testing](/Scripts/stress_test.py)
     * [Test Case Generator](/Scripts/gen.py)
     * [Test Case Parser](/Scripts/parse.py)
     * [Test Case Runner](/Scripts/run.py)

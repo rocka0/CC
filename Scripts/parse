@@ -51,13 +51,13 @@ class handler(BaseHTTPRequestHandler):
         exec(f"touch {folderName}/in")
 
         # Copies Compile python file
-        exec(f"cp compile.py {folderName}/compile")
+        exec(f"cp compile {folderName}/compile")
 
         # Makes Compile python file executable
         exec(f"chmod +x {folderName}/compile")
 
         # Copies Runner python file
-        exec(f"cp run.py {folderName}/run")
+        exec(f"cp run {folderName}/run")
 
         # Makes Runner python file executable
         exec(f"chmod +x {folderName}/run")
