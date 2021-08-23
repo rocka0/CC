@@ -28,41 +28,47 @@ class handler(BaseHTTPRequestHandler):
         # Gets folder name from Competitive Companion
         folderName = data['languages']['java']['taskClass']
 
-        # Create folder
+        # Create main folder
         executed = exec(f"mkdir {folderName}")
         if not executed:
             print(term.red(term.bold("[WARN]")), term.bold(term.blue("Deleting old folder")))
             exec(f"rm -r {folderName}")
             exec(f"mkdir {folderName}")
 
+        # Create input folder
+        exec(f"mkdir {folderName}/inputs")
+
+        # Create output folder
+        exec(f"mkdir {folderName}/outputs")
+
         # Creates CPP file
-        system(f"touch {folderName}/{MAIN_CODE_FILE}")
+        exec(f"touch {folderName}/{MAIN_CODE_FILE}")
 
         # Opens CPP File in Sublime
-        system(f"subl {folderName}/{MAIN_CODE_FILE}")
+        exec(f"subl {folderName}/{MAIN_CODE_FILE}")
 
         # Creates custom input file
-        system(f"touch {folderName}/in")
+        exec(f"touch {folderName}/in")
 
         # Copies Compile python file
-        system(f"cp compile.py {folderName}/compile")
+        exec(f"cp compile.py {folderName}/compile")
 
         # Makes Compile python file executable
-        system(f"chmod +x {folderName}/compile")
+        exec(f"chmod +x {folderName}/compile")
 
         # Copies Runner python file
-        system(f"cp run.py {folderName}/run")
+        exec(f"cp run.py {folderName}/run")
 
         # Makes Runner python file executable
-        system(f"chmod +x {folderName}/run")
+        exec(f"chmod +x {folderName}/run")
 
         # Adds test from Competitive Companion
         counter = 0
         for test in data['tests']:
             counter += 1
-            with open(f"./{folderName}/in{counter}", "w") as file:
+            with open(f"./{folderName}/inputs/in{counter}", "w") as file:
                 file.write(test['input'])
-            with open(f"./{folderName}/out{counter}", "w") as file:
+            with open(f"./{folderName}/outputs/out{counter}", "w") as file:
                 file.write(test['output'])
 
         print(term.green(term.bold("[OK]")), term.bold(term.blue("Parsed problem statement!")))

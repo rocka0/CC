@@ -22,13 +22,13 @@ def main():
     test_at = 1
     while True:
         try:
-            with open(f"in{test_at}", "r") as file:
+            with open(f"inputs/in{test_at}", "r") as file:
                 inData = file.read().strip()
 
-            with open(f"out{test_at}", "r") as file:
+            with open(f"outputs/out{test_at}", "r") as file:
                 correctOutput = "\n".join([x.strip() for x in file.read().strip().splitlines()])
 
-            ok = exec(f"./{MAIN_CODE_BASE_NAME} < in{test_at} > {MAIN_CODE_BASE_NAME}out{test_at}")
+            ok = exec(f"./{MAIN_CODE_BASE_NAME} < inputs/in{test_at} > {MAIN_CODE_BASE_NAME}out{test_at}")
             if not ok:
                 print(term.bold(term.red(f"[RTE] Run Time Error on Test {test_at}")))
                 print(term.bold(term.red("Test Data:")))
