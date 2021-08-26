@@ -1,4 +1,4 @@
-// ヽ(〃＾▽＾〃)ﾉ ~ TBC
+// ᕙ(⇀‸↼‶)ᕗ ~ TBC
 
 // Libraries
 #include <bits/stdc++.h>
@@ -29,17 +29,13 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 // Debugging Template
 string to_string(string s) { return '"' + s + '"'; }
-
 string to_string(const char* s) { return to_string((string)s); }
-
 string to_string(bool b) { return (b ? "true" : "false"); }
-
 template <typename A, typename B>
 string to_string(pair<A, B> p)
 {
     return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
 }
-
 template <typename A>
 string to_string(A v)
 {
@@ -55,9 +51,7 @@ string to_string(A v)
     res += "}";
     return res;
 }
-
 void debug_out() { cerr << endl; }
-
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T)
 {
@@ -83,7 +77,6 @@ public:
         return fun_(std::ref(*this), std::forward<Args>(args)...);
     }
 };
-
 template <class Fun>
 decltype(auto) y_combinator(Fun&& fun)
 {
@@ -96,7 +89,6 @@ bool chkmax(T& x, T y)
 {
     return x < y ? x = y, true : false;
 }
-
 template <typename T>
 bool chkmin(T& x, T y)
 {
@@ -144,8 +136,6 @@ int main()
 {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
-
-    // Compile with: g++ -std=c++17 -O2 -Wshadow -Wextra -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG app.cpp -o app
 
     // cout << fixed << setprecision(15);
 

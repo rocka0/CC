@@ -23,9 +23,14 @@ def exec(cmd):
 
 # Compile main code file
 def main():
-
     st = time()
+
+    # Uncomment this if you want debug flags
+    # executed = exec(f"g++ -std=c++17 -O2 -Wshadow -Wextra -Wall -fsanitize=address -fsanitize=undefined -D_GLIBCXX_DEBUG {MAIN_CODE_FILE} -o {MAIN_CODE_BASE_NAME}")
+
+    # Normal compile flags
     executed = exec(f"g++ -std=c++17 -O2 {MAIN_CODE_FILE} -o {MAIN_CODE_BASE_NAME}")
+
     et = time()
 
     if not executed:
