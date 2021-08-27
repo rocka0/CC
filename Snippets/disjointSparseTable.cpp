@@ -7,20 +7,17 @@
     (e.g. 0 for addition/xor and inf for minimum)
 */
 
-template <typename T>
-class disjointSparseTable {
+template <typename T> class disjointSparseTable {
     struct Monoid {
-        constexpr T operator()(const T& lhs, const T& rhs) const
-        {
-            return gcd(lhs, rhs);
+        constexpr T operator()(const T &lhs, const T &rhs) const {
+            return (lhs ^ rhs);
         }
     };
     vector<vector<T>> mat;
     T identity;
 
 public:
-    disjointSparseTable(vector<T> arr, T Identity)
-    {
+    disjointSparseTable(vector<T> arr, T Identity) {
         identity = Identity;
         int pow2 = 1, cnt = 0;
         for (; pow2 < sz(arr); pow2 <<= 1, ++cnt)
@@ -37,13 +34,13 @@ public:
                 auto val = arr[middle];
                 mat[level][middle] = val;
                 for (int x = middle + 1; x < end; ++x) {
-                    val = Monoid {}(val, arr[x]);
+                    val = Monoid{}(val, arr[x]);
                     mat[level][x] = val;
                 }
                 val = arr[middle - 1];
                 mat[level][middle - 1] = val;
                 for (int x = middle - 2; x >= start; --x) {
-                    val = Monoid {}(val, arr[x]);
+                    val = Monoid{}(val, arr[x]);
                     mat[level][x] = val;
                 }
             }
@@ -51,14 +48,14 @@ public:
     }
 
     /* Returns operation over range [l, r] */
-    T query(int l, int r) const
-    {
+    T query(int l, int r) const {
         assert(l <= r);
         if (l == r) {
             return mat.back()[l];
         }
-        const auto pos_diff = (sizeof(ll) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
+        const auto pos_diff =
+            (sizeof(ll) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
         const auto level = sz(mat) - 1 - pos_diff;
-        return Monoid {}(mat[level][l], mat[level][r]);
+        return Monoid{}(mat[level][l], mat[level][r]);
     }
 };

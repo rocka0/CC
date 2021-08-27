@@ -1,13 +1,13 @@
-template <typename T>
-class Matrix {
+// https://github.com/rocka0/CC
+
+template <typename T> class Matrix {
     vector<vector<T>> mat;
 
 public:
     int row_size;
     int col_size;
 
-    Matrix(int R, int C)
-    {
+    Matrix(int R, int C) {
         assert(R > 0);
         assert(C > 0);
         row_size = R;
@@ -17,20 +17,17 @@ public:
             mat[i].resize(C);
     }
 
-    vector<T>& operator[](int x)
-    {
+    vector<T> &operator[](int x) {
         assert(x < row_size);
         return mat[x];
     }
 
-    const vector<T>& operator[](int x) const
-    {
+    const vector<T> &operator[](int x) const {
         assert(x < row_size);
         return mat[x];
     }
 
-    Matrix add(const Matrix& A, const Matrix& B)
-    {
+    Matrix add(const Matrix &A, const Matrix &B) {
         assert(A.row_size == B.row_size);
         assert(A.col_size == B.col_size);
         Matrix ans(A.row_size, B.col_size);
@@ -42,8 +39,7 @@ public:
         return ans;
     }
 
-    Matrix subtract(const Matrix& A, const Matrix& B)
-    {
+    Matrix subtract(const Matrix &A, const Matrix &B) {
         assert(A.row_size == B.row_size);
         assert(A.col_size == B.col_size);
         Matrix ans(A.row_size, B.col_size);
@@ -55,8 +51,7 @@ public:
         return ans;
     }
 
-    Matrix multiply(const Matrix& A, const Matrix& B)
-    {
+    Matrix multiply(const Matrix &A, const Matrix &B) {
         assert(A.col_size == B.row_size);
         Matrix ans(A.row_size, B.col_size);
         for (int i = 0; i < A.row_size; ++i) {
@@ -69,8 +64,7 @@ public:
         return ans;
     }
 
-    Matrix power(const Matrix& M, ll p)
-    {
+    Matrix power(const Matrix &M, ll p) {
         assert(p >= 1);
         if (p == 1) {
             return M;

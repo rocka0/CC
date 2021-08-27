@@ -25,23 +25,20 @@ using ld = long double;
 using vi = vector<int>;
 using pi = pair<int, int>;
 template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+using ordered_set =
+    tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 // Debugging Template
 string to_string(string s) { return '"' + s + '"'; }
-string to_string(const char* s) { return to_string((string)s); }
+string to_string(const char *s) { return to_string((string)s); }
 string to_string(bool b) { return (b ? "true" : "false"); }
-template <typename A, typename B>
-string to_string(pair<A, B> p)
-{
+template <typename A, typename B> string to_string(pair<A, B> p) {
     return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
 }
-template <typename A>
-string to_string(A v)
-{
+template <typename A> string to_string(A v) {
     bool first = true;
     string res = "{";
-    for (const auto& x : v) {
+    for (const auto &x : v) {
         if (!first) {
             res += ", ";
         }
@@ -52,46 +49,32 @@ string to_string(A v)
     return res;
 }
 void debug_out() { cerr << endl; }
-template <typename Head, typename... Tail>
-void debug_out(Head H, Tail... T)
-{
+template <typename Head, typename... Tail> void debug_out(Head H, Tail... T) {
     cerr << " " << to_string(H);
     debug_out(T...);
 }
 
 // Recursive Lambda Y Combinator
-template <class Fun>
-class y_combinator_result {
+template <class Fun> class y_combinator_result {
     Fun fun_;
 
 public:
     template <class T>
-    explicit y_combinator_result(T&& fun)
-        : fun_(std::forward<T>(fun))
-    {
-    }
+    explicit y_combinator_result(T &&fun) : fun_(std::forward<T>(fun)) {}
 
-    template <class... Args>
-    decltype(auto) operator()(Args&&... args)
-    {
+    template <class... Args> decltype(auto) operator()(Args &&...args) {
         return fun_(std::ref(*this), std::forward<Args>(args)...);
     }
 };
-template <class Fun>
-decltype(auto) y_combinator(Fun&& fun)
-{
+template <class Fun> decltype(auto) y_combinator(Fun &&fun) {
     return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
 }
 
 // Self max/min functions
-template <typename T>
-bool chkmax(T& x, T y)
-{
+template <typename T> bool chkmax(T &x, T y) {
     return x < y ? x = y, true : false;
 }
-template <typename T>
-bool chkmin(T& x, T y)
-{
+template <typename T> bool chkmin(T &x, T y) {
     return x > y ? x = y, true : false;
 }
 
@@ -126,14 +109,13 @@ but you yourself alone.
     - Friedrich Wilhelm Nietzsche
 */
 
-void solve()
-{
+void solve() {
+    // Test Case code goes here
 
     return;
 }
 
-int main()
-{
+int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
 
