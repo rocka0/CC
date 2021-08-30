@@ -44,11 +44,14 @@ class handler(BaseHTTPRequestHandler):
         # Creates CPP file
         exec(f"touch {folderName}/{MAIN_CODE_FILE}")
 
-        # Opens CPP File in Sublime
-        exec(f"subl {folderName}/{MAIN_CODE_FILE}")
-
         # Creates custom input file
         exec(f"touch {folderName}/in")
+
+        # Creates custom output file
+        exec(f"touch {folderName}/out")
+
+        # Opens files in Sublime
+        exec(f"subl {folderName}/{MAIN_CODE_FILE} {folderName}/in {folderName}/out")
 
         # Copies Compile python file
         exec(f"cp compile {folderName}/compile")
