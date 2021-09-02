@@ -1,6 +1,6 @@
 // ᕙ(⇀‸↼‶)ᕗ ~ TBC
 
-// Libraries
+// Header Files
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
@@ -10,7 +10,7 @@ using namespace std;
 using namespace __gnu_pbds;
 
 // Macros
-#define pb push_back
+#define pb emplace_back
 #define ff first
 #define ss second
 #define all(x) (x).begin(), (x).end()
@@ -32,7 +32,7 @@ using ordered_set = tree<
     rb_tree_tag,
     tree_order_statistics_node_update>;
 
-// Debugging Template
+// Debugging
 string to_string(string s)
 {
     return '"' + s + '"';
@@ -78,7 +78,7 @@ void debug_out(Head H, Tail... T)
     debug_out(T...);
 }
 
-// Recursive Lambda Y Combinator
+// Recursive Lambda
 template <class Fun>
 class y_combinator_result
 {
@@ -115,7 +115,10 @@ bool chkmin(T& x, T y)
     return x > y ? x = y, true : false;
 }
 
-// https://codeforces.com/blog/entry/62393
+// Safe Rand: https://codeforces.com/blog/entry/61587
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
+
+// Safe Hash: https://codeforces.com/blog/entry/62393
 // struct safe_hash {
 //     static uint64_t splitmix64(uint64_t x) {
 //          // http://xorshift.di.unimi.it/splitmix64.c
@@ -132,8 +135,6 @@ bool chkmin(T& x, T y)
 //     }
 // };
 
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
-
 /*
 No one,
 can construct for you,
@@ -146,13 +147,6 @@ but you yourself alone.
     - Friedrich Wilhelm Nietzsche
 */
 
-void solve()
-{
-    // Test Case code goes here
-
-    return;
-}
-
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -160,13 +154,14 @@ int main()
 
     // cout << fixed << setprecision(15);
 
-    int t = 1;
-    cin >> t;
+    int T = 1;
+    cin >> T;
 
-    while (t--)
-    {
-        solve();
-    }
+    while (T--)
+        []()
+        {
+            // Test case code goes here
+        }();
 
     return 0;
 }
