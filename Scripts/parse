@@ -51,7 +51,7 @@ class handler(BaseHTTPRequestHandler):
         exec(f"touch {folderName}/out")
 
         # Opens files in Sublime
-        exec(f"subl {folderName}/{MAIN_CODE_FILE} {folderName}/in {folderName}/out")
+        exec(f"subl {folderName}/{MAIN_CODE_FILE}")
 
         # Copies Compile python file
         exec(f"cp compile {folderName}/compile")
