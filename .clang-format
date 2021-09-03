@@ -29,7 +29,6 @@ BraceWrapping:
   BeforeCatch:     true
   BeforeElse:      true
   IndentBraces:    false
-
 BinPackArguments: false
 BinPackParameters: false
 ExperimentalAutoDetectBinPacking: false
