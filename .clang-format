@@ -37,7 +37,7 @@ BreakBeforeBinaryOperators: All
 BreakBeforeBraces: Allman
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializersBeforeComma: true
-ColumnLimit: 79
+ColumnLimit: 1000
 CommentPragmas: '^ IWYU pragma:'
 ConstructorInitializerIndentWidth: 4
 ContinuationIndentWidth: 4
@@ -68,7 +68,7 @@ SpacesInContainerLiterals: true
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 SpaceBeforeCpp11BracedList: false
-Standard: c++17
+Standard: Latest
 TabWidth: 4
 UseTab: Never
 CommentPragmas: '^ clang-format:'
