@@ -1,3 +1,15 @@
+/*
+No one,
+can construct for you,
+the bridge,
+upon which precisely,
+you must cross,
+the stream of life,
+no one,
+but you yourself alone.
+    - Friedrich Wilhelm Nietzsche
+*/
+
 // Header Files
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp>
@@ -8,7 +20,7 @@ using namespace std;
 using namespace __gnu_pbds;
 
 // Macros
-#define pb emplace_back
+#define pb push_back
 #define ff first
 #define ss second
 #define all(x) (x).begin(), (x).end()
@@ -138,14 +150,14 @@ decltype(auto) y_combinator(Fun&& fun)
     return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
 }
 
-// Self max/min functions
+// Change max/min functions
 template <typename T>
-bool chkmax(T& x, T y)
+bool chmax(T& x, T y)
 {
     return x < y ? x = y, true : false;
 }
 template <typename T>
-bool chkmin(T& x, T y)
+bool chmin(T& x, T y)
 {
     return x > y ? x = y, true : false;
 }
@@ -154,33 +166,24 @@ bool chkmin(T& x, T y)
 mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 // Safe Hash: https://codeforces.com/blog/entry/62393
-// struct safe_hash {
-//     static uint64_t splitmix64(uint64_t x) {
-//          // http://xorshift.di.unimi.it/splitmix64.c
-//         x += 0x9e3779b97f4a7c15;
-//         x = (x ^ (x >> 30)) *0xbf58476d1ce4e5b9;
-//         x = (x ^ (x >> 27)) *0x94d049bb133111eb;
-//         return x ^ (x >> 31);
-//     }
+struct safe_hash
+{
+    static ull splitmix64(ull x)
+    {
+        x += 0x9e3779b97f4a7c15;
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
+    }
 
-//     size_t operator()(uint64_t x) const {
-//         static const uint64_t FIXED_RANDOM =
-//         chrono::steady_clock::now().time_since_epoch().count(); return
-//         splitmix64(x + FIXED_RANDOM);
-//     }
-// };
+    size_t operator()(ull x) const
+    {
+        static const ull FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
+    }
+};
 
-/*
-No one,
-can construct for you,
-the bridge,
-upon which precisely,
-you must cross,
-the stream of life,
-no one,
-but you yourself alone.
-	- Friedrich Wilhelm Nietzsche
-*/
+void solve();
 
 int main()
 {
@@ -193,10 +196,12 @@ int main()
     cin >> T;
 
     while (T--)
-        []()
-        {
-            // Test case code goes here
-        }();
+        solve();
 
     return 0;
+}
+
+void solve()
+{
+    // Test case code goes here
 }

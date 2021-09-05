@@ -12,10 +12,7 @@ class disjointSparseTable
 {
     struct Monoid
     {
-        constexpr T operator()(const T& lhs, const T& rhs) const
-        {
-            return (lhs ^ rhs);
-        }
+        constexpr T operator()(const T& lhs, const T& rhs) const { return (lhs ^ rhs); }
     };
     vector<vector<T>> mat;
     T identity;
@@ -64,8 +61,7 @@ public:
         {
             return mat.back()[l];
         }
-        const auto pos_diff
-            = (sizeof(ll) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
+        const auto pos_diff = (sizeof(ll) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
         const auto level = sz(mat) - 1 - pos_diff;
         return Monoid{}(mat[level][l], mat[level][r]);
     }
