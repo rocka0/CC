@@ -4,7 +4,6 @@ from os import system
 
 ROOT_PATH = "/home/tusky/Tushar/CC"
 
-system(f"cp {ROOT_PATH}/.clang-format .")
 system(f"cp {ROOT_PATH}/compile_flags.txt .")
 system(f"cp {ROOT_PATH}/Scripts/parse .")
 system(f"cp {ROOT_PATH}/Scripts/compile .")
