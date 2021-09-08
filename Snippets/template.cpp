@@ -39,155 +39,146 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 // Debugging
 template <typename A, typename B>
-string to_string ( pair<A, B> p );
+string to_string(pair<A, B> p);
 template <typename A, typename B, typename C>
-string to_string ( tuple<A, B, C> p );
+string to_string(tuple<A, B, C> p);
 template <typename A, typename B, typename C, typename D>
-string to_string ( tuple<A, B, C, D> p );
-string to_string ( const string& s )
-{
-    return '"' + s + '"';
-}
-string to_string ( const char* s )
-{
-    return to_string ( ( string ) s );
-}
-string to_string ( bool b )
-{
-    return ( b ? "true" : "false" );
-}
-string to_string ( vector<bool> v )
+string to_string(tuple<A, B, C, D> p);
+string to_string(const string& s) { return '"' + s + '"'; }
+string to_string(const char* s) { return to_string((string)s); }
+string to_string(bool b) { return (b ? "true" : "false"); }
+string to_string(vector<bool> v)
 {
     bool first = true;
     string res = "{";
 
-    for ( int i = 0; i < sz ( v ); i++ ) {
-        if ( !first ) {
+    for (int i = 0; i < sz(v); i++) {
+        if (!first) {
             res += ", ";
         }
 
         first = false;
-        res += to_string ( v[i] );
+        res += to_string(v[i]);
     }
 
     res += "}";
     return res;
 }
 template <size_t N>
-string to_string ( bitset<N> v )
+string to_string(bitset<N> v)
 {
     string res = "";
 
-    for ( size_t i = 0; i < N; i++ ) {
-        res += static_cast<char> ( '0' + v[i] );
+    for (size_t i = 0; i < N; i++) {
+        res += static_cast<char>('0' + v[i]);
     }
 
     return res;
 }
 template <typename A>
-string to_string ( A v )
+string to_string(A v)
 {
     bool first = true;
     string res = "{";
 
-    for ( const auto& x : v ) {
-        if ( !first ) {
+    for (const auto& x : v) {
+        if (!first) {
             res += ", ";
         }
 
         first = false;
-        res += to_string ( x );
+        res += to_string(x);
     }
 
     res += "}";
     return res;
 }
 template <typename A, typename B>
-string to_string ( pair<A, B> p )
+string to_string(pair<A, B> p)
 {
-    return "(" + to_string ( p.first ) + ", " + to_string ( p.second ) + ")";
+    return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
 }
 template <typename A, typename B, typename C>
-string to_string ( tuple<A, B, C> p )
+string to_string(tuple<A, B, C> p)
 {
-    return "(" + to_string ( get<0> ( p ) ) + ", " + to_string ( get<1> ( p ) ) + ", " + to_string ( get<2> ( p ) ) + ")";
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
+           to_string(get<2>(p)) + ")";
 }
 template <typename A, typename B, typename C, typename D>
-string to_string ( tuple<A, B, C, D> p )
+string to_string(tuple<A, B, C, D> p)
 {
-    return "(" + to_string ( get<0> ( p ) ) + ", " + to_string ( get<1> ( p ) ) + ", " + to_string ( get<2> ( p ) ) + ", " + to_string ( get<3> ( p ) ) + ")";
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
+           to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
 }
-void debug_out()
-{
-    cerr << endl;
-}
+void debug_out() { cerr << endl; }
 template <typename Head, typename... Tail>
-void debug_out ( Head H, Tail... T )
+void debug_out(Head H, Tail... T)
 {
-    cerr << " " << to_string ( H );
-    debug_out ( T... );
+    cerr << " " << to_string(H);
+    debug_out(T...);
 }
 
 // Recursive Lambda
 template <class Fun>
 class y_combinator_result {
         Fun fun_;
+
     public:
         template <class T>
-        explicit y_combinator_result ( T&& fun )
-            : fun_ ( std::forward<T> ( fun ) ) {
-        }
+        explicit y_combinator_result(T&& fun)
+            : fun_(std::forward<T>(fun)) {}
 
         template <class... Args>
-        decltype ( auto ) operator() ( Args&& ... args ) {
-            return fun_ ( std::ref ( *this ), std::forward<Args> ( args )... );
+        decltype(auto) operator()(Args&& ... args) {
+            return fun_(std::ref(*this), std::forward<Args>(args)...);
         }
 };
 template <class Fun>
-decltype ( auto ) y_combinator ( Fun&& fun )
+decltype(auto) y_combinator(Fun&& fun)
 {
-    return y_combinator_result<std::decay_t<Fun>> ( std::forward<Fun> ( fun ) );
+    return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
 }
 
 // Change max/min functions
 template <typename T>
-bool chmax ( T& x, T y )
+bool chmax(T& x, T y)
 {
     return x < y ? x = y, true : false;
 }
 template <typename T>
-bool chmin ( T& x, T y )
+bool chmin(T& x, T y)
 {
     return x > y ? x = y, true : false;
 }
 
 // Safe Rand: https://codeforces.com/blog/entry/61587
-mt19937 rng ( chrono::steady_clock::now().time_since_epoch().count() );
+mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 // Safe Hash: https://codeforces.com/blog/entry/62393
 struct safe_hash {
-    static ull splitmix64 ( ull x ) {
+    static ull splitmix64(ull x) {
         x += 0x9e3779b97f4a7c15;
-        x = ( x ^ ( x >> 30 ) ) * 0xbf58476d1ce4e5b9;
-        x = ( x ^ ( x >> 27 ) ) * 0x94d049bb133111eb;
-        return x ^ ( x >> 31 );
+        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
+        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
+        return x ^ (x >> 31);
     }
 
-    size_t operator() ( ull x ) const {
-        static const ull FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
-        return splitmix64 ( x + FIXED_RANDOM );
+    size_t operator()(ull x) const {
+        static const ull FIXED_RANDOM =
+            chrono::steady_clock::now().time_since_epoch().count();
+        return splitmix64(x + FIXED_RANDOM);
     }
 };
 
 int main()
 {
-    ios_base::sync_with_stdio ( false );
-    cin.tie ( nullptr );
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
     // cout << fixed << setprecision(15);
     int tc = 1;
     cin >> tc;
 
-    while ( tc-- ) {
+    while (tc--) {
         [&]() {
             // Test case code goes here
         }();
