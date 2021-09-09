@@ -9,21 +9,12 @@
 
 template <typename T>
 class disjointSparseTable {
-        struct Monoid {
-            constexpr T operator()(const T& lhs, const T& rhs) const {
-                return (lhs ^ rhs);
-            }
-        };
-        vector<vector<T>> mat;
-        T identity;
-
     public:
         disjointSparseTable(vector<T> arr, T Identity) {
             identity = Identity;
             int pow2 = 1, cnt = 0;
 
-            for (; pow2 < sz(arr); pow2 <<= 1, ++cnt)
-                ;
+            for (; pow2 < sz(arr); pow2 <<= 1, ++cnt);
 
             if (sz(arr) == 1) {
                 cnt = 1;
@@ -68,4 +59,13 @@ class disjointSparseTable {
             const auto level = sz(mat) - 1 - pos_diff;
             return Monoid{}(mat[level][l], mat[level][r]);
         }
+
+    private:
+        struct Monoid {
+            constexpr T operator()(const T& lhs, const T& rhs) const {
+                return (lhs ^ rhs);
+            }
+        };
+        vector<vector<T>> mat;
+        T identity;
 };

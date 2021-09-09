@@ -2,8 +2,6 @@
 
 template <typename T>
 class Matrix {
-        vector<vector<T>> mat;
-
     public:
         int row_size;
         int col_size;
@@ -89,4 +87,7 @@ class Matrix {
                 return H;
             }
         }
+
+    private:
+        vector<vector<T>> mat;
 };

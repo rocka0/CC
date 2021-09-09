@@ -18,7 +18,6 @@ void initSieve()
     for (int i = 3; i * i <= nax; i += 2) {
         if (spf[i] == i) {
             int inc = 2 * i;
-
             for (int j = i * i; j <= nax; j += inc) {
                 if (spf[j] == j) {
                     spf[j] = i;

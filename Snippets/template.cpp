@@ -51,16 +51,13 @@ string to_string(vector<bool> v)
 {
     bool first = true;
     string res = "{";
-
     for (int i = 0; i < sz(v); i++) {
         if (!first) {
             res += ", ";
         }
-
         first = false;
         res += to_string(v[i]);
     }
-
     res += "}";
     return res;
 }
@@ -68,11 +65,9 @@ template <size_t N>
 string to_string(bitset<N> v)
 {
     string res = "";
-
     for (size_t i = 0; i < N; i++) {
         res += static_cast<char>('0' + v[i]);
     }
-
     return res;
 }
 template <typename A>
@@ -80,16 +75,13 @@ string to_string(A v)
 {
     bool first = true;
     string res = "{";
-
     for (const auto& x : v) {
         if (!first) {
             res += ", ";
         }
-
         first = false;
         res += to_string(x);
     }
-
     res += "}";
     return res;
 }
@@ -101,14 +93,12 @@ string to_string(pair<A, B> p)
 template <typename A, typename B, typename C>
 string to_string(tuple<A, B, C> p)
 {
-    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
-           to_string(get<2>(p)) + ")";
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")";
 }
 template <typename A, typename B, typename C, typename D>
 string to_string(tuple<A, B, C, D> p)
 {
-    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " +
-           to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
 }
 void debug_out() { cerr << endl; }
 template <typename Head, typename... Tail>
@@ -121,8 +111,6 @@ void debug_out(Head H, Tail... T)
 // Recursive Lambda
 template <class Fun>
 class y_combinator_result {
-        Fun fun_;
-
     public:
         template <class T>
         explicit y_combinator_result(T&& fun)
@@ -132,6 +120,8 @@ class y_combinator_result {
         decltype(auto) operator()(Args&& ... args) {
             return fun_(std::ref(*this), std::forward<Args>(args)...);
         }
+    private:
+        Fun fun_;
 };
 template <class Fun>
 decltype(auto) y_combinator(Fun&& fun)
@@ -162,7 +152,6 @@ struct safe_hash {
         x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
         return x ^ (x >> 31);
     }
-
     size_t operator()(ull x) const {
         static const ull FIXED_RANDOM =
             chrono::steady_clock::now().time_since_epoch().count();
@@ -175,6 +164,7 @@ int main()
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     // cout << fixed << setprecision(15);
+
     int tc = 1;
     cin >> tc;
 
