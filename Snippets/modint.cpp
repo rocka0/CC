@@ -611,36 +611,40 @@ bool setupDone = false;
 void setupModint()
 {
     fact[0] = 1;
-    invFact[0] = 1;
-
     for (int i = 1; i <= nax; ++i) {
         fact[i] = fact[i - 1] * i;
-        invFact[i] = fact[i].inv();
     }
-
+    invFact[nax] = fact[nax].inv();
+    for (int i = nax; i >= 1; --i) {
+        invFact[i - 1] = invFact[i] * i;
+    }
     setupDone = true;
 }
 
 mint factorial(ll x)
 {
     assert(setupDone);
+    if (x < 0) { return 0; }
     return fact[x];
 }
 
 mint inverseFactorial(ll x)
 {
     assert(setupDone);
+    if (x < 0) { return 0; }
     return invFact[x];
 }
 
 mint nPr(ll n, ll r)
 {
     assert(setupDone);
+    if (r < 0 or n < r) { return 0; }
     return factorial(n) * inverseFactorial(n - r);
 }
 
 mint nCr(ll n, ll r)
 {
     assert(setupDone);
+    if (r < 0 || n < r) { return 0; }
     return nPr(n, r) * inverseFactorial(r);
 }
