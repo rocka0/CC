@@ -1,0 +1,54 @@
+[
+    {
+        "keys": [
+            "ctrl+alt+b"
+        ],
+        "command": "cancel_build"
+    },
+    {
+        "keys": [
+            "ctrl+up"
+        ],
+        "command": "travel_to_pane",
+        "args": {
+            "direction": "up"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+right"
+        ],
+        "command": "travel_to_pane",
+        "args": {
+            "direction": "right"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+down"
+        ],
+        "command": "travel_to_pane",
+        "args": {
+            "direction": "down"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+left"
+        ],
+        "command": "travel_to_pane",
+        "args": {
+            "direction": "left"
+        }
+    },
+    {
+        "keys": [
+            "ctrl+l",
+            "ctrl+w"
+        ],
+        "command": "destroy_pane",
+        "args": {
+            "direction": "self"
+        }
+    }
+]
