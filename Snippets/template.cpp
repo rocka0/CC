@@ -23,8 +23,8 @@ using namespace __gnu_pbds;
 #define pb push_back
 #define ff first
 #define ss second
-#define all(x) (x).begin(), (x).end()
-#define sz(x) static_cast<int>(x.size())
+#define all(x) ((x)).begin(), ((x)).end()
+#define sz(x) static_cast<int>((x).size())
 #define endl '\n'
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
 
@@ -64,7 +64,7 @@ string to_string(vector<bool> v)
 template <size_t N>
 string to_string(bitset<N> v)
 {
-    string res = "";
+    string res;
     for (size_t i = 0; i < N; i++) {
         res += static_cast<char>('0' + v[i]);
     }
