@@ -29,8 +29,8 @@ using namespace __gnu_pbds;
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
 
 // Typedefs
-using ll = int64_t;
-using ull = uint64_t;
+using ll = long long;
+using ull = unsigned long long;
 using ld = long double;
 using vi = vector<int>;
 using pi = pair<int, int>;
@@ -88,7 +88,7 @@ string to_string(A v)
 template <typename A, typename B>
 string to_string(pair<A, B> p)
 {
-    return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
+    return "(" + to_string(p.ff) + ", " + to_string(p.ss) + ")";
 }
 template <typename A, typename B, typename C>
 string to_string(tuple<A, B, C> p)
@@ -109,25 +109,15 @@ void debug_out(Head H, Tail... T)
 }
 
 // Recursive Lambda
-template <class Fun>
-class y_combinator_result {
+template<class T> class y_combinator {
+        T f_;
     public:
-        template <class T>
-        explicit y_combinator_result(T&& fun)
-            : fun_(std::forward<T>(fun)) {}
-
-        template <class... Args>
-        decltype(auto) operator()(Args&& ... args) {
-            return fun_(std::ref(*this), std::forward<Args>(args)...);
+        template<class U> explicit y_combinator(U&& f): f_(forward<U>(f)) {}
+        template<class ...Args> decltype(auto) operator()(Args&& ... args) {
+            return f_(ref(*this), forward<Args>(args)...);
         }
-    private:
-        Fun fun_;
 };
-template <class Fun>
-decltype(auto) y_combinator(Fun&& fun)
-{
-    return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
-}
+template<class T> y_combinator(T) -> y_combinator<T>;
 
 // Change max/min functions
 template <typename T>
@@ -153,8 +143,7 @@ struct safe_hash {
         return x ^ (x >> 31);
     }
     size_t operator()(ull x) const {
-        static const ull FIXED_RANDOM =
-            chrono::steady_clock::now().time_since_epoch().count();
+        static const ull FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
         return splitmix64(x + FIXED_RANDOM);
     }
 };
