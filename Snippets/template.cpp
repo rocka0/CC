@@ -109,15 +109,23 @@ void debug_out(Head H, Tail... T)
 }
 
 // Recursive Lambda
-template<class T> class y_combinator {
-        T f_;
+template<class Fun>
+class y_combinator_result {
     public:
-        template<class U> explicit y_combinator(U&& f): f_(forward<U>(f)) {}
-        template<class ...Args> decltype(auto) operator()(Args&& ... args) {
-            return f_(ref(*this), forward<Args>(args)...);
+        template<class T>
+        explicit y_combinator_result(T&& fun): fun_(std::forward<T>(fun)) {}
+        template<class ...Args>
+        decltype(auto) operator()(Args&& ...args) {
+            return fun_(std::ref(*this), std::forward<Args>(args)...);
         }
+    private:
+        Fun fun_;
 };
-template<class T> y_combinator(T) -> y_combinator<T>;
+template<class Fun>
+decltype(auto) y_combinator(Fun&& fun)
+{
+    return y_combinator_result<std::decay_t<Fun>>(std::forward<Fun>(fun));
+}
 
 // Change max/min functions
 template <typename T>
