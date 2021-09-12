@@ -4,7 +4,7 @@ const int nax = 2e7;
 array < int, nax + 1 > spf;
 vi primes;
 
-void initSieve()
+void setupSieve()
 {
     iota(all(spf), 0);
     // There are 1270607 primes less than 2e7

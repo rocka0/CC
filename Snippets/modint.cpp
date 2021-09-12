@@ -602,7 +602,7 @@ struct dynamic_modint : internal::modint_base {
 using namespace atcoder;
 using mint = modint1000000007;
 
-const int nax = 2e5;
+const int nax = 1e6;
 
 array < mint, nax + 1 > fact;
 array < mint, nax + 1 > invFact;
@@ -645,6 +645,6 @@ mint nPr(ll n, ll r)
 mint nCr(ll n, ll r)
 {
     assert(setupDone);
-    if (r < 0 || n < r) { return 0; }
+    if (r < 0 or n < r) { return 0; }
     return nPr(n, r) * inverseFactorial(r);
 }
