@@ -3,38 +3,57 @@
 template <typename T>
 class Matrix {
     public:
-        int row_size;
-        int col_size;
+        int rows;
+        int cols;
 
-        Matrix(int R, int C) {
-            assert(R > 0);
-            assert(C > 0);
-            row_size = R;
-            col_size = C;
-            mat.resize(R);
+        Matrix(int N, int M) {
+            assert(N > 0);
+            assert(M > 0);
+            rows = N;
+            cols = M;
+            mat.resize(N);
 
-            for (int i = 0; i < row_size; ++i) {
-                mat[i].resize(C);
+            for (int i = 0; i < rows; ++i) {
+                mat[i].resize(M);
             }
         }
 
         vector<T>& operator[](int x) {
-            assert(x < row_size);
+            assert(x < rows);
             return mat[x];
         }
 
         const vector<T>& operator[](int x) const {
-            assert(x < row_size);
+            assert(x < rows);
             return mat[x];
         }
 
-        Matrix add(const Matrix& A, const Matrix& B) {
-            assert(A.row_size == B.row_size);
-            assert(A.col_size == B.col_size);
-            Matrix ans(A.row_size, B.col_size);
+        bool operator == (const Matrix& B) {
+            return mat == B.mat;
+        }
 
-            for (int i = 0; i < A.row_size; ++i) {
-                for (int j = 0; j < B.col_size; ++j) {
+        bool operator != (const Matrix& B) {
+            return mat != B.mat;
+        }
+
+        Matrix identity(int n) {
+            assert(n > 0);
+            Matrix I = Matrix<T>(n, n);
+
+            for (int i = 0; i < n; ++i) {
+                I[i][i] = T(1);
+            }
+
+            return I;
+        }
+
+        Matrix add(const Matrix& A, const Matrix& B) {
+            assert(A.rows == B.rows);
+            assert(A.cols == B.cols);
+            Matrix ans(A.rows, B.cols);
+
+            for (int i = 0; i < A.rows; ++i) {
+                for (int j = 0; j < B.cols; ++j) {
                     ans[i][j] = A[i][j] + B[i][j];
                 }
             }
@@ -43,12 +62,12 @@ class Matrix {
         }
 
         Matrix subtract(const Matrix& A, const Matrix& B) {
-            assert(A.row_size == B.row_size);
-            assert(A.col_size == B.col_size);
-            Matrix ans(A.row_size, B.col_size);
+            assert(A.rows == B.rows);
+            assert(A.cols == B.cols);
+            Matrix ans(A.rows, B.cols);
 
-            for (int i = 0; i < A.row_size; ++i) {
-                for (int j = 0; j < B.col_size; ++j) {
+            for (int i = 0; i < A.rows; ++i) {
+                for (int j = 0; j < B.cols; ++j) {
                     ans[i][j] = A[i][j] - B[i][j];
                 }
             }
@@ -57,12 +76,12 @@ class Matrix {
         }
 
         Matrix multiply(const Matrix& A, const Matrix& B) {
-            assert(A.col_size == B.row_size);
-            Matrix ans(A.row_size, B.col_size);
+            assert(A.cols == B.rows);
+            Matrix ans(A.rows, B.cols);
 
-            for (int i = 0; i < A.row_size; ++i) {
-                for (int j = 0; j < B.col_size; ++j) {
-                    for (int k = 0; k < A.col_size; ++k) {
+            for (int i = 0; i < A.rows; ++i) {
+                for (int j = 0; j < B.cols; ++j) {
+                    for (int k = 0; k < A.cols; ++k) {
                         ans[i][j] += (A[i][k] * B[k][j]);
                     }
                 }
@@ -72,9 +91,12 @@ class Matrix {
         }
 
         Matrix power(const Matrix& M, ll p) {
-            assert(p >= 1);
+            assert(M.rows == M.cols);
+            assert(p >= 0);
 
-            if (p == 1) {
+            if (p == 0) {
+                return M.identity(M.rows);
+            } else if (p == 1) {
                 return M;
             } else {
                 Matrix H = power(M, p >> 1);
