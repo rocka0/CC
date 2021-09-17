@@ -53,7 +53,10 @@ ostream & operator<<(ostream& os, const T_container& v)
     }
     return os << '}';
 }
-void debug_out() { cerr << endl; }
+void debug_out()
+{
+    cerr << endl;
+}
 template <typename Head, typename... Tail>
 void debug_out(Head H, Tail... T)
 {
@@ -77,7 +80,7 @@ class y_combinator_result {
 template <class Fun>
 decltype(auto) y_combinator(Fun&& fun)
 {
-    return y_combinator_result<decay_t<Fun> >(forward<Fun>(fun));
+    return y_combinator_result<decay_t<Fun>>(forward<Fun>(fun));
 }
 
 // Change max/min functions
@@ -91,9 +94,6 @@ bool chmin(T& x, T y)
 {
     return x > y ? x = y, true : false;
 }
-
-// Safe Rand: https://codeforces.com/blog/entry/61587
-mt19937 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 // Safe Hash: https://codeforces.com/blog/entry/62393
 struct safe_hash {
@@ -109,6 +109,12 @@ struct safe_hash {
     }
 };
 
+void solve()
+{
+    // TODO: Reset variables between tests
+
+}
+
 int main()
 {
     ios_base::sync_with_stdio(false);
@@ -119,9 +125,7 @@ int main()
     cin >> tc;
 
     while (tc--) {
-        [&]() {
-            // Test case code goes here
-        }();
+        solve();
     }
 
     return 0;
