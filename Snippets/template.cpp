@@ -111,7 +111,7 @@ struct safe_hash {
 
 void solve()
 {
-    // TODO: Reset variables between tests
+    // TODO: Solve the test case
 
 }
 
