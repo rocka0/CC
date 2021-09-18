@@ -4,13 +4,16 @@ A collection of all the tools/snippets/scripts I use for Competitive Programming
 Index
 -----
 
-1. Snippets
-    * [Disjoint Sparse Table](/Snippets/disjointSparseTable.cpp)
-    * [Disjoint Set Union / Union Find](/Snippets/dsu.cpp)
-    * [Fenwick Tree](/Snippets/fenwick.cpp)
-    * [Matrix](/Snippets/matrix.cpp)
-    * [Modint](/Snippets/modint.cpp)
-    * [Sieve of Eratosthenes](/Snippets/sieve.cpp)
+1. [Snippets](https://github.com/rocka0/CC/tree/main/Snippets)
+   1. [Data Structures](/Snippets/Data_Structures/)
+       * [Disjoint Sparse Table](/Snippets/Data_Structures/disjointSparseTable.cpp)
+        * [Fenwick Tree](/Snippets/Data_Structures/fenwick.cpp)
+    2. [Graphs](/Snippets/Graph/)
+       * [Disjoint Set Union / Union Find](/Snippets/Graph/dsu.cpp)
+    3. [Math](/Snippets/Math/)
+       * [Matrix](/Snippets/Math/matrix.cpp)
+       * [Modint](/Snippets/Math/modint.cpp)
+       * [Sieve of Eratosthenes](/Snippets/Math/sieve.cpp)
 
 2. Scripts
     * [Code Compilation](/Scripts/compile)
