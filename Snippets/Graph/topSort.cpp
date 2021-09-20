@@ -21,7 +21,7 @@ vector<int> topologicalSort(const vector<vector<int>>& graph)
     }
 
     /*
-        NOTE: Use priority_queue for:
+        NOTE: Use:
         1. priority_queue<int>: Lexicographically Maximal Answer
         2. priority_queue<int, vector<int>, greater<int>>: Lexicographically Minimal Answer
     */
