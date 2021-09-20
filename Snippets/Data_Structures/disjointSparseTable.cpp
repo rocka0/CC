@@ -1,10 +1,16 @@
-// https://codeforces.com/blog/entry/79108
+#include <bits/stdc++.h>
+using namespace std;
 
 /*
-    T is the type of the element
-    Monoid is the Associative Binary Operation
-    Identity is the identity element of the Monoid
-    (e.g. 0 for addition/xor and inf for minimum)
+    Source: https://codeforces.com/blog/entry/79108
+
+    Usage:  disjointSparseTable(vector<int> arr, 0)
+            Change return (lhs ^ rhs) in Monoid
+
+            T is the type of the element
+            Monoid is the Associative Binary Operation
+            Identity is the identity element of the Monoid
+            (e.g. 0 for addition/xor and inf for minimum)
 */
 
 template <typename T>
@@ -55,7 +61,7 @@ class disjointSparseTable {
                 return mat.back()[l];
             }
 
-            const auto pos_diff = (sizeof(ll) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
+            const auto pos_diff = (sizeof(int64_t) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
             const auto level = sz(mat) - 1 - pos_diff;
             return Monoid{}(mat[level][l], mat[level][r]);
         }

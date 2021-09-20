@@ -1,4 +1,11 @@
-// https://github.com/atcoder/ac-library
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+    Source: https://github.com/atcoder/ac-library
+
+    Usage:  fenwick_tree<T> BIT(int n)
+*/
 
 namespace atcoder {
 

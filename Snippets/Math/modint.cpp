@@ -1,10 +1,17 @@
-// https://github.com/atcoder/ac-library
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+    Source: https://github.com/atcoder/ac-library
+
+    Usage:  using mint = modint1000000007
+*/
 
 namespace atcoder {
 
     namespace internal {
 
-        constexpr ll safe_mod(ll x, ll m)
+        constexpr int64_t safe_mod(int64_t x, int64_t m)
         {
             x %= m;
 
@@ -17,16 +24,16 @@ namespace atcoder {
 
         struct barrett {
             unsigned int _m;
-            ull im;
+            uint64_t im;
 
-            explicit barrett(unsigned int m) : _m(m), im((ull)(-1) / m + 1) {}
+            explicit barrett(unsigned int m) : _m(m), im((uint64_t)(-1) / m + 1) {}
 
             unsigned int umod() const { return _m; }
 
             unsigned int mul(unsigned int a, unsigned int b) const {
-                ull z = a;
+                uint64_t z = a;
                 z *= b;
-                ull x = (ull)(((unsigned __int128)(z) * im) >> 64);
+                uint64_t x = (uint64_t)(((unsigned __int128)(z) * im) >> 64);
                 unsigned int v = (unsigned int)(z - x * _m);
 
                 if (_m <= v) {
@@ -37,15 +44,15 @@ namespace atcoder {
             }
         };
 
-        constexpr ll pow_mod_constexpr(ll x, ll n, int m)
+        constexpr int64_t pow_mod_constexpr(int64_t x, int64_t n, int m)
         {
             if (m == 1) {
                 return 0;
             }
 
             unsigned int _m = (unsigned int)(m);
-            ull r = 1;
-            ull y = safe_mod(x, m);
+            uint64_t r = 1;
+            uint64_t y = safe_mod(x, m);
 
             while (n) {
                 if (n & 1) {
@@ -73,17 +80,17 @@ namespace atcoder {
                 return false;
             }
 
-            ll d = n - 1;
+            int64_t d = n - 1;
 
             while (d % 2 == 0) {
                 d /= 2;
             }
 
-            constexpr ll bases[3] = {2, 7, 61};
+            constexpr int64_t bases[3] = {2, 7, 61};
 
-            for (ll a : bases) {
-                ll t = d;
-                ll y = pow_mod_constexpr(a, t, n);
+            for (int64_t a : bases) {
+                int64_t t = d;
+                int64_t y = pow_mod_constexpr(a, t, n);
 
                 while (t != n - 1 && y != 1 && y != n - 1) {
                     y = y * y % n;
@@ -100,18 +107,18 @@ namespace atcoder {
         template <int n>
         constexpr bool is_prime = is_prime_constexpr(n);
 
-        constexpr std::pair<ll, ll> inv_gcd(ll a, ll b)
+        constexpr std::pair<int64_t, int64_t> inv_gcd(int64_t a, int64_t b)
         {
             a = safe_mod(a, b);
 
             if (a == 0) return {b, 0};
 
-            ll s = b, t = a;
+            int64_t s = b, t = a;
 
-            ll m0 = 0, m1 = 1;
+            int64_t m0 = 0, m1 = 1;
 
             while (t) {
-                ll u = s / t;
+                int64_t u = s / t;
                 s -= t * u;
                 m0 -= m1 * u;  // |m1 * u| <= |m1| * s <= b
                 auto tmp = s;
@@ -160,7 +167,7 @@ namespace atcoder {
                 x /= 2;
             }
 
-            for (int i = 3; (ll)(i)*i <= x; i += 2) {
+            for (int i = 3; (int64_t)(i)*i <= x; i += 2) {
                 if (x % i == 0) {
                     divs[cnt++] = i;
 
@@ -192,9 +199,9 @@ namespace atcoder {
         template <int m>
         constexpr int primitive_root = primitive_root_constexpr(m);
 
-        ull floor_sum_unsigned(ull n, ull m, ull a, ull b)
+        uint64_t floor_sum_unsigned(uint64_t n, uint64_t m, uint64_t a, uint64_t b)
         {
-            ull ans = 0;
+            uint64_t ans = 0;
 
             while (true) {
                 if (a >= m) {
@@ -207,14 +214,14 @@ namespace atcoder {
                     b %= m;
                 }
 
-                ull y_max = a * n + b;
+                uint64_t y_max = a * n + b;
 
                 if (y_max < m) {
                     break;
                 }
 
-                n = (ull)(y_max / m);
-                b = (ull)(y_max % m);
+                n = (uint64_t)(y_max / m);
+                b = (uint64_t)(y_max % m);
                 std::swap(m, a);
             }
 
@@ -315,7 +322,7 @@ namespace atcoder {
     static_modint() : _v(0) {}
     template <class T, internal::is_signed_int_t<T>* = nullptr>
     static_modint(T v) {
-        ll x = (ll)(v % (ll)(umod()));
+        int64_t x = (int64_t)(v % (int64_t)(umod()));
 
         if (x < 0) {
             x += umod();
@@ -377,7 +384,7 @@ namespace atcoder {
         return *this;
     }
     mint& operator*=(const mint& rhs) {
-        ull z = _v;
+        uint64_t z = _v;
         z *= rhs._v;
         _v = (unsigned int)(z % umod());
         return *this;
@@ -387,7 +394,7 @@ namespace atcoder {
     mint operator+() const { return *this; }
     mint operator-() const { return mint() - *this; }
 
-    mint pow(ll n) const {
+    mint pow(int64_t n) const {
         assert(0 <= n);
         mint x = *this, r = 1;
 
@@ -457,7 +464,7 @@ struct dynamic_modint : internal::modint_base {
     dynamic_modint() : _v(0) {}
     template <class T, internal::is_signed_int_t<T>* = nullptr>
     dynamic_modint(T v) {
-        ll x = (ll)(v % (ll)(mod()));
+        int64_t x = (int64_t)(v % (int64_t)(mod()));
 
         if (x < 0) {
             x += mod();
@@ -527,7 +534,7 @@ struct dynamic_modint : internal::modint_base {
     mint operator+() const { return *this; }
     mint operator-() const { return mint() - *this; }
 
-    mint pow(ll n) const {
+    mint pow(int64_t n) const {
         assert(0 <= n);
         mint x = *this, r = 1;
 
@@ -611,40 +618,60 @@ bool setupDone = false;
 void setupModint()
 {
     fact[0] = 1;
+
     for (int i = 1; i <= nax; ++i) {
         fact[i] = fact[i - 1] * i;
     }
+
     invFact[nax] = fact[nax].inv();
+
     for (int i = nax; i >= 1; --i) {
         invFact[i - 1] = invFact[i] * i;
     }
+
     setupDone = true;
 }
 
-mint factorial(ll x)
+mint factorial(int64_t x)
 {
     assert(setupDone);
-    if (x < 0) { return 0; }
+
+    if (x < 0) {
+        return 0;
+    }
+
     return fact[x];
 }
 
-mint inverseFactorial(ll x)
+mint inverseFactorial(int64_t x)
 {
     assert(setupDone);
-    if (x < 0) { return 0; }
+
+    if (x < 0) {
+        return 0;
+    }
+
     return invFact[x];
 }
 
-mint nPr(ll n, ll r)
+mint nPr(int64_t n, int64_t r)
 {
     assert(setupDone);
-    if (r < 0 or n < r) { return 0; }
+
+    if (r < 0 or n < r) {
+        return 0;
+    }
+
     return factorial(n) * inverseFactorial(n - r);
 }
 
-mint nCr(ll n, ll r)
+mint nCr(int64_t n, int64_t r)
 {
     assert(setupDone);
-    if (r < 0 or n < r) { return 0; }
+
+    if (r < 0 or n < r) {
+        return 0;
+    }
+
     return nPr(n, r) * inverseFactorial(r);
 }

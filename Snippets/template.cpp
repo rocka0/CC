@@ -48,9 +48,11 @@ ostream & operator<<(ostream& os, const T_container& v)
 {
     os << '{';
     string sep;
+
     for (const T& x : v) {
         os << sep << x, sep = ", ";
     }
+
     return os << '}';
 }
 void debug_out()
@@ -94,20 +96,6 @@ bool chmin(T& x, T y)
 {
     return x > y ? x = y, true : false;
 }
-
-// Safe Hash: https://codeforces.com/blog/entry/62393
-struct safe_hash {
-    static ull splitmix64(ull x) {
-        x += 0x9e3779b97f4a7c15;
-        x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;
-        x = (x ^ (x >> 27)) * 0x94d049bb133111eb;
-        return x ^ (x >> 31);
-    }
-    size_t operator()(ull x) const {
-        static const ull FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
-        return splitmix64(x + FIXED_RANDOM);
-    }
-};
 
 void solve()
 {

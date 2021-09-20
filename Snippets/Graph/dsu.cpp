@@ -1,4 +1,11 @@
-// https://github.com/atcoder/ac-library
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+    Source: https://github.com/atcoder/ac-library
+
+    Usage:  dsu UF(n)
+*/
 
 class dsu {
     public:
@@ -45,15 +52,15 @@ class dsu {
             return -parent_or_size[leader(a)];
         }
 
-        vector<vi> groups() {
-            vi leader_buf(_n), group_size(_n);
+        vector<vector<int>> groups() {
+            vector<int> leader_buf(_n), group_size(_n);
 
             for (int i = 0; i < _n; i++) {
                 leader_buf[i] = leader(i);
                 group_size[leader_buf[i]]++;
             }
 
-            vector<vi> result(_n);
+            vector<vector<int>> result(_n);
 
             for (int i = 0; i < _n; i++) {
                 result[i].reserve(group_size[i]);
@@ -63,13 +70,13 @@ class dsu {
                 result[leader_buf[i]].push_back(i);
             }
 
-            result.erase(remove_if(result.begin(), result.end(),
-            [&](const vi & v) { return v.empty(); }),
-            result.end());
+            result.erase(remove_if(result.begin(), result.end(), [&](const vector<int>& v) {
+                return v.empty();
+            }), result.end());
             return result;
         }
 
     private:
         int _n;
-        vi parent_or_size;
+        vector<int> parent_or_size;
 };

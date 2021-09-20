@@ -1,4 +1,11 @@
-// https://github.com/rocka0/CC
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+    Source: https://github.com/rocka0/CC
+
+    Usage:  Matrix<int> M(2,2)
+*/
 
 template <typename T>
 class Matrix {
@@ -90,7 +97,7 @@ class Matrix {
             return ans;
         }
 
-        Matrix power(const Matrix& M, ll p) {
+        Matrix power(const Matrix& M, int64_t p) {
             assert(M.rows == M.cols);
             assert(p >= 0);
 

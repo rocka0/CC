@@ -1,15 +1,22 @@
-// https://github.com/the-hyp0cr1t3/CC
+#include <bits/stdc++.h>
+using namespace std;
+
+/*
+    Source: https://github.com/the-hyp0cr1t3/CC
+
+    Usage:  Call setupSieve() in main
+*/
 
 const int nax = 2e7;
 array < int, nax + 1 > spf;
-vi primes;
+vector<int> primes;
 
 void setupSieve()
 {
-    iota(all(spf), 0);
+    iota(spf.begin(), spf.end(), 0);
     // There are 1270607 primes less than 2e7
     primes.reserve(1270607);
-    primes.pb(2);
+    primes.push_back(2);
 
     for (int i = 4; i <= nax; i += 2) {
         spf[i] = 2;
@@ -18,6 +25,7 @@ void setupSieve()
     for (int i = 3; i * i <= nax; i += 2) {
         if (spf[i] == i) {
             int inc = 2 * i;
+
             for (int j = i * i; j <= nax; j += inc) {
                 if (spf[j] == j) {
                     spf[j] = i;
@@ -28,7 +36,7 @@ void setupSieve()
 
     for (int i = 3; i <= nax; i += 2) {
         if (spf[i] == i) {
-            primes.pb(i);
+            primes.push_back(i);
         }
     }
 }
