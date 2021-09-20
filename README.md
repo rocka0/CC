@@ -16,6 +16,8 @@ Index
       * [Matrix](/Snippets/Math/matrix.cpp)
       * [Modint](/Snippets/Math/modint.cpp)
       * [Sieve of Eratosthenes](/Snippets/Math/sieve.cpp)
+   4. [Miscellaneous](/Snippets/Misc/)
+      * [Safe Hash](/Snippets/Misc/safe_hash.cpp)
 
 2. Scripts
    * [Code Compilation](/Scripts/compile)
