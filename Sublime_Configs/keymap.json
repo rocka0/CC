@@ -50,5 +50,11 @@
         "args": {
             "direction": "self"
         }
+    },
+    {
+        "keys": [
+            "ctrl+y"
+        ],
+        "command": "redo"
     }
 ]

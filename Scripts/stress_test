@@ -79,7 +79,7 @@ def main():
             print(bruteOutput)
             print(term.bold(term.red("Your Answer:")))
             print(programOutput)
-            system("cp stress_test_in breaking_case")
+            system("cat stress_test_in > in")
             cleanup()
             exit(1)
 

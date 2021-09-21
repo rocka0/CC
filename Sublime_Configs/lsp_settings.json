@@ -10,5 +10,6 @@
     },
     "show_diagnostics_panel_on_save": 4,
     "show_diagnostics_count_in_view_status": true,
-    "inhibit_word_completions": true
+    "inhibit_word_completions": true,
+    "lsp_format_on_save": true
 }
