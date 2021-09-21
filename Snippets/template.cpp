@@ -12,23 +12,12 @@ but you yourself alone.
 
 // Standard Header File
 #include <bits/stdc++.h>
-// Policy Based Data Structures
+using namespace std;
+
+// Ordered Set
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
-
-// Namespaces
-using namespace std;
 using namespace __gnu_pbds;
-
-// Macros
-#define sz(x) static_cast<int>((x).size())
-#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
-
-// Typedefs
-using ll = long long;
-using ld = long double;
-using vi = vector<int>;
-using pi = pair<int, int>;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
@@ -95,10 +84,17 @@ void debug_out(Head H, Tail... T) {
     cerr << " " << to_string(H);
     debug_out(T...);
 }
+#ifndef ONLINE_JUDGE
+#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
+#else
+#define debug(...) 42
+#endif
 
 // Recursive Lambda
 template <class Fun>
 class y_combinator_result {
+    Fun fun_;
+
 public:
     template <class T>
     explicit y_combinator_result(T&& fun) : fun_(forward<T>(fun)) {}
@@ -106,12 +102,9 @@ public:
     decltype(auto) operator()(Args&&... args) {
         return fun_(ref(*this), forward<Args>(args)...);
     }
-
-private:
-    Fun fun_;
 };
 template <class Fun>
-decltype(auto) y_combinator(Fun&& fun) {
+decltype(auto) Y(Fun&& fun) {
     return y_combinator_result<decay_t<Fun>>(forward<Fun>(fun));
 }
 
