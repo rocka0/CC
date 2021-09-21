@@ -16,17 +16,17 @@ public:
     disjointSparseTable(vector<T> arr, T Identity) {
         identity = Identity;
         int pow2 = 1, cnt = 0;
-        for (; pow2 < sz(arr); pow2 <<= 1, ++cnt)
+        for (; pow2 < int(arr.size()); pow2 <<= 1, ++cnt)
             ;
-        if (sz(arr) == 1) {
+        if (int(arr.size()) == 1) {
             cnt = 1;
         }
         arr.resize(pow2, identity);
         mat.resize(cnt, vector<T>(pow2));
-        for (int level = 0; level < sz(mat); ++level) {
+        for (int level = 0; level < int(mat.size()); ++level) {
             for (int block = 0; block < 1 << level; ++block) {
-                const auto start = block << (sz(mat) - level);
-                const auto end = (block + 1) << (sz(mat) - level);
+                const auto start = block << (int(mat.size()) - level);
+                const auto end = (block + 1) << (int(mat.size()) - level);
                 const auto middle = (end + start) / 2;
                 auto val = arr[middle];
                 mat[level][middle] = val;
@@ -51,7 +51,7 @@ public:
             return mat.back()[l];
         }
         const auto pos_diff = (sizeof(int64_t) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
-        const auto level = sz(mat) - 1 - pos_diff;
+        const auto level = int(mat.size()) - 1 - pos_diff;
         return Monoid{}(mat[level][l], mat[level][r]);
     }
 
