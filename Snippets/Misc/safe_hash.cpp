@@ -4,7 +4,7 @@ using namespace std;
 /*
     Source: https://codeforces.com/blog/entry/62393
     Usage:  Use as unordered_map <int, int, safe_hash>
-    Note:   On average, causes considerable slowdown of about (5X)
+    Note:   Worst case, causes considerable slowdown of about (3X)
 */
 
 struct safe_hash {
