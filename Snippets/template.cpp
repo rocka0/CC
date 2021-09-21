@@ -10,18 +10,15 @@ but you yourself alone.
     - Friedrich Wilhelm Nietzsche
 */
 
-// Standard Header File
 #include <bits/stdc++.h>
 using namespace std;
 
-// Ordered Set
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
 template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
-// Debugging
 template <typename A, typename B>
 string to_string(pair<A, B> p);
 template <typename A, typename B, typename C>
@@ -90,7 +87,6 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) 42
 #endif
 
-// Recursive Lambda
 template <class Fun>
 class y_combinator_result {
     Fun fun_;
@@ -108,7 +104,6 @@ decltype(auto) Y(Fun&& fun) {
     return y_combinator_result<decay_t<Fun>>(forward<Fun>(fun));
 }
 
-// Change max/min functions
 template <typename T>
 bool chmax(T& x, T y) {
     return x < y ? x = y, true : false;
