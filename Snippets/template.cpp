@@ -10,7 +10,7 @@ but you yourself alone.
     - Friedrich Wilhelm Nietzsche
 */
 
-// Header Files
+// Standard Header File
 #include <bits/stdc++.h>
 // Policy Based Data Structures
 #include <ext/pb_ds/assoc_container.hpp>
@@ -21,17 +21,12 @@ using namespace std;
 using namespace __gnu_pbds;
 
 // Macros
-#define pb push_back
-#define ff first
-#define ss second
 #define all(x) ((x)).begin(), ((x)).end()
 #define sz(x) static_cast<int>((x).size())
-#define endl '\n'
 #define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
 
 // Typedefs
 using ll = long long;
-using ull = unsigned long long;
 using ld = long double;
 using vi = vector<int>;
 using pi = pair<int, int>;
@@ -47,11 +42,9 @@ template <typename T_container, typename T = typename enable_if<!is_same<T_conta
 ostream& operator<<(ostream& os, const T_container& v) {
     os << '{';
     string sep;
-
     for (const T& x : v) {
         os << sep << x, sep = ", ";
     }
-
     return os << '}';
 }
 void debug_out() { cerr << endl; }
