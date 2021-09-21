@@ -12,6 +12,7 @@ but you yourself alone.
 
 // Header Files
 #include <bits/stdc++.h>
+// Policy Based Data Structure
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
 
@@ -39,29 +40,21 @@ using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statisti
 
 // Debugging
 template <typename A, typename B>
-ostream& operator<<(ostream& os, const pair<A, B>& p)
-{
+ostream &operator<<(ostream &os, const pair<A, B> &p) {
     return os << '(' << p.first << ", " << p.second << ')';
 }
-template < typename T_container, typename T = typename enable_if < !is_same<T_container, string>::value, typename T_container::value_type >::type >
-ostream & operator<<(ostream& os, const T_container& v)
-{
+template <typename T_container, typename T = typename enable_if<!is_same<T_container, string>::value, typename T_container::value_type>::type>
+ostream &operator<<(ostream &os, const T_container &v) {
     os << '{';
     string sep;
-
-    for (const T& x : v) {
+    for (const T &x : v) {
         os << sep << x, sep = ", ";
     }
-
     return os << '}';
 }
-void debug_out()
-{
-    cerr << endl;
-}
+void debug_out() { cerr << endl; }
 template <typename Head, typename... Tail>
-void debug_out(Head H, Tail... T)
-{
+void debug_out(Head H, Tail... T) {
     cerr << ' ' << H;
     debug_out(T...);
 }
@@ -69,42 +62,37 @@ void debug_out(Head H, Tail... T)
 // Recursive Lambda
 template <class Fun>
 class y_combinator_result {
-    public:
-        template <class T>
-        explicit y_combinator_result(T&& fun): fun_(forward<T>(fun)) {}
-        template <class... Args>
-        decltype(auto) operator()(Args&& ... args) {
-            return fun_(ref(*this), forward<Args>(args)...);
-        }
-    private:
-        Fun fun_;
+public:
+    template <class T>
+    explicit y_combinator_result(T &&fun) : fun_(forward<T>(fun)) {}
+    template <class... Args>
+    decltype(auto) operator()(Args &&...args) {
+        return fun_(ref(*this), forward<Args>(args)...);
+    }
+
+private:
+    Fun fun_;
 };
 template <class Fun>
-decltype(auto) y_combinator(Fun&& fun)
-{
+decltype(auto) y_combinator(Fun &&fun) {
     return y_combinator_result<decay_t<Fun>>(forward<Fun>(fun));
 }
 
 // Change max/min functions
 template <typename T>
-bool chmax(T& x, T y)
-{
+bool chmax(T &x, T y) {
     return x < y ? x = y, true : false;
 }
 template <typename T>
-bool chmin(T& x, T y)
-{
+bool chmin(T &x, T y) {
     return x > y ? x = y, true : false;
 }
 
-void solve()
-{
+void solve() {
     // TODO: Solve the test case
-
 }
 
-int main()
-{
+int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(nullptr);
     // cout << fixed << setprecision(15);

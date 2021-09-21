@@ -31,10 +31,9 @@ def cleanup():
 
 def main():
 
-    assert fileExists("brute"), "Brute Force must exist as ./brute"
     assert fileExists("gen"), "Generator must exist as ./gen"
-
-    exec("./compile")
+    assert fileExists("brute"), "Brute Force must exist as ./brute"
+    assert fileExists("app"), "Main Code must exist as ./app"
 
     t = int(input("Enter the number of tests: "))
 
