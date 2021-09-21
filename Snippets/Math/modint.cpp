@@ -15,30 +15,33 @@ namespace atcoder {
         {
             x %= m;
 
-            if (x < 0) {
-                x += m;
-            }
+            if (x < 0) { x += m; }
 
             return x;
         }
 
         struct barrett {
-            unsigned int _m;
+            uint32_t _m;
             uint64_t im;
 
-            explicit barrett(unsigned int m) : _m(m), im((uint64_t)(-1) / m + 1) {}
+            explicit barrett(uint32_t m) : _m(m), im((uint64_t)(-1) / m + 1) {}
 
-            unsigned int umod() const { return _m; }
+            uint32_t umod() const { return _m; }
 
-            unsigned int mul(unsigned int a, unsigned int b) const {
+            uint32_t mul(uint32_t a, uint32_t b) const {
+
                 uint64_t z = a;
                 z *= b;
-                uint64_t x = (uint64_t)(((unsigned __int128)(z) * im) >> 64);
-                unsigned int v = (unsigned int)(z - x * _m);
+#ifdef _MSC_VER
+                uint64_t x;
+                _umul128(z, im, &x);
+#else
+                uint64_t x =
+                    (uint64_t)(((unsigned __int128)(z) * im) >> 64);
+#endif
+                uint32_t v = (uint32_t)(z - x * _m);
 
-                if (_m <= v) {
-                    v += _m;
-                }
+                if (_m <= v) { v += _m; }
 
                 return v;
             }
@@ -46,18 +49,14 @@ namespace atcoder {
 
         constexpr int64_t pow_mod_constexpr(int64_t x, int64_t n, int m)
         {
-            if (m == 1) {
-                return 0;
-            }
+            if (m == 1) { return 0; }
 
-            unsigned int _m = (unsigned int)(m);
+            uint32_t _m = (uint32_t)(m);
             uint64_t r = 1;
             uint64_t y = safe_mod(x, m);
 
             while (n) {
-                if (n & 1) {
-                    r = (r * y) % _m;
-                }
+                if (n & 1) { r = (r * y) % _m; }
 
                 y = (y * y) % _m;
                 n >>= 1;
@@ -68,23 +67,15 @@ namespace atcoder {
 
         constexpr bool is_prime_constexpr(int n)
         {
-            if (n <= 1) {
-                return false;
-            }
+            if (n <= 1) { return false; }
 
-            if (n == 2 || n == 7 || n == 61) {
-                return true;
-            }
+            if (n == 2 || n == 7 || n == 61) { return true; }
 
-            if (n % 2 == 0) {
-                return false;
-            }
+            if (n % 2 == 0) { return false; }
 
             int64_t d = n - 1;
 
-            while (d % 2 == 0) {
-                d /= 2;
-            }
+            while (d % 2 == 0) { d /= 2; }
 
             constexpr int64_t bases[3] = {2, 7, 61};
 
@@ -104,8 +95,7 @@ namespace atcoder {
 
             return true;
         }
-        template <int n>
-        constexpr bool is_prime = is_prime_constexpr(n);
+        template <int n> constexpr bool is_prime = is_prime_constexpr(n);
 
         constexpr std::pair<int64_t, int64_t> inv_gcd(int64_t a, int64_t b)
         {
@@ -121,6 +111,8 @@ namespace atcoder {
                 int64_t u = s / t;
                 s -= t * u;
                 m0 -= m1 * u;  // |m1 * u| <= |m1| * s <= b
+
+
                 auto tmp = s;
                 s = t;
                 t = tmp;
@@ -129,43 +121,29 @@ namespace atcoder {
                 m1 = tmp;
             }
 
-            if (m0 < 0) {
-                m0 += b / s;
-            }
+            if (m0 < 0) { m0 += b / s; }
 
             return {s, m0};
         }
 
         constexpr int primitive_root_constexpr(int m)
         {
-            if (m == 2) {
-                return 1;
-            }
+            if (m == 2) { return 1; }
 
-            if (m == 167772161) {
-                return 3;
-            }
+            if (m == 167772161) { return 3; }
 
-            if (m == 469762049) {
-                return 3;
-            }
+            if (m == 469762049) { return 3; }
 
-            if (m == 754974721) {
-                return 11;
-            }
+            if (m == 754974721) { return 11; }
 
-            if (m == 998244353) {
-                return 3;
-            }
+            if (m == 998244353) { return 3; }
 
             int divs[20] = {};
             divs[0] = 2;
             int cnt = 1;
             int x = (m - 1) / 2;
 
-            while (x % 2 == 0) {
-                x /= 2;
-            }
+            while (x % 2 == 0) { x /= 2; }
 
             for (int i = 3; (int64_t)(i)*i <= x; i += 2) {
                 if (x % i == 0) {
@@ -191,15 +169,15 @@ namespace atcoder {
                     }
                 }
 
-                if (ok) {
-                    return g;
-                }
+                if (ok) { return g; }
             }
         }
-        template <int m>
-        constexpr int primitive_root = primitive_root_constexpr(m);
+        template <int m> constexpr int primitive_root = primitive_root_constexpr(m);
 
-        uint64_t floor_sum_unsigned(uint64_t n, uint64_t m, uint64_t a, uint64_t b)
+        uint64_t floor_sum_unsigned(uint64_t n,
+                                    uint64_t m,
+                                    uint64_t a,
+                                    uint64_t b)
         {
             uint64_t ans = 0;
 
@@ -216,9 +194,7 @@ namespace atcoder {
 
                 uint64_t y_max = a * n + b;
 
-                if (y_max < m) {
-                    break;
-                }
+                if (y_max < m) { break; }
 
                 n = (uint64_t)(y_max / m);
                 b = (uint64_t)(y_max % m);
@@ -236,49 +212,80 @@ namespace atcoder {
 
     namespace internal {
 
+#ifndef _MSC_VER
         template <class T>
         using is_signed_int128 =
             typename std::conditional < std::is_same<T, __int128_t>::value ||
             std::is_same<T, __int128>::value,
-            std::true_type, std::false_type >::type;
+            std::true_type,
+            std::false_type >::type;
 
         template <class T>
         using is_unsigned_int128 =
             typename std::conditional < std::is_same<T, __uint128_t>::value ||
             std::is_same<T, unsigned __int128>::value,
-            std::true_type, std::false_type >::type;
+            std::true_type,
+            std::false_type >::type;
 
         template <class T>
         using make_unsigned_int128 =
-            typename std::conditional<std::is_same<T, __int128_t>::value, __uint128_t,
+            typename std::conditional<std::is_same<T, __int128_t>::value,
+            __uint128_t,
             unsigned __int128>;
 
         template <class T>
-        using is_integral =
-            typename std::conditional < std::is_integral<T>::value ||
-            is_signed_int128<T>::value ||
-            is_unsigned_int128<T>::value,
-            std::true_type, std::false_type >::type;
+        using is_integral = typename std::conditional < std::is_integral<T>::value ||
+                            is_signed_int128<T>::value ||
+                            is_unsigned_int128<T>::value,
+                            std::true_type,
+                            std::false_type >::type;
 
         template <class T>
-        using is_signed_int =
-            typename std::conditional < (is_integral<T>::value &&
-                                         std::is_signed<T>::value) ||
-            is_signed_int128<T>::value,
-            std::true_type, std::false_type >::type;
+        using is_signed_int = typename std::conditional < (is_integral<T>::value &&
+                              std::is_signed<T>::value) ||
+                              is_signed_int128<T>::value,
+                              std::true_type,
+                              std::false_type >::type;
 
         template <class T>
         using is_unsigned_int =
             typename std::conditional < (is_integral<T>::value &&
                                          std::is_unsigned<T>::value) ||
             is_unsigned_int128<T>::value,
-            std::true_type, std::false_type >::type;
+            std::true_type,
+            std::false_type >::type;
 
         template <class T>
         using to_unsigned = typename std::conditional <
-                            is_signed_int128<T>::value, make_unsigned_int128<T>,
-                            typename std::conditional<std::is_signed<T>::value, std::make_unsigned<T>,
+                            is_signed_int128<T>::value,
+                            make_unsigned_int128<T>,
+                            typename std::conditional<std::is_signed<T>::value,
+                            std::make_unsigned<T>,
                             std::common_type<T>>::type >::type;
+
+#else
+
+        template <class T> using is_integral = typename std::is_integral<T>;
+
+        template <class T>
+        using is_signed_int =
+            typename std::conditional < is_integral<T>::value && std::is_signed<T>::value,
+            std::true_type,
+            std::false_type >::type;
+
+        template <class T>
+        using is_unsigned_int =
+            typename std::conditional < is_integral<T>::value &&
+            std::is_unsigned<T>::value,
+            std::true_type,
+            std::false_type >::type;
+
+        template <class T>
+        using to_unsigned = typename std::conditional<is_signed_int<T>::value,
+              std::make_unsigned<T>,
+              std::common_type<T>>::type;
+
+#endif
 
         template <class T>
         using is_signed_int_t = std::enable_if_t<is_signed_int<T>::value>;
@@ -286,12 +293,12 @@ namespace atcoder {
         template <class T>
         using is_unsigned_int_t = std::enable_if_t<is_unsigned_int<T>::value>;
 
-        template <class T>
-        using to_unsigned_t = typename to_unsigned<T>::type;
+        template <class T> using to_unsigned_t = typename to_unsigned<T>::type;
 
     }  // namespace internal
 
 }  // namespace atcoder
+
 
 namespace atcoder {
 
@@ -300,10 +307,8 @@ namespace atcoder {
         struct modint_base {};
         struct static_modint_base : modint_base {};
 
-        template <class T>
-        using is_modint = std::is_base_of<modint_base, T>;
-        template <class T>
-        using is_modint_t = std::enable_if_t<is_modint<T>::value>;
+        template <class T> using is_modint = std::is_base_of<modint_base, T>;
+        template <class T> using is_modint_t = std::enable_if_t<is_modint<T>::value>;
 
     }  // namespace internal
 
@@ -324,32 +329,26 @@ namespace atcoder {
     static_modint(T v) {
         int64_t x = (int64_t)(v % (int64_t)(umod()));
 
-        if (x < 0) {
-            x += umod();
-        }
+        if (x < 0) { x += umod(); }
 
-        _v = (unsigned int)(x);
+        _v = (uint32_t)(x);
     }
     template <class T, internal::is_unsigned_int_t<T>* = nullptr>
     static_modint(T v) {
-        _v = (unsigned int)(v % umod());
+        _v = (uint32_t)(v % umod());
     }
 
-    unsigned int val() const { return _v; }
+    uint32_t val() const { return _v; }
 
     mint& operator++() {
         _v++;
 
-        if (_v == umod()) {
-            _v = 0;
-        }
+        if (_v == umod()) { _v = 0; }
 
         return *this;
     }
     mint& operator--() {
-        if (_v == 0) {
-            _v = umod();
-        }
+        if (_v == 0) { _v = umod(); }
 
         _v--;
         return *this;
@@ -368,25 +367,21 @@ namespace atcoder {
     mint& operator+=(const mint& rhs) {
         _v += rhs._v;
 
-        if (_v >= umod()) {
-            _v -= umod();
-        }
+        if (_v >= umod()) { _v -= umod(); }
 
         return *this;
     }
     mint& operator-=(const mint& rhs) {
         _v -= rhs._v;
 
-        if (_v >= umod()) {
-            _v += umod();
-        }
+        if (_v >= umod()) { _v += umod(); }
 
         return *this;
     }
     mint& operator*=(const mint& rhs) {
         uint64_t z = _v;
         z *= rhs._v;
-        _v = (unsigned int)(z % umod());
+        _v = (uint32_t)(z % umod());
         return *this;
     }
     mint& operator/=(const mint& rhs) { return *this = *this * rhs.inv(); }
@@ -399,9 +394,7 @@ namespace atcoder {
         mint x = *this, r = 1;
 
         while (n) {
-            if (n & 1) {
-                r *= x;
-            }
+            if (n & 1) { r *= x; }
 
             x *= x;
             n >>= 1;
@@ -440,13 +433,12 @@ namespace atcoder {
     }
 
     private:
-    unsigned int _v;
-    static constexpr unsigned int umod() { return m; }
+    uint32_t _v;
+    static constexpr uint32_t umod() { return m; }
     static constexpr bool prime = internal::is_prime<m>;
                                                     };
 
-    template <int id>
-struct dynamic_modint : internal::modint_base {
+template <int id> struct dynamic_modint : internal::modint_base {
         using mint = dynamic_modint;
 
         public:
@@ -466,32 +458,26 @@ struct dynamic_modint : internal::modint_base {
     dynamic_modint(T v) {
         int64_t x = (int64_t)(v % (int64_t)(mod()));
 
-        if (x < 0) {
-            x += mod();
-        }
+        if (x < 0) { x += mod(); }
 
-        _v = (unsigned int)(x);
+        _v = (uint32_t)(x);
     }
     template <class T, internal::is_unsigned_int_t<T>* = nullptr>
     dynamic_modint(T v) {
-        _v = (unsigned int)(v % mod());
+        _v = (uint32_t)(v % mod());
     }
 
-    unsigned int val() const { return _v; }
+    uint32_t val() const { return _v; }
 
     mint& operator++() {
         _v++;
 
-        if (_v == umod()) {
-            _v = 0;
-        }
+        if (_v == umod()) { _v = 0; }
 
         return *this;
     }
     mint& operator--() {
-        if (_v == 0) {
-            _v = umod();
-        }
+        if (_v == 0) { _v = umod(); }
 
         _v--;
         return *this;
@@ -510,18 +496,14 @@ struct dynamic_modint : internal::modint_base {
     mint& operator+=(const mint& rhs) {
         _v += rhs._v;
 
-        if (_v >= umod()) {
-            _v -= umod();
-        }
+        if (_v >= umod()) { _v -= umod(); }
 
         return *this;
     }
     mint& operator-=(const mint& rhs) {
         _v += mod() - rhs._v;
 
-        if (_v >= umod()) {
-            _v -= umod();
-        }
+        if (_v >= umod()) { _v -= umod(); }
 
         return *this;
     }
@@ -539,9 +521,7 @@ struct dynamic_modint : internal::modint_base {
         mint x = *this, r = 1;
 
         while (n) {
-            if (n & 1) {
-                r *= x;
-            }
+            if (n & 1) { r *= x; }
 
             x *= x;
             n >>= 1;
@@ -575,12 +555,11 @@ struct dynamic_modint : internal::modint_base {
     }
 
     private:
-    unsigned int _v;
+    uint32_t _v;
     static internal::barrett bt;
-    static unsigned int umod() { return bt.umod(); }
+    static uint32_t umod() { return bt.umod(); }
           };
-    template <int id>
-    internal::barrett dynamic_modint<id>::bt(998244353);
+    template <int id> internal::barrett dynamic_modint<id>::bt(998244353);
 
     using modint998244353 = static_modint<998244353>;
     using modint1000000007 = static_modint<1000000007>;
@@ -594,8 +573,7 @@ struct dynamic_modint : internal::modint_base {
         template <class T>
         using is_static_modint_t = std::enable_if_t<is_static_modint<T>::value>;
 
-        template <class>
-        struct is_dynamic_modint : public std::false_type {};
+        template <class> struct is_dynamic_modint : public std::false_type {};
         template <int id>
         struct is_dynamic_modint<dynamic_modint<id>> : public std::true_type {};
 
@@ -632,9 +610,10 @@ void setupModint()
     setupDone = true;
 }
 
-mint factorial(int64_t x)
+mint factorial(int x)
 {
     assert(setupDone);
+    assert(x <= nax);
 
     if (x < 0) {
         return 0;
@@ -643,9 +622,10 @@ mint factorial(int64_t x)
     return fact[x];
 }
 
-mint inverseFactorial(int64_t x)
+mint inverseFactorial(int x)
 {
     assert(setupDone);
+    assert(x <= nax);
 
     if (x < 0) {
         return 0;
@@ -654,7 +634,7 @@ mint inverseFactorial(int64_t x)
     return invFact[x];
 }
 
-mint nPr(int64_t n, int64_t r)
+mint nPr(int n, int r)
 {
     assert(setupDone);
 
@@ -665,7 +645,7 @@ mint nPr(int64_t n, int64_t r)
     return factorial(n) * inverseFactorial(n - r);
 }
 
-mint nCr(int64_t n, int64_t r)
+mint nCr(int n, int r)
 {
     assert(setupDone);
 
