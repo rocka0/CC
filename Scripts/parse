@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#!/usr/bin/python
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from json import loads

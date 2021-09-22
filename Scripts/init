@@ -1,15 +1,21 @@
-#! /usr/bin/python
+#!/usr/bin/python
 
 from os import system
 
 ROOT_PATH = "/home/tusky/Tushar/CC"
 
-system(f"cp {ROOT_PATH}/compile_flags.txt .")
-system(f"cp {ROOT_PATH}/.clang-format .")
-system(f"cp {ROOT_PATH}/Scripts/parse .")
-system(f"cp {ROOT_PATH}/Scripts/compile .")
-system(f"cp {ROOT_PATH}/Scripts/run .")
-system(f"cp {ROOT_PATH}/Scripts/gen .")
-system(f"cp {ROOT_PATH}/Scripts/stress_test .")
-system("subl .")
-system("rm ./init")
+def main():
+	system(f"cp {ROOT_PATH}/compile_flags.txt .")
+	system(f"cp {ROOT_PATH}/.clang-format .")
+	system(f"cp {ROOT_PATH}/Scripts/parse .")
+	system(f"cp {ROOT_PATH}/Scripts/compile .")
+	system(f"cp {ROOT_PATH}/Scripts/run .")
+	system(f"cp {ROOT_PATH}/Scripts/gen .")
+	system(f"cp {ROOT_PATH}/Scripts/stress_test .")
+	system("subl .")
+	system("rm ./init")
+
+	return 0
+
+if __name__ == "__main__":
+	main()
