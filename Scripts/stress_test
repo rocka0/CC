@@ -7,10 +7,8 @@ MAIN_CODE_BASE_NAME = "app"
 MAIN_CODE_EXTENSION = "cpp"
 MAIN_CODE_FILE = MAIN_CODE_BASE_NAME + '.' + MAIN_CODE_EXTENSION
 
-# Initialise blessings module for colored output
 term = Terminal()
 
-# Function to check if a file exists
 def fileExists(fileName):
     try:
         open(fileName, "r")
@@ -18,30 +16,36 @@ def fileExists(fileName):
     except FileNotFoundError:
         return False
 
-# Function to execute command locally
 def exec(cmd):
-    res = system(cmd)
-    return res == 0
+    return system(cmd) == 0
 
-# Removes temp created files
 def cleanup():
-    exec("rm stress_test_in")
-    exec("rm prog_stress_test_out")
-    exec("rm brute_stress_test_out")
+    files = [
+        "stress_test_in",
+        "prog_stress_test_out",
+        "brute_stress_test_out",
+        "app"
+    ]
+    for file in files:
+        if fileExists(file):
+            exec(f"rm {file}")
 
 def main():
-
     assert fileExists("gen"), "Generator must exist as ./gen"
-    assert fileExists("brute"), "Brute Force must exist as ./brute"
-    assert fileExists("app"), "Main Code must exist as ./app"
+    if fileExists("brute.cpp"):
+        if not exec('./compile brute'):
+            exit(1)
+    else:
+        assert fileExists("brute"), "Brute solution must exist as ./brute"
+    if fileExists(MAIN_CODE_FILE):
+        if not exec('./compile'):
+            exit(1)
+    else:
+        assert fileExists("app"), "Main solution must exist as ./app"
 
-    t = int(input("Enter the number of tests: "))
+    T = int(input("Enter the number of tests: "))
 
-    test_at = 0
-
-    while t > 0:
-        test_at += 1
-
+    for test in range(1, T+1):
         executed = exec("./gen > stress_test_in")
         if not executed:
             print(term.bold(term.red(f"[FAIl] Generator Failed")))
@@ -49,7 +53,6 @@ def main():
         else:
             with open(f"stress_test_in", "r") as file:
                 stressInData = file.read().strip()
-
         ok = exec(f"./{MAIN_CODE_BASE_NAME} < stress_test_in > prog_stress_test_out")
         if not ok:
             print(term.bold(term.red(f"[RTE] Run Time Error on {MAIN_CODE_FILE}")))
@@ -59,7 +62,6 @@ def main():
         else:
             with open("prog_stress_test_out", "r") as file:
                 programOutput = "\n".join([x.strip() for x in file.read().strip().splitlines()])
-
         ok = exec(f"./brute < stress_test_in > brute_stress_test_out")
         if not ok:
             print(term.bold(term.red(f"[RTE] Run Time Error on ./brute")))
@@ -70,9 +72,9 @@ def main():
             with open("brute_stress_test_out", "r") as file:
                 bruteOutput = "\n".join([x.strip() for x in file.read().strip().splitlines()])
         if bruteOutput == programOutput:
-            print(term.bold(term.green(f"[AC] Test {test_at}")))
+            print(term.bold(term.green(f"[AC] Test {test}")))
         else:
-            print(term.bold(term.red(f"[WA] Wrong Answer on Test {test_at}")))
+            print(term.bold(term.red(f"[WA] Wrong Answer on Test {test}")))
             print(term.bold(term.blue("Test Data:")))
             print(stressInData)
             print(term.bold(term.green("Expected Answer:")))
@@ -82,8 +84,6 @@ def main():
             system("cat stress_test_in > in")
             cleanup()
             exit(1)
-
-        t -= 1
 
     cleanup()
 
