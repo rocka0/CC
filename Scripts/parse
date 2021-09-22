@@ -5,67 +5,38 @@ from json import loads
 from blessings import Terminal
 from os import system
 
-# Initialise blessings module for colored output
 term = Terminal()
 
-# Name of the file where you write code
 MAIN_CODE_BASE_NAME = "app"
 MAIN_CODE_EXTENSION = "cpp"
 MAIN_CODE_FILE = MAIN_CODE_BASE_NAME + '.' + MAIN_CODE_EXTENSION
 
-# Function to execute command locally
 def exec(cmd):
-    res = system(cmd)
-    return res == 0
+    return system(cmd) == 0
 
-# Server to parse the Competitive Companion
 class handler(BaseHTTPRequestHandler):
     def do_POST(self):
-        # Read post data from Competitive Companion
         content_length = int(self.headers['Content-Length'])
         data = loads(self.rfile.read(content_length).decode('utf-8'))
-
-        # Gets folder name from Competitive Companion
         folderName = data['languages']['java']['taskClass']
 
-        # Create main folder
         executed = exec(f"mkdir {folderName}")
         if not executed:
             print(term.red(term.bold("[WARN]")), term.bold(term.blue("Deleting old folder")))
             exec(f"rm -r {folderName}")
             exec(f"mkdir {folderName}")
 
-        # Create input folder
-        exec(f"mkdir {folderName}/inputs")
-
-        # Create output folder
-        exec(f"mkdir {folderName}/outputs")
-
-        # Creates CPP file
         exec(f"touch {folderName}/{MAIN_CODE_FILE}")
-
-        # Creates custom input file
-        exec(f"touch {folderName}/in")
-
-        # Creates custom output file
-        exec(f"touch {folderName}/out")
-
-        # Opens files in Sublime
         exec(f"subl {folderName}/{MAIN_CODE_FILE}")
-
-        # Copies Compile python file
+        exec(f"mkdir {folderName}/inputs")
+        exec(f"mkdir {folderName}/outputs")
+        exec(f"touch {folderName}/in")
+        exec(f"touch {folderName}/out")
         exec(f"cp compile {folderName}/compile")
-
-        # Makes Compile python file executable
         exec(f"chmod +x {folderName}/compile")
-
-        # Copies Runner python file
         exec(f"cp run {folderName}/run")
-
-        # Makes Runner python file executable
         exec(f"chmod +x {folderName}/run")
 
-        # Adds test from Competitive Companion
         counter = 0
         for test in data['tests']:
             counter += 1
@@ -76,6 +47,8 @@ class handler(BaseHTTPRequestHandler):
 
         print(term.green(term.bold("[OK]")), term.bold(term.blue("Parsed problem statement!")))
         print(term.blue("Saved to:"), term.bold(term.red(folderName)))
+
+        return
 
 def main():
     try:
