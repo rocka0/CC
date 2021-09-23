@@ -4,15 +4,24 @@ using namespace std;
 /*
     Source: https://codeforces.com/blog/entry/79108
 
-    Usage:  disjointSparseTable(vector<int> arr, 0)
-            T is the type of the element
-            Monoid is the Associative Binary Operation
-            Identity is the identity element of the Monoid
+    Usage:  disjointSparseTable ST(vector<int> arr, 0)
+
+    Note:   Change operation in Monoid to any Associative Binary Operation
+            In constructor, Identity is the identity element of the Monoid
             (e.g. 0 for addition/xor and inf for minimum)
 */
 
 template <typename T>
 class disjointSparseTable {
+    struct Monoid {
+        constexpr T operator()(const T& lhs, const T& rhs) const {
+            // NOTE: Change this to any Associative Binary Operation
+            return (lhs + rhs);
+        }
+    };
+    vector<vector<T>> mat;
+    T identity;
+
 public:
     disjointSparseTable(vector<T> arr, T Identity) {
         identity = Identity;
@@ -55,14 +64,4 @@ public:
         const auto level = int(mat.size()) - 1 - pos_diff;
         return Monoid{}(mat[level][l], mat[level][r]);
     }
-
-private:
-    struct Monoid {
-        constexpr T operator()(const T& lhs, const T& rhs) const {
-            // NOTE: Change this to any Associative Binary Operation
-            return (lhs ^ rhs);
-        }
-    };
-    vector<vector<T>> mat;
-    T identity;
 };

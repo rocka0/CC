@@ -9,6 +9,8 @@ using namespace std;
 
 template <typename T>
 class Matrix {
+    vector<vector<T>> mat;
+
 public:
     int rows;
     int cols;
@@ -100,7 +102,4 @@ public:
             return H;
         }
     }
-
-private:
-    vector<vector<T>> mat;
 };

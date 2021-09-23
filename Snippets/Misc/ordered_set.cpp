@@ -12,20 +12,19 @@ using namespace std;
             oset.insert(16);
 
             // oset = {1,2,4,8,16}
-            // oset.find_by_order(x)	-> returns iterator to oset[x]
-            *(oset.find_by_order(1))	-> returns oset[1] = 2
-            *(oset.find_by_order(2))	-> returns oset[2] = 4
-            *(oset.find_by_order(4))	-> returns oset[4] = 16
-            oset.find_by_order(6)		-> returns oset.end()
+            // oset.find_by_order(x)    -> returns iterator to oset[x]
+            *(oset.find_by_order(1))    -> returns oset[1] = 2
+            *(oset.find_by_order(2))    -> returns oset[2] = 4
+            *(oset.find_by_order(4))    -> returns oset[4] = 16
+            oset.find_by_order(6)       -> returns oset.end()
 
             // oset = {1,2,4,8,16}
-            // oset.order_of_key(x) -> returns number of elements strictly
-            // less than x
-            oset.order_of_key(-5)	-> 0
-            oset.order_of_key(1)	-> 0
-            oset.order_of_key(3)	-> 2
-            oset.order_of_key(4)	-> 2
-            oset.order_of_key(400)	-> 5
+            // oset.order_of_key(x)     -> returns number of elements strictly less than x
+            oset.order_of_key(-5)       -> 0
+            oset.order_of_key(1)        -> 0
+            oset.order_of_key(3)        -> 2
+            oset.order_of_key(4)        -> 2
+            oset.order_of_key(400)      -> 5
 
     Note:   If we want to get map but not a set,
             the second template argument type must be declared as mapped type,
