@@ -28,22 +28,22 @@ string to_string(tuple<A, B, C, D> p) {
 string to_string(const string& s) { return '"' + s + '"'; }
 string to_string(const char* s) { return to_string((string)s); }
 string to_string(bool b) { return (b ? "true" : "false"); }
-string to_string(vector<bool> v) {
+string to_string(const vector<bool>& v) {
     bool first = true;
     string res = "{";
-    for (int i = 0; i < static_cast<int>(v.size()); i++) {
+    for (auto&& i : v) {
         if (!first) {
             res += ", ";
         }
         first = false;
-        res += to_string(v[i]);
+        res += to_string(i);
     }
     res += "}";
     return res;
 }
 template <size_t N>
 string to_string(bitset<N> v) {
-    string res = "";
+    string res;
     for (size_t i = 0; i < N; i++) {
         res += static_cast<char>('0' + v[i]);
     }
@@ -94,11 +94,11 @@ decltype(auto) Y(Fun&& fun) {
 
 template <typename T>
 bool chmax(T& x, T y) {
-    return x < y ? x = y, true : false;
+    return x < y and (x = y, true);
 }
 template <typename T>
 bool chmin(T& x, T y) {
-    return x > y ? x = y, true : false;
+    return x > y and (x = y, true);
 }
 
 void solve() {
