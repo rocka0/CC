@@ -1,5 +1,5 @@
 # CC
-A collection of all the tools/snippets/scripts I use for Competitive Programming
+A collection of all the snippets/scripts/configs I use for Competitive Programming
 
 Index
 -----
