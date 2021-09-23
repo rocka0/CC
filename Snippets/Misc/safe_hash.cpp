@@ -3,8 +3,10 @@ using namespace std;
 
 /*
     Source: https://codeforces.com/blog/entry/62393
+
     Usage:  Use as unordered_map <int, int, safe_hash>
-    Note:   Worst case, causes considerable slowdown of about (3X)
+
+    Note:   Worst case, causes considerable slowdown of ~ (2-3)X
 */
 
 struct safe_hash {

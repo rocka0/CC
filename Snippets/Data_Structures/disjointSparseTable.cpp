@@ -3,6 +3,7 @@ using namespace std;
 
 /*
     Source: https://codeforces.com/blog/entry/79108
+
     Usage:  disjointSparseTable(vector<int> arr, 0)
             T is the type of the element
             Monoid is the Associative Binary Operation

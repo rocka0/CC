@@ -13,18 +13,18 @@ but you yourself alone.
 #include <bits/stdc++.h>
 using namespace std;
 
-#include <ext/pb_ds/assoc_container.hpp>
-#include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds;
-template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
 template <typename A, typename B>
-string to_string(pair<A, B> p);
+string to_string(pair<A, B> p) {
+    return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
+}
 template <typename A, typename B, typename C>
-string to_string(tuple<A, B, C> p);
+string to_string(tuple<A, B, C> p) {
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")";
+}
 template <typename A, typename B, typename C, typename D>
-string to_string(tuple<A, B, C, D> p);
+string to_string(tuple<A, B, C, D> p) {
+    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
+}
 string to_string(const string& s) { return '"' + s + '"'; }
 string to_string(const char* s) { return to_string((string)s); }
 string to_string(bool b) { return (b ? "true" : "false"); }
@@ -62,18 +62,6 @@ string to_string(A v) {
     }
     res += "}";
     return res;
-}
-template <typename A, typename B>
-string to_string(pair<A, B> p) {
-    return "(" + to_string(p.first) + ", " + to_string(p.second) + ")";
-}
-template <typename A, typename B, typename C>
-string to_string(tuple<A, B, C> p) {
-    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")";
-}
-template <typename A, typename B, typename C, typename D>
-string to_string(tuple<A, B, C, D> p) {
-    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
 }
 void debug_out() { cerr << endl; }
 template <typename Head, typename... Tail>
@@ -125,9 +113,7 @@ int main() {
     int tc = 1;
     cin >> tc;
 
-    while (tc--) {
-        solve();
-    }
+    while (tc--) solve();
 
     return 0;
 }

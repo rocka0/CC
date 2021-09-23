@@ -17,6 +17,7 @@ Index
       * [Modint](/Snippets/Math/modint.cpp)
       * [Sieve of Eratosthenes](/Snippets/Math/sieve.cpp)
    4. [Miscellaneous](/Snippets/Misc/)
+      * [Ordered Set](/Snippets/Misc/ordered_set.cpp)
       * [Safe Hash](/Snippets/Misc/safe_hash.cpp)
 
 2. Scripts

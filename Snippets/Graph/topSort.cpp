@@ -3,7 +3,9 @@ using namespace std;
 
 /*
     Source: https://github.com/rocka0/CC
-    Usage:  topologicalSort(vector<vector<int>> adj) returns vector<int> ans
+
+    Usage:  vector<int> ans = topologicalSort(vector<vector<int>> adj)
+
     Note:   ans.size() < n in case of cycle
 */
 

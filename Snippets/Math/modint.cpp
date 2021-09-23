@@ -3,6 +3,7 @@ using namespace std;
 
 /*
     Source: https://github.com/atcoder/ac-library
+
     Usage:  using mint = modint1000000007
 */
 

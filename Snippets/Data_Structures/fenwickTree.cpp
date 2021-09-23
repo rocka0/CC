@@ -3,7 +3,8 @@ using namespace std;
 
 /*
     Source: https://github.com/atcoder/ac-library
-    Usage:  fenwick_tree<T> BIT(int n)
+
+    Usage:  fenwick_tree<T> fwt(int n)
 */
 
 namespace atcoder {

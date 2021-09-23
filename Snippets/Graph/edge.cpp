@@ -3,6 +3,7 @@ using namespace std;
 
 /*
     Source: https://github.com/rocka0/CC
+
     Usage:  Edge E; cin >> E.from >> E.to >> E.weight;
 */
 
