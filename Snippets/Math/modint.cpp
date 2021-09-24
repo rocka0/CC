@@ -579,19 +579,19 @@ using is_dynamic_modint_t = std::enable_if_t<is_dynamic_modint<T>::value>;
 using namespace atcoder;
 using mint = modint1000000007;
 
-const int nax = 1e6;
+const int factorialLimit = 1e6;
 
-array<mint, nax + 1> fact;
-array<mint, nax + 1> invFact;
+array<mint, factorialLimit + 1> fact;
+array<mint, factorialLimit + 1> invFact;
 bool setupDone = false;
 
 void setupModint() {
     fact[0] = 1;
-    for (int i = 1; i <= nax; ++i) {
+    for (int i = 1; i <= factorialLimit; ++i) {
         fact[i] = fact[i - 1] * i;
     }
-    invFact[nax] = fact[nax].inv();
-    for (int i = nax; i >= 1; --i) {
+    invFact[factorialLimit] = fact[factorialLimit].inv();
+    for (int i = factorialLimit; i >= 1; --i) {
         invFact[i - 1] = invFact[i] * i;
     }
     setupDone = true;
@@ -599,7 +599,7 @@ void setupModint() {
 
 mint factorial(int x) {
     assert(setupDone);
-    assert(x <= nax);
+    assert(x <= factorialLimit);
     if (x < 0) {
         return 0;
     }
@@ -608,7 +608,7 @@ mint factorial(int x) {
 
 mint inverseFactorial(int x) {
     assert(setupDone);
-    assert(x <= nax);
+    assert(x <= factorialLimit);
     if (x < 0) {
         return 0;
     }
