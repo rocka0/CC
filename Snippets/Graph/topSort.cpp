@@ -10,7 +10,7 @@ using namespace std;
 */
 
 vector<int> topologicalSort(const vector<vector<int>>& graph) {
-    int n = int(graph.size());
+    int n = static_cast<int>(graph.size());
     vector<int> indegree(n);
     for (int i = 0; i < n; ++i) {
         for (auto& vertex : graph[i]) {

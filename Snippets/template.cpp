@@ -76,23 +76,6 @@ void debug_out(Head H, Tail... T) {
 #define debug(...) 42
 #endif
 
-template <class Fun>
-class y_combinator_result {
-    Fun fun_;
-
-public:
-    template <class T>
-    explicit y_combinator_result(T&& fun) : fun_(forward<T>(fun)) {}
-    template <class... Args>
-    decltype(auto) operator()(Args&&... args) {
-        return fun_(ref(*this), forward<Args>(args)...);
-    }
-};
-template <class Fun>
-decltype(auto) Y(Fun&& fun) {
-    return y_combinator_result<decay_t<Fun>>(forward<Fun>(fun));
-}
-
 template <typename T>
 bool chmax(T& x, T y) {
     return x < y and (x = y, true);
@@ -107,8 +90,7 @@ void solve() {
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(nullptr);
+    ios_base::sync_with_stdio(false), cin.tie(nullptr);
     // cout << fixed << setprecision(15);
 
     int tc = 1;

@@ -19,6 +19,7 @@ Index
    4. [Miscellaneous](/Snippets/Misc/)
       * [Ordered Set](/Snippets/Misc/ordered_set.cpp)
       * [Safe Hash](/Snippets/Misc/safe_hash.cpp)
+      * [Y_Combinator](/Snippets/Misc/y_combinator.cpp)
 
 2. Scripts
    * [Code Compilation](/Scripts/compile)
