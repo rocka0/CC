@@ -13,6 +13,7 @@ Index
       * [Edge Struct](/Snippets/Graph/edge.cpp)
       * [Topological Sort](/Snippets/Graph/topSort.cpp)
    3. [Math](/Snippets/Math/)
+      * [Factorization](/Snippets/Math/factorization.cpp)
       * [Matrix](/Snippets/Math/matrix.cpp)
       * [Modint](/Snippets/Math/modint.cpp)
       * [Sieve of Eratosthenes](/Snippets/Math/sieve.cpp)
