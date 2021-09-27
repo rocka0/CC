@@ -90,13 +90,13 @@ void solve() {
 }
 
 int main() {
-    ios_base::sync_with_stdio(false), cin.tie(nullptr);
+    cin.tie(nullptr)->sync_with_stdio(false);
     // cout << fixed << setprecision(15);
 
-    int tc = 1;
-    cin >> tc;
+    int tt = 1;
+    cin >> tt;
 
-    while (tc--) solve();
+    while (tt--) solve();
 
     return 0;
 }
