@@ -15,7 +15,7 @@ template <typename T>
 class disjointSparseTable {
     struct Monoid {
         constexpr T operator()(const T& lhs, const T& rhs) const {
-            // NOTE: Change this to any Associative Binary Operation
+            // TODO: Change this to any Associative Binary Operation
             return (lhs + rhs);
         }
     };
