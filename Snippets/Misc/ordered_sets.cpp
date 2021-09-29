@@ -34,10 +34,9 @@ using namespace std;
     Ordered_Multiset:
         Usage:  ordered_multiset<int> omset;
 
-        Note:   One can also achieve ordered_multiset using ordered_set and changing
+        Note:   One can achieve ordered_multiset using ordered_set by changing
                 less<T> to less_equal<T>.
-                // using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
-                There are some things to be noted about this new ordered_multiset:
+                There are some things to be noted about this ordered_multiset:
                     1. ordered_multiset::erase() method doesn't work
                     2. ordered_multiset::lower_bound() behaves like upper_bound()
                     3. ordered_multiset::upper_bound() behaves like lower_bound()
@@ -55,49 +54,4 @@ template <typename T>
 using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 template <typename T>
-struct ordered_multiset {
-    ordered_set<pair<T, int>> oset;
-    map<T, int> freq;
-
-    // NOTE: Stores size of entire multiset
-    int size;
-
-    ordered_multiset() {
-        oset.clear();
-        freq.clear();
-        size = 0;
-    }
-
-    void add(T ele) {
-        // NOTE: Adds an element into the multiset
-        oset.insert({ele, freq[ele]});
-        ++freq[ele];
-        ++size;
-    }
-
-    void remove(T ele) {
-        // NOTE: Removes an element from the multiset
-        if (freq.find(ele) == freq.end()) return;
-        --freq[ele];
-        --size;
-        oset.erase({ele, freq[ele]});
-        if (!freq[ele]) {
-            freq.erase(ele);
-        }
-    }
-
-    int strictlyLess(T x) {
-        // NOTE: Returns the number of elements < than x
-        return oset.order_of_key({x, 0});
-    }
-
-    int strictlyEqual(T x) {
-        // NOTE: Returns the number of elements == to x
-        return freq[x];
-    }
-
-    int strictlyGreater(T ele) {
-        // NOTE: Returns the number of elements > than x
-        return size - strictlyLess(1 + ele);
-    }
-};
+using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
