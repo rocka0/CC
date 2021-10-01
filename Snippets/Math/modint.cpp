@@ -27,7 +27,9 @@ struct barrett {
 
     explicit barrett(uint32_t m) : _m(m), im((uint64_t)(-1) / m + 1) {}
 
-    uint32_t umod() const { return _m; }
+    uint32_t umod() const {
+        return _m;
+    }
 
     uint32_t mul(uint32_t a, uint32_t b) const {
         uint64_t z = a;
@@ -306,7 +308,9 @@ struct static_modint : internal::static_modint_base {
     using mint = static_modint;
 
 public:
-    static constexpr int mod() { return m; }
+    static constexpr int mod() {
+        return m;
+    }
     static mint raw(int v) {
         mint x;
         x._v = v;
@@ -329,7 +333,9 @@ public:
         _v = (uint32_t)(v % umod());
     }
 
-    uint32_t val() const { return _v; }
+    uint32_t val() const {
+        return _v;
+    }
 
     mint& operator++() {
         _v++;
@@ -383,10 +389,16 @@ public:
         _v = (uint32_t)(z % umod());
         return *this;
     }
-    mint& operator/=(const mint& rhs) { return *this = *this * rhs.inv(); }
+    mint& operator/=(const mint& rhs) {
+        return *this = *this * rhs.inv();
+    }
 
-    mint operator+() const { return *this; }
-    mint operator-() const { return mint() - *this; }
+    mint operator+() const {
+        return *this;
+    }
+    mint operator-() const {
+        return mint() - *this;
+    }
 
     mint pow(int64_t n) const {
         assert(0 <= n);
@@ -414,16 +426,30 @@ public:
         }
     }
 
-    friend mint operator+(const mint& lhs, const mint& rhs) { return mint(lhs) += rhs; }
-    friend mint operator-(const mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }
-    friend mint operator*(const mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }
-    friend mint operator/(const mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }
-    friend bool operator==(const mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }
-    friend bool operator!=(const mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }
+    friend mint operator+(const mint& lhs, const mint& rhs) {
+        return mint(lhs) += rhs;
+    }
+    friend mint operator-(const mint& lhs, const mint& rhs) {
+        return mint(lhs) -= rhs;
+    }
+    friend mint operator*(const mint& lhs, const mint& rhs) {
+        return mint(lhs) *= rhs;
+    }
+    friend mint operator/(const mint& lhs, const mint& rhs) {
+        return mint(lhs) /= rhs;
+    }
+    friend bool operator==(const mint& lhs, const mint& rhs) {
+        return lhs._v == rhs._v;
+    }
+    friend bool operator!=(const mint& lhs, const mint& rhs) {
+        return lhs._v != rhs._v;
+    }
 
 private:
     uint32_t _v;
-    static constexpr uint32_t umod() { return m; }
+    static constexpr uint32_t umod() {
+        return m;
+    }
     static constexpr bool prime = internal::is_prime<m>;
 };
 
@@ -432,7 +458,9 @@ struct dynamic_modint : internal::modint_base {
     using mint = dynamic_modint;
 
 public:
-    static int mod() { return (int)(bt.umod()); }
+    static int mod() {
+        return (int)(bt.umod());
+    }
     static void set_mod(int m) {
         assert(1 <= m);
         bt = internal::barrett(m);
@@ -459,7 +487,9 @@ public:
         _v = (uint32_t)(v % mod());
     }
 
-    uint32_t val() const { return _v; }
+    uint32_t val() const {
+        return _v;
+    }
 
     mint& operator++() {
         _v++;
@@ -511,10 +541,16 @@ public:
         _v = bt.mul(_v, rhs._v);
         return *this;
     }
-    mint& operator/=(const mint& rhs) { return *this = *this * rhs.inv(); }
+    mint& operator/=(const mint& rhs) {
+        return *this = *this * rhs.inv();
+    }
 
-    mint operator+() const { return *this; }
-    mint operator-() const { return mint() - *this; }
+    mint operator+() const {
+        return *this;
+    }
+    mint operator-() const {
+        return mint() - *this;
+    }
 
     mint pow(int64_t n) const {
         assert(0 <= n);
@@ -537,17 +573,31 @@ public:
         return eg.second;
     }
 
-    friend mint operator+(const mint& lhs, const mint& rhs) { return mint(lhs) += rhs; }
-    friend mint operator-(const mint& lhs, const mint& rhs) { return mint(lhs) -= rhs; }
-    friend mint operator*(const mint& lhs, const mint& rhs) { return mint(lhs) *= rhs; }
-    friend mint operator/(const mint& lhs, const mint& rhs) { return mint(lhs) /= rhs; }
-    friend bool operator==(const mint& lhs, const mint& rhs) { return lhs._v == rhs._v; }
-    friend bool operator!=(const mint& lhs, const mint& rhs) { return lhs._v != rhs._v; }
+    friend mint operator+(const mint& lhs, const mint& rhs) {
+        return mint(lhs) += rhs;
+    }
+    friend mint operator-(const mint& lhs, const mint& rhs) {
+        return mint(lhs) -= rhs;
+    }
+    friend mint operator*(const mint& lhs, const mint& rhs) {
+        return mint(lhs) *= rhs;
+    }
+    friend mint operator/(const mint& lhs, const mint& rhs) {
+        return mint(lhs) /= rhs;
+    }
+    friend bool operator==(const mint& lhs, const mint& rhs) {
+        return lhs._v == rhs._v;
+    }
+    friend bool operator!=(const mint& lhs, const mint& rhs) {
+        return lhs._v != rhs._v;
+    }
 
 private:
     uint32_t _v;
     static internal::barrett bt;
-    static uint32_t umod() { return bt.umod(); }
+    static uint32_t umod() {
+        return bt.umod();
+    }
 };
 template <int id>
 internal::barrett dynamic_modint<id>::bt(998244353);
@@ -580,7 +630,6 @@ using namespace atcoder;
 using mint = modint1000000007;
 
 const int factorialLimit = 1e6;
-
 array<mint, factorialLimit + 1> fact;
 array<mint, factorialLimit + 1> invFact;
 bool setupDone = false;

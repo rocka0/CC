@@ -36,9 +36,13 @@ public:
         return mat[x];
     }
 
-    bool operator==(const Matrix& B) { return mat == B.mat; }
+    bool operator==(const Matrix& B) {
+        return mat == B.mat;
+    }
 
-    bool operator!=(const Matrix& B) { return mat != B.mat; }
+    bool operator!=(const Matrix& B) {
+        return mat != B.mat;
+    }
 
     Matrix identity(int n) {
         assert(n > 0);

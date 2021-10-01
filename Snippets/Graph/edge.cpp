@@ -17,5 +17,7 @@ struct Edge {
         return weight < other.weight;
     }
 
-    friend ostream& operator<<(ostream& os, const Edge& E) { return os << '(' << E.from << "->" << E.to << ',' << E.weight << ')'; }
+    friend ostream& operator<<(ostream& os, const Edge& E) {
+        return os << '(' << E.from << "->" << E.to << ',' << E.weight << ')';
+    }
 };
