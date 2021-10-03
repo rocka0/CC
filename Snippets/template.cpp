@@ -1,15 +1,3 @@
-/*
-No one,
-can construct for you,
-the bridge,
-upon which precisely,
-you must cross,
-the stream of life,
-no one,
-but you yourself alone.
-    - Friedrich Wilhelm Nietzsche
-*/
-
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -95,18 +83,11 @@ bool chmin(T& x, T y) {
     return x > y and (x = y, true);
 }
 
-void solve() {
-    // TODO: Remove debug() statements
-}
-
 int main() {
-    cin.tie(nullptr)->sync_with_stdio(false);
-    // cout << fixed << setprecision(15);
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-    int tt = 1;
-    cin >> tt;
-
-    while (tt--) solve();
+    // TODO: Remove debug() statements
 
     return 0;
 }
