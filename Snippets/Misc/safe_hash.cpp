@@ -4,12 +4,12 @@ using namespace std;
 /*
     Source: https://codeforces.com/blog/entry/62393
 
-    Usage:  Use as unordered_map <int, int, safe_hash>
+    Usage:  Use as unordered_map <int, int, SafeHash>
 
     Note:   Worst case, causes considerable slowdown of ~ (2-3)X
 */
 
-struct safe_hash {
+struct SafeHash {
     static uint64_t splitmix64(uint64_t x) {
         x += 0x9e3779b97f4a7c15;
         x = (x ^ (x >> 30)) * 0xbf58476d1ce4e5b9;

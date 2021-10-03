@@ -4,14 +4,14 @@ using namespace std;
 /*
     Source: https://github.com/the-hyp0cr1t3/CC/
 
-    Usage:  vector<int> facs = generate_factors(pf_vector);
+    Usage:  vector<int> facs = generateFactors(pf_vector);
 
     Note:   For long, change FACTORS_MAX to 161280 and use int64_t instead of int32_t
 */
 
 const int FACTORS_MAX = 2304;
 
-vector<int32_t> generate_factors(const vector<pair<int32_t, int>>& prime_factors, bool sorted = false) {
+vector<int32_t> generateFactors(const vector<pair<int32_t, int>>& prime_factors, bool sorted = false) {
     static int32_t buffer[FACTORS_MAX];
     int product = 1;
     for (auto& pf : prime_factors) {

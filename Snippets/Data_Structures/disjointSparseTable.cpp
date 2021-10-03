@@ -4,7 +4,7 @@ using namespace std;
 /*
     Source: https://codeforces.com/blog/entry/79108
 
-    Usage:  disjointSparseTable ST(vector<int> arr, 0)
+    Usage:  DisjointSparseTable ST(vector<int> arr, 0)
 
     Note:   Change operation in Monoid to any Associative Binary Operation
             In constructor, Identity is the identity element of the Monoid
@@ -12,7 +12,7 @@ using namespace std;
 */
 
 template <typename T>
-class disjointSparseTable {
+class DisjointSparseTable {
     struct Monoid {
         constexpr T operator()(const T& lhs, const T& rhs) const {
             // TODO: Change this to any Associative Binary Operation
@@ -23,7 +23,7 @@ class disjointSparseTable {
     T identity;
 
 public:
-    disjointSparseTable(vector<T> arr, T Identity) {
+    DisjointSparseTable(vector<T> arr, T Identity) {
         identity = Identity;
         int pow2 = 1, cnt = 0;
         int arrSize = static_cast<int>(arr.size());
