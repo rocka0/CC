@@ -5,7 +5,8 @@
             "command": [
                 "clangd",
                 "--header-insertion=never"
-            ]
+            ],
+            "selector": "source.c | source.c++ | source.objc | source.objc++"
         }
     },
     "show_diagnostics_panel_on_save": 4,
