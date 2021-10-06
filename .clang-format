@@ -158,7 +158,7 @@ RawStringFormats:
 ReflowComments: true
 SortJavaStaticImport: Before
 SortUsingDeclarations: true
-SpaceAfterCStyleCast: false
+SpaceAfterCStyleCast: true
 SpaceAfterLogicalNot: false
 SpaceAfterTemplateKeyword: true
 SpaceBeforeAssignmentOperators: true
