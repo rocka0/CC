@@ -5,7 +5,7 @@ using namespace std;
     Source: https://codeforces.com/blog/entry/11080
 
     Ordered_Set:
-        Usage:  ordered_set<int> oset;
+        Usage:  OrderedSet<int> oset;
                 oset.insert(1);
                 oset.insert(2);
                 oset.insert(4);
@@ -31,17 +31,17 @@ using namespace std;
                 the second template argument type must be declared as mapped type,
                 instead of null_type.
 
-    Ordered_Multiset:
-        Usage:  ordered_multiset<int> omset;
+    OrderedMultiset:
+        Usage:  OrderedMultiset<int> omset;
 
-        Note:   One can achieve ordered_multiset using ordered_set by changing
+        Note:   One can achieve OrderedMultiset using ordered_set by changing
                 less<T> to less_equal<T>.
-                There are some things to be noted about this ordered_multiset:
-                    1. ordered_multiset::erase() method doesn't work
-                    2. ordered_multiset::lower_bound() behaves like upper_bound()
-                    3. ordered_multiset::upper_bound() behaves like lower_bound()
-                    4. ordered_multiset::find() always returns ordered_multiset::end()
-                    5. ordered_multiset::find_by_order() and ordered_multiset::order_of_key()
+                There are some things to be noted about this OrderedMultiset:
+                    1. OrderedMultiset::erase() method doesn't work
+                    2. OrderedMultiset::lower_bound() behaves like upper_bound()
+                    3. OrderedMultiset::upper_bound() behaves like lower_bound()
+                    4. OrderedMultiset::find() always returns OrderedMultiset::end()
+                    5. OrderedMultiset::find_by_order() and OrderedMultiset::order_of_key()
                     work normally
 
 */
@@ -51,7 +51,7 @@ using namespace std;
 using namespace __gnu_pbds;
 
 template <typename T>
-using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+using OrderedSet = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
 template <typename T>
-using ordered_multiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
+using OrderedMultiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
