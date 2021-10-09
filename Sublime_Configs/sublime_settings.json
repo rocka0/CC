@@ -23,5 +23,14 @@
     ],
     "line_padding_bottom": 3,
     "line_padding_top": 3,
-    "overlay_scroll_bars": "enabled"
+    "overlay_scroll_bars": "enabled",
+    "material_theme_accent_orange": true,
+    "material_theme_accent_scrollbars": true,
+    "material_theme_accent_titlebar": true,
+    "material_theme_panel_separator": true,
+    "material_theme_big_fileicons": true,
+    "material_theme_compact_panel": true,
+    "material_theme_bullet_tree_indicator": true,
+    "material_theme_bold_tab": true,
+    "material_theme_tabs_separator": true
 }
