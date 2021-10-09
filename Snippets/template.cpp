@@ -23,7 +23,7 @@ string to_string(const string& s) {
     return '"' + s + '"';
 }
 string to_string(const char* s) {
-    return to_string((string)s);
+    return to_string((string) s);
 }
 string to_string(const vector<bool>& v) {
     bool first = true;

@@ -25,7 +25,7 @@ struct barrett {
     uint32_t _m;
     uint64_t im;
 
-    explicit barrett(uint32_t m) : _m(m), im((uint64_t)(-1) / m + 1) {}
+    explicit barrett(uint32_t m) : _m(m), im((uint64_t) (-1) / m + 1) {}
 
     uint32_t umod() const {
         return _m;
@@ -38,9 +38,9 @@ struct barrett {
         uint64_t x;
         _umul128(z, im, &x);
 #else
-        uint64_t x = (uint64_t)(((unsigned __int128)(z)*im) >> 64);
+        uint64_t x = (uint64_t) (((unsigned __int128) (z) *im) >> 64);
 #endif
-        uint32_t v = (uint32_t)(z - x * _m);
+        uint32_t v = (uint32_t) (z - x * _m);
 
         if (_m <= v) {
             v += _m;
@@ -55,7 +55,7 @@ constexpr int64_t pow_mod_constexpr(int64_t x, int64_t n, int m) {
         return 0;
     }
 
-    uint32_t _m = (uint32_t)(m);
+    uint32_t _m = (uint32_t) (m);
     uint64_t r = 1;
     uint64_t y = safe_mod(x, m);
 
@@ -170,7 +170,7 @@ constexpr int primitive_root_constexpr(int m) {
         x /= 2;
     }
 
-    for (int i = 3; (int64_t)(i)*i <= x; i += 2) {
+    for (int i = 3; (int64_t) (i) *i <= x; i += 2) {
         if (x % i == 0) {
             divs[cnt++] = i;
 
@@ -222,8 +222,8 @@ uint64_t floor_sum_unsigned(uint64_t n, uint64_t m, uint64_t a, uint64_t b) {
             break;
         }
 
-        n = (uint64_t)(y_max / m);
-        b = (uint64_t)(y_max % m);
+        n = (uint64_t) (y_max / m);
+        b = (uint64_t) (y_max % m);
         std::swap(m, a);
     }
 
@@ -320,17 +320,17 @@ public:
     static_modint() : _v(0) {}
     template <class T, internal::is_signed_int_t<T>* = nullptr>
     static_modint(T v) {
-        int64_t x = (int64_t)(v % (int64_t)(umod()));
+        int64_t x = (int64_t) (v % (int64_t) (umod()));
 
         if (x < 0) {
             x += umod();
         }
 
-        _v = (uint32_t)(x);
+        _v = (uint32_t) (x);
     }
     template <class T, internal::is_unsigned_int_t<T>* = nullptr>
     static_modint(T v) {
-        _v = (uint32_t)(v % umod());
+        _v = (uint32_t) (v % umod());
     }
 
     uint32_t val() const {
@@ -386,7 +386,7 @@ public:
     mint& operator*=(const mint& rhs) {
         uint64_t z = _v;
         z *= rhs._v;
-        _v = (uint32_t)(z % umod());
+        _v = (uint32_t) (z % umod());
         return *this;
     }
     mint& operator/=(const mint& rhs) {
@@ -459,7 +459,7 @@ struct dynamic_modint : internal::modint_base {
 
 public:
     static int mod() {
-        return (int)(bt.umod());
+        return (int) (bt.umod());
     }
     static void set_mod(int m) {
         assert(1 <= m);
@@ -474,17 +474,17 @@ public:
     dynamic_modint() : _v(0) {}
     template <class T, internal::is_signed_int_t<T>* = nullptr>
     dynamic_modint(T v) {
-        int64_t x = (int64_t)(v % (int64_t)(mod()));
+        int64_t x = (int64_t) (v % (int64_t) (mod()));
 
         if (x < 0) {
             x += mod();
         }
 
-        _v = (uint32_t)(x);
+        _v = (uint32_t) (x);
     }
     template <class T, internal::is_unsigned_int_t<T>* = nullptr>
     dynamic_modint(T v) {
-        _v = (uint32_t)(v % mod());
+        _v = (uint32_t) (v % mod());
     }
 
     uint32_t val() const {
