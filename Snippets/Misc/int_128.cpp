@@ -8,6 +8,9 @@ using namespace std;
 
     Note:   Change __int128_t to unsigned __int128 for unsigned 128 bit integer.
             __int128 can hold about max 1.7 * 10^38
+
+    Note:   DO NOT use cin, cout or ios_base::sync_with_stdio(0), cin.tie(0) with this code.
+            Use printf and scanf only without ios_base::sync_with_stdio(0), cin.tie(0).
 */
 
 using BigInt = __int128;
