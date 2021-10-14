@@ -7,9 +7,7 @@ using namespace std;
     Usage:  fenwick_tree<T> fwt(int n)
 */
 
-namespace atcoder {
-
-namespace internal {
+namespace atcoder::internal {
 
 #ifndef _MSC_VER
 template <class T>
@@ -58,9 +56,7 @@ using is_unsigned_int_t = std::enable_if_t<is_unsigned_int<T>::value>;
 template <class T>
 using to_unsigned_t = typename to_unsigned<T>::type;
 
-}    // namespace internal
-
-}    // namespace atcoder
+}    // namespace atcoder::internal
 
 namespace atcoder {
 

@@ -12,19 +12,17 @@ using namespace std;
             });
 */
 
-template <class Fun>
-class y_combinator_result {
-    Fun fun_;
+template <class T>
+class Y {
+    T f_;
 
 public:
-    template <class T>
-    explicit y_combinator_result(T&& fun) : fun_(forward<T>(fun)) {}
+    template <class U>
+    explicit Y(U&& f) : f_(forward<U>(f)) {}
     template <class... Args>
     decltype(auto) operator()(Args&&... args) {
-        return fun_(ref(*this), forward<Args>(args)...);
+        return f_(ref(*this), forward<Args>(args)...);
     }
 };
-template <class Fun>
-decltype(auto) Y(Fun&& fun) {
-    return y_combinator_result<decay_t<Fun>>(forward<Fun>(fun));
-}
+template <class T>
+Y(T) -> Y<T>;

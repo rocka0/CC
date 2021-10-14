@@ -12,7 +12,7 @@ struct Edge {
     int to;
     int64_t weight;
 
-    bool operator<(const Edge& other) {
+    bool operator<(const Edge& other) const {
         // NOTE: Use > for descending order
         return weight < other.weight;
     }

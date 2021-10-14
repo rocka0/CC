@@ -7,9 +7,7 @@ using namespace std;
     Usage:  using mint = modint1000000007
 */
 
-namespace atcoder {
-
-namespace internal {
+namespace atcoder::internal {
 
 constexpr int64_t safe_mod(int64_t x, int64_t m) {
     x %= m;
@@ -38,9 +36,9 @@ struct barrett {
         uint64_t x;
         _umul128(z, im, &x);
 #else
-        uint64_t x = (uint64_t) (((unsigned __int128) (z) *im) >> 64);
+        auto x = (uint64_t) (((unsigned __int128) (z) *im) >> 64);
 #endif
-        uint32_t v = (uint32_t) (z - x * _m);
+        auto v = (uint32_t) (z - x * _m);
 
         if (_m <= v) {
             v += _m;
@@ -55,7 +53,7 @@ constexpr int64_t pow_mod_constexpr(int64_t x, int64_t n, int m) {
         return 0;
     }
 
-    uint32_t _m = (uint32_t) (m);
+    auto _m = (uint32_t) (m);
     uint64_t r = 1;
     uint64_t y = safe_mod(x, m);
 
@@ -230,13 +228,9 @@ uint64_t floor_sum_unsigned(uint64_t n, uint64_t m, uint64_t a, uint64_t b) {
     return ans;
 }
 
-}    // namespace internal
+}    // namespace atcoder::internal
 
-}    // namespace atcoder
-
-namespace atcoder {
-
-namespace internal {
+namespace atcoder::internal {
 
 #ifndef _MSC_VER
 template <class T>
@@ -285,9 +279,7 @@ using is_unsigned_int_t = std::enable_if_t<is_unsigned_int<T>::value>;
 template <class T>
 using to_unsigned_t = typename to_unsigned<T>::type;
 
-}    // namespace internal
-
-}    // namespace atcoder
+}    // namespace atcoder::internal
 
 namespace atcoder {
 
@@ -320,7 +312,7 @@ public:
     static_modint() : _v(0) {}
     template <class T, internal::is_signed_int_t<T>* = nullptr>
     static_modint(T v) {
-        int64_t x = (int64_t) (v % (int64_t) (umod()));
+        auto x = (int64_t) (v % (int64_t) (umod()));
 
         if (x < 0) {
             x += umod();
@@ -474,7 +466,7 @@ public:
     dynamic_modint() : _v(0) {}
     template <class T, internal::is_signed_int_t<T>* = nullptr>
     dynamic_modint(T v) {
-        int64_t x = (int64_t) (v % (int64_t) (mod()));
+        auto x = (int64_t) (v % (int64_t) (mod()));
 
         if (x < 0) {
             x += mod();
