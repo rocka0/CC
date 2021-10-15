@@ -9,10 +9,6 @@ template <typename A, typename B, typename C>
 string to_string(tuple<A, B, C> p) {
     return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")";
 }
-template <typename A, typename B, typename C, typename D>
-string to_string(tuple<A, B, C, D> p) {
-    return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ", " + to_string(get<3>(p)) + ")";
-}
 string to_string(bool b) {
     return (b ? "true" : "false");
 }
@@ -88,6 +84,4 @@ int main() {
     cin.tie(nullptr);
 
     // TODO: Remove debug() statements
-
-    return 0;
 }
