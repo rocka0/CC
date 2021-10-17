@@ -20,5 +20,6 @@
     "indent_guide_options": [
         "draw_normal",
         "draw_active"
-    ]
+    ],
+    "highlight_modified_tabs": true
 }
