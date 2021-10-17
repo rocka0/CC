@@ -10,7 +10,7 @@ string to_string(tuple<A, B, C> p) {
     return "(" + to_string(get<0>(p)) + ", " + to_string(get<1>(p)) + ", " + to_string(get<2>(p)) + ")";
 }
 string to_string(bool b) {
-    return (b ? "true" : "false");
+    return b ? "true" : "false";
 }
 string to_string(char c) {
     return string{c};
