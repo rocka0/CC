@@ -639,8 +639,7 @@ void setupModint() {
 }
 
 mint factorial(int x) {
-    assert(setupDone);
-    assert(x <= factorialLimit);
+    assert(setupDone and x <= factorialLimit);
     if (x < 0) {
         return 0;
     }
@@ -648,8 +647,7 @@ mint factorial(int x) {
 }
 
 mint inverseFactorial(int x) {
-    assert(setupDone);
-    assert(x <= factorialLimit);
+    assert(setupDone and x <= factorialLimit);
     if (x < 0) {
         return 0;
     }
