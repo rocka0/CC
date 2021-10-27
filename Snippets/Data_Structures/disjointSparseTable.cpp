@@ -58,12 +58,14 @@ public:
 
     // Returns operation over range [l, r]
     T query(int l, int r) const {
-        assert(l <= r);
-        if (l == r) {
+        if (l > r) {
+            return identity;
+        } else if (l == r) {
             return mat.back()[l];
+        } else {
+            const auto pos_diff = (sizeof(int64_t) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
+            const auto level = static_cast<int>(mat.size()) - 1 - pos_diff;
+            return Monoid{}(mat[level][l], mat[level][r]);
         }
-        const auto pos_diff = (sizeof(int64_t) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
-        const auto level = static_cast<int>(mat.size()) - 1 - pos_diff;
-        return Monoid{}(mat[level][l], mat[level][r]);
     }
 };

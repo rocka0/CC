@@ -3,6 +3,7 @@ using namespace std;
 
 /*
     Source: http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2016/p0200r0.html
+            https://mvanier.livejournal.com/2897.html
 
     Usage:  auto factorial = Y([&](auto F, int x) -> int {
                 if (x == 0 or x == 1) {
