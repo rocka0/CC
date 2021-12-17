@@ -4,14 +4,14 @@ using namespace std;
 /*
     Source: https://github.com/the-hyp0cr1t3/CC
 
-    Usage:  Call setupSieve() in main
+    Usage:  Call buildSieve() in main
 */
 
 const int sieveLimit = 2e7;
 array<int, sieveLimit + 1> spf;
 vector<int> primes;
 
-void setupSieve() {
+void buildSieve() {
     iota(spf.begin(), spf.end(), 0);
     // There are 1270607 primes less than 2e7
     primes.reserve(1270607);
