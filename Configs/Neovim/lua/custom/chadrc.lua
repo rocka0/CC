@@ -7,7 +7,7 @@ local M = {}
 -- example of changing theme:
 
 M.ui = {
-   theme = "chadracula",
+   theme = "uwu",
 }
 
 M.plugins = {
@@ -16,6 +16,12 @@ M.plugins = {
          setup_lspconf = "custom.plugin_confs.lspconfig",
       },
    },
+}
+
+M.options = {
+   tabstop = 4,
+   shiftwidth = 4,
+   expandtab = true
 }
 
 return M
