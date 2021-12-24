@@ -7,7 +7,7 @@ local M = {}
 -- example of changing theme:
 
 M.ui = {
-   theme = "uwu",
+   theme = "tokyonight",
 }
 
 M.plugins = {

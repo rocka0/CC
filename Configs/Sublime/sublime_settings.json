@@ -2,8 +2,8 @@
     "ignored_packages": [
         "Vintage"
     ],
-    "color_scheme": "Packages/1337 Color Scheme/1337.tmTheme",
-    "theme": "ayu-mirage.sublime-theme",
+    "color_scheme": "Monokai.sublime-color-scheme",
+    "theme": "Adaptive.sublime-theme",
     "font_size": 20,
     "hot_exit": false,
     "remember_open_files": false,
