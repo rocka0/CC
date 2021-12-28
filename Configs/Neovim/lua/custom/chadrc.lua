@@ -18,10 +18,11 @@ M.plugins = {
    },
 }
 
-M.options = {
-   tabstop = 4,
-   shiftwidth = 4,
-   expandtab = true
-}
+-- Matches clang-format indents
+-- M.options = {
+--    tabstop = 4,
+--    shiftwidth = 4,
+--    expandtab = true
+-- }
 
 return M
