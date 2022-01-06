@@ -66,7 +66,6 @@ M.plugins = {
       feline = true, -- statusline
       gitsigns = true,
       lspsignature = true, -- lsp enhancements
-      telescope_media = false,
       vim_matchup = true, -- improved matchit
       cmp = true,
       nvimtree = true,
@@ -79,6 +78,8 @@ M.plugins = {
       },
       nvimtree = {
          enable_git = 0,
+         -- packerCompile required after changing lazy_load
+         lazy_load = true,
 
          ui = {
             allow_resize = true,
@@ -203,12 +204,11 @@ M.mappings.plugins = {
       rename = "<leader>rn",
       code_action = "<leader>ca",
       references = "gr",
-      show_line_diagnostics = "ge",
+      float_diagnostics = "ge",
       goto_prev = "[d",
       goto_next = "]d",
       set_loclist = "<leader>q",
       formatting = "<leader>fm",
-      range_code_action = "<leader>ca",
    },
 
    nvimtree = {
@@ -226,10 +226,6 @@ M.mappings.plugins = {
       live_grep = "<leader>fw",
       oldfiles = "<leader>fo",
       themes = "<leader>th", -- NvChad theme picker
-
-      telescope_media = {
-         media_files = "<leader>fp",
-      },
    },
 }
 

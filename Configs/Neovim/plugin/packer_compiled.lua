@@ -174,7 +174,7 @@ _G.packer_plugins = {
     loaded = false,
     needs_bufread = false,
     path = "/home/tusky/.local/share/nvim/site/pack/packer/opt/feline.nvim",
-    url = "https://github.com/famiu/feline.nvim"
+    url = "https://github.com/feline-nvim/feline.nvim"
   },
   ["friendly-snippets"] = {
     after = { "nvim-cmp" },
@@ -290,16 +290,6 @@ _G.packer_plugins = {
     path = "/home/tusky/.local/share/nvim/site/pack/packer/start/plenary.nvim",
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
-  reponame = {
-    loaded = true,
-    path = "/home/tusky/.local/share/nvim/site/pack/packer/start/reponame",
-    url = "https://github.com/user or orgname/reponame"
-  },
-  ["telescope-fzf-native.nvim"] = {
-    loaded = true,
-    path = "/home/tusky/.local/share/nvim/site/pack/packer/start/telescope-fzf-native.nvim",
-    url = "https://github.com/nvim-telescope/telescope-fzf-native.nvim"
-  },
   ["telescope.nvim"] = {
     commands = { "Telescope" },
     config = { "require('plugins.configs.telescope')" },
@@ -320,8 +310,7 @@ _G.packer_plugins = {
 
 time([[Defining packer_plugins]], false)
 local module_lazy_loads = {
-  ["^Comment"] = "Comment.nvim",
-  ["^telescope"] = "telescope.nvim"
+  ["^Comment"] = "Comment.nvim"
 }
 local lazy_load_called = {['packer.load'] = true}
 local function lazy_load_module(module_name)
@@ -388,7 +377,7 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'better-escape.nvim', 'friendly-snippets'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
+vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'friendly-snippets', 'better-escape.nvim'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au VimEnter * ++once lua require("packer.load")({'packer.nvim'}, { event = "VimEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au BufRead * ++once lua require("packer.load")({'nvim-treesitter', 'indent-blankline.nvim'}, { event = "BufRead *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)

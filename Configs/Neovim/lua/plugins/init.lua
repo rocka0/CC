@@ -36,7 +36,7 @@ return packer.startup(function()
    }
 
    use {
-      "famiu/feline.nvim",
+      "feline-nvim/feline.nvim",
       disable = not plugin_settings.status.feline,
       after = "nvim-web-devicons",
       config = override_req("feline", "plugins.configs.statusline"),
@@ -205,7 +205,9 @@ return packer.startup(function()
    use {
       "kyazdani42/nvim-tree.lua",
       disable = not plugin_settings.status.nvimtree,
-      cmd = { "NvimTreeToggle", "NvimTreeFocus" },
+      -- only set "after" if lazy load is disabled and vice versa for "cmd"
+      after = not plugin_settings.options.nvimtree.lazy_load and "nvim-web-devicons",
+      cmd = plugin_settings.options.nvimtree.lazy_load and { "NvimTreeToggle", "NvimTreeFocus" },
       config = override_req("nvim_tree", "plugins.configs.nvimtree"),
       setup = function()
          require("core.mappings").nvimtree()
@@ -214,21 +216,7 @@ return packer.startup(function()
 
    use {
       "nvim-telescope/telescope.nvim",
-      module = "telescope",
       cmd = "Telescope",
-      requires = {
-         {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            run = "make",
-         },
-         {
-            "nvim-telescope/telescope-media-files.nvim",
-            disable = not plugin_settings.status.telescope_media,
-            setup = function()
-               require("core.mappings").telescope_media()
-            end,
-         },
-      },
       config = override_req("telescope", "plugins.configs.telescope"),
       setup = function()
          require("core.mappings").telescope()
