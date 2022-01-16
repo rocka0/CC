@@ -27,6 +27,7 @@ class handler(BaseHTTPRequestHandler):
             exec(f"mkdir {folderName}")
 
         exec(f"touch {folderName}/{MAIN_CODE_FILE}")
+        exec(f"cp debug.h {folderName}/debug.h")
         exec(f"subl {folderName}/{MAIN_CODE_FILE}")
         exec(f"mkdir {folderName}/inputs")
         exec(f"mkdir {folderName}/outputs")
