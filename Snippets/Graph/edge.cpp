@@ -16,8 +16,8 @@ struct Edge {
         // NOTE: Use > for descending order
         return weight < other.weight;
     }
-
-    friend ostream& operator<<(ostream& os, const Edge& E) {
-        return os << '(' << E.from << "->" << E.to << ',' << E.weight << ')';
-    }
 };
+
+inline string to_string(Edge E) {
+    return '{' + to_string(E.from) + " -> " + to_string(E.to) + ", " + to_string(E.weight) + '}';
+}

@@ -66,14 +66,12 @@ struct OrderedMultiset {
     map<T, int> freq;
 
     void insert(T x) {
-        data.insert({x, freq[x]});
-        ++freq[x];
+        data.insert({x, freq[x]++});
     };
 
     bool erase(T x) {
         if (freq.count(x) and freq[x] > 0) {
-            --freq[x];
-            auto it = data.find({x, freq[x]});
+            auto it = data.find({x, --freq[x]});
             data.erase(it);
             if (!freq[x]) {
                 freq.erase(x);
