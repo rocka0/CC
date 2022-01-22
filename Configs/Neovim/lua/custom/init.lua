@@ -1,33 +1,24 @@
--- This is an example init file , its supposed to be placed in /lua/custom dir
--- lua/custom/init.lua
+-- This is an example init file , its supposed to be placed in /lua/custom/
 
 -- This is where your custom modules and plugins go.
 -- Please check NvChad docs if you're totally new to nvchad + dont know lua!!
 
-local hooks = require "core.hooks"
-
 -- MAPPINGS
--- To add new plugins, use the "setup_mappings" hook,
+local map = require("core.utils").map
 
-hooks.add("setup_mappings", function(map)
-   map("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
-end)
-
--- NOTE : opt is a variable  there (most likely a table if you want multiple options),
--- you can remove it if you dont have any custom options
+map("n", "ca", "<cmd>lua vim.lsp.buf.code_action()<CR>")
+-- NOTE: the 4th argument in the map function can be a table i.e options but its most likely un-needed so dont worry about it
 
 -- Install plugins
--- To add new plugins, use the "install_plugin" hook,
+local customPlugins = require "core.customPlugins"
 
--- examples below:
-
-hooks.add("install_plugins", function(use)
+customPlugins.add(function(use)
    use {
       "max397574/better-escape.nvim",
       event = "InsertEnter",
    }
 end)
 
--- NOTE: we heavily suggest using Packer's lazy loading (with the 'event' field)
+-- NOTE: we heavily suggest using Packer's lazy loading (with the 'event','cmd' fields)
 -- see: https://github.com/wbthomason/packer.nvim
 -- https://nvchad.github.io/config/walkthrough
