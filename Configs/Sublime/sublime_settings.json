@@ -2,8 +2,8 @@
     "ignored_packages": [
         "Vintage"
     ],
-    "color_scheme": "Packages/Theme - Brogrammer/brogrammer.tmTheme",
-    "theme": "Brogrammer.sublime-theme",
+    "color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
+    "theme": "Material-Theme-Palenight.sublime-theme",
     "font_size": 20,
     "hot_exit": false,
     "remember_open_files": false,
