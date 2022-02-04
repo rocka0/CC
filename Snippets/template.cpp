@@ -8,21 +8,6 @@ using namespace std;
 #define debug(...) 42
 #endif
 
-template <class T>
-class Y {
-    T f_;
-
-public:
-    template <class U>
-    explicit Y(U &&f) : f_(forward<U>(f)) {}
-    template <class... Args>
-    decltype(auto) operator()(Args &&...args) {
-        return f_(ref(*this), forward<Args>(args)...);
-    }
-};
-template <class T>
-Y(T) -> Y<T>;
-
 template <typename T>
 bool chmax(T &x, T y) {
     return x < y and (x = y, true);
