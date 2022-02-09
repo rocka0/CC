@@ -2,12 +2,12 @@
     "ignored_packages": [
         "Vintage"
     ],
-    "color_scheme": "Packages/Material Theme/schemes/Material-Theme-Darker.tmTheme",
-    "theme": "Material-Theme-Palenight.sublime-theme",
+    "color_scheme": "Packages/1337 Color Scheme/1337.tmTheme",
+    "theme": "Brogrammer.sublime-theme",
     "font_size": 20,
     "hot_exit": false,
     "remember_open_files": false,
-    "font_face": "Fira Code",
+    "font_face": "JetBrainsMono Nerd Font",
     "trim_trailing_white_space_on_save": "all",
     "translate_tabs_to_spaces": true,
     "expand_tabs_on_save": true,
@@ -22,8 +22,6 @@
         "draw_active"
     ],
     "highlight_modified_tabs": true,
-    "dark_theme": "Default.sublime-theme",
-    "light_theme": "Default.sublime-theme",
     "ui_separator": true,
     "ui_wide_scrollbars": true
 }
