@@ -8,6 +8,7 @@ Index
    1. [Data Structures](/Snippets/Data_Structures/)
       * [Disjoint Sparse Table](/Snippets/Data_Structures/disjointSparseTable.cpp)
       * [Fenwick Tree](/Snippets/Data_Structures/fenwickTree.cpp)
+      * [Segment Tree](/Snippets/Data_Structures/segmentTree.cpp)
    2. [Graphs](/Snippets/Graph/)
       * [Disjoint Set Union / Union Find](/Snippets/Graph/dsu.cpp)
       * [Edge Struct](/Snippets/Graph/edge.cpp)
