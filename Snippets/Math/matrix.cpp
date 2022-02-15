@@ -44,7 +44,7 @@ public:
         return mat != B.mat;
     }
 
-    Matrix identity(int n) {
+    Matrix identity(int n) const {
         assert(n > 0);
         Matrix I = Matrix<T>(n, n);
         for (int i = 0; i < n; ++i) {
@@ -53,7 +53,7 @@ public:
         return I;
     }
 
-    Matrix add(const Matrix& A, const Matrix& B) {
+    Matrix add(const Matrix& A, const Matrix& B) const {
         assert(A.rows == B.rows);
         assert(A.cols == B.cols);
         Matrix ans(A.rows, B.cols);
@@ -65,7 +65,7 @@ public:
         return ans;
     }
 
-    Matrix subtract(const Matrix& A, const Matrix& B) {
+    Matrix subtract(const Matrix& A, const Matrix& B) const {
         assert(A.rows == B.rows);
         assert(A.cols == B.cols);
         Matrix ans(A.rows, B.cols);
@@ -77,7 +77,7 @@ public:
         return ans;
     }
 
-    Matrix multiply(const Matrix& A, const Matrix& B) {
+    Matrix multiply(const Matrix& A, const Matrix& B) const {
         assert(A.cols == B.rows);
         Matrix ans(A.rows, B.cols);
         for (int i = 0; i < A.rows; ++i) {
@@ -90,7 +90,7 @@ public:
         return ans;
     }
 
-    Matrix power(const Matrix& M, int64_t p) {
+    Matrix power(const Matrix& M, int64_t p) const {
         assert(M.rows == M.cols);
         assert(p >= 0);
         if (p == 0) {
