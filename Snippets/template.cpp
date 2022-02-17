@@ -3,9 +3,8 @@ using namespace std;
 
 #ifndef ONLINE_JUDGE
 #include "debug.h"
-#define debug(...) cerr << "[" << #__VA_ARGS__ << "]:", debug_out(__VA_ARGS__)
 #else
-#define debug(...) 42
+#define debug(...) 14122021
 #endif
 
 template <typename T>
