@@ -4,10 +4,10 @@ using namespace std;
 /*
     Source: https://codeforces.com/blog/entry/79108
 
-    Usage:  DisjointSparseTable ST(vector<int> arr, 0)
+    Usage:  DisjointSparseTable<int> ST(vector<int> arr)
 
     Note:   Change operation in Monoid to any Associative Binary Operation
-            In constructor, Identity is the identity element of the Monoid
+            In class, identity is the identity element of the Monoid
             (e.g. 0 for addition/xor and inf for minimum)
 */
 
@@ -16,29 +16,21 @@ class DisjointSparseTable {
     struct Monoid {
         constexpr T operator()(const T& lhs, const T& rhs) const {
             // TODO: Change this to any Associative Binary Operation
-            return (lhs + rhs);
+            return min(lhs, rhs);
         }
     };
-    vector<vector<T>> mat;
-    T identity;
+    const T identity = INT_MAX;
 
 public:
-    DisjointSparseTable(vector<T> arr, T Identity) {
-        identity = Identity;
-        int pow2 = 1, cnt = 0;
-        int arrSize = static_cast<int>(arr.size());
-        for (; pow2 < arrSize; pow2 <<= 1, ++cnt)
-            ;
-        if (arrSize == 1) {
-            cnt = 1;
-        }
+    DisjointSparseTable(vector<T> arr) {
+        int cnt = max(1, ceil_pow2(arr.size()));
+        int pow2 = 1 << cnt;
         arr.resize(pow2, identity);
         mat.resize(cnt, vector<T>(pow2));
-        int matSize = static_cast<int>(mat.size());
-        for (int level = 0; level < matSize; ++level) {
+        for (int level = 0; level < cnt; ++level) {
             for (int block = 0; block < 1 << level; ++block) {
-                const auto start = block << (matSize - level);
-                const auto end = (block + 1) << (matSize - level);
+                const auto start = block << (cnt - level);
+                const auto end = (block + 1) << (cnt - level);
                 const auto middle = (end + start) / 2;
                 auto val = arr[middle];
                 mat[level][middle] = val;
@@ -67,5 +59,14 @@ public:
             const auto level = static_cast<int>(mat.size()) - 1 - pos_diff;
             return Monoid{}(mat[level][l], mat[level][r]);
         }
+    }
+
+private:
+    vector<vector<T>> mat;
+
+    int ceil_pow2(int t) {
+        int x = 0;
+        while ((1u << x) < (uint32_t) (t)) x++;
+        return x;
     }
 };

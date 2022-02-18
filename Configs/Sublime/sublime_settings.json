@@ -2,8 +2,8 @@
     "ignored_packages": [
         "Vintage"
     ],
-    "color_scheme": "Packages/Theme - Brogrammer/brogrammer.tmTheme",
-    "theme": "Brogrammer.sublime-theme",
+    "color_scheme": "Packages/Dracula Color Scheme/Dracula.tmTheme",
+    "theme": "ayu-mirage.sublime-theme",
     "font_size": 20,
     "hot_exit": false,
     "remember_open_files": false,
