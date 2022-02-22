@@ -5,6 +5,8 @@ using namespace std;
     Source: https://github.com/atcoder/ac-library
 
     Usage:  using mint = modint1000000007
+
+    Note:   call initModint() in main
 */
 
 namespace atcoder::internal {
@@ -624,9 +626,9 @@ using mint = modint1000000007;
 const int factorialLimit = 1e6;
 array<mint, factorialLimit + 1> fact;
 array<mint, factorialLimit + 1> invFact;
-bool setupDone = false;
+bool initializationDone = false;
 
-void setupModint() {
+void initModint() {
     fact[0] = 1;
     for (int i = 1; i <= factorialLimit; ++i) {
         fact[i] = fact[i - 1] * i;
@@ -635,11 +637,11 @@ void setupModint() {
     for (int i = factorialLimit; i >= 1; --i) {
         invFact[i - 1] = invFact[i] * i;
     }
-    setupDone = true;
+    initializationDone = true;
 }
 
 mint factorial(int x) {
-    assert(setupDone and x <= factorialLimit);
+    assert(initializationDone and x <= factorialLimit);
     if (x < 0) {
         return 0;
     }
@@ -647,7 +649,7 @@ mint factorial(int x) {
 }
 
 mint inverseFactorial(int x) {
-    assert(setupDone and x <= factorialLimit);
+    assert(initializationDone and x <= factorialLimit);
     if (x < 0) {
         return 0;
     }
@@ -655,7 +657,7 @@ mint inverseFactorial(int x) {
 }
 
 mint nPr(int n, int r) {
-    assert(setupDone);
+    assert(initializationDone);
     if (r < 0 or n < r) {
         return 0;
     }
@@ -663,7 +665,7 @@ mint nPr(int n, int r) {
 }
 
 mint nCr(int n, int r) {
-    assert(setupDone);
+    assert(initializationDone);
     if (r < 0 or n < r) {
         return 0;
     }

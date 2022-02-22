@@ -4,16 +4,20 @@ from os import system
 
 ROOT_PATH = "/home/tusky/Tushar/CC"
 
+files = [
+	'compile_flags.txt',
+	'.clang-format',
+	'Snippets/boo.h',
+	'Scripts/parse',
+	'Scripts/compile',
+	'Scripts/run',
+	'Scripts/gen',
+	'Scripts/stress_test'
+]
+
 def main():
-	system(f"cp {ROOT_PATH}/compile_flags.txt .")
-	system(f"cp {ROOT_PATH}/.clang-format .")
-	system(f"cp {ROOT_PATH}/Snippets/debug.h .")
-	system(f"cp {ROOT_PATH}/Scripts/parse .")
-	system(f"cp {ROOT_PATH}/Scripts/compile .")
-	system(f"cp {ROOT_PATH}/Scripts/run .")
-	system(f"cp {ROOT_PATH}/Scripts/gen .")
-	system(f"cp {ROOT_PATH}/Scripts/stress_test .")
-	system("subl .")
+	for file in files:
+		system(f"cp {ROOT_PATH}/{file} .")
 	system("rm ./init")
 
 	return 0

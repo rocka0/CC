@@ -14,6 +14,7 @@
 -D_GLIBCXX_DEBUG
 -D_GLIBCXX_DEBUG_PEDANTIC
 -D_FORTIFY_SOURCE=2
+-DLOCAL
 -fsanitize=address
 -fsanitize=undefined
 -fno-sanitize-recover

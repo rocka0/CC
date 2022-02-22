@@ -1,8 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#ifndef ONLINE_JUDGE
-#include "debug.h"
+#ifdef LOCAL
+#include "boo.h"
 #else
 #define debug(...) 14122021
 #endif
