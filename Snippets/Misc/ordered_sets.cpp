@@ -70,16 +70,15 @@ struct OrderedMultiset {
     };
 
     bool erase(T x) {
-        if (freq.count(x) and freq[x] > 0) {
-            auto it = data.find({x, --freq[x]});
-            data.erase(it);
-            if (!freq[x]) {
+        if (freq.count(x)) {
+            int cnt = --freq[x];
+            data.erase({x, cnt});
+            if (!cnt) {
                 freq.erase(x);
             }
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
 
     int strictlyLess(T x) {
@@ -91,7 +90,12 @@ struct OrderedMultiset {
     }
 
     int strictlyGreater(T x) {
-        return (int) data.size() - strictlyLess(x) - strictlyEqual(x);
+        return (int) data.size() - strictlyLess(x + 1);
+    }
+
+    // Return number of elements in range [a,b]
+    int betweenInclusive(T a, T b) {
+        return strictlyLess(b + 1) - strictlyLess(a);
     }
 
     T getNthElement(int n) {
