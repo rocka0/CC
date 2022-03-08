@@ -7,10 +7,8 @@ ROOT_PATH = "/home/tusky/Tushar/CC"
 files = [
 	'compile_flags.txt',
 	'.clang-format',
-	'Snippets/boo.h',
-	'Scripts/parse',
+	'Snippets/tlh.hpp',
 	'Scripts/compile',
-	'Scripts/run',
 	'Scripts/gen',
 	'Scripts/stress_test'
 ]
@@ -18,6 +16,8 @@ files = [
 def main():
 	for file in files:
 		system(f"cp {ROOT_PATH}/{file} .")
+	system("touch app.cpp")
+	system("g++ -std=c++17 -O2 -DLOCAL tlh.hpp")
 	system("rm ./init")
 
 	return 0

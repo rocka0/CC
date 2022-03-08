@@ -1,9 +1,8 @@
+#ifdef LOCAL
+#include "tlh.hpp"
+#else
 #include <bits/stdc++.h>
 using namespace std;
-
-#ifdef LOCAL
-#include "boo.h"
-#else
 #define debug(...) 14122021
 #endif
 

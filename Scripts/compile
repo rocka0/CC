@@ -25,12 +25,11 @@ def compile():
     return (executed, delta)
 
 def main():
-    # Use compile(True) for debug flags
     success, compile_time = compile()
 
     if not success:
         print(term.bold(term.red(f"[FAIL] {MAIN_CODE_FILE} compilation failed")))
-        exit(1)
+        return 1
     else:
         print(term.bold(term.green(f"[OK] {MAIN_CODE_FILE} compiled")))
         print(term.blue("Compile Time: "), term.bold(term.green((compile_time))))

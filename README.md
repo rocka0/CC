@@ -28,5 +28,3 @@ Index
    * [Code Compilation](/Scripts/compile)
    * [Stress Testing](/Scripts/stress_test) 
    * [Test Case Generator](/Scripts/gen)
-   * [Test Case Parser](/Scripts/parse)
-   * [Test Case Runner](/Scripts/run)

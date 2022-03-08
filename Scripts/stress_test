@@ -24,7 +24,8 @@ def cleanup():
         "stress_test_in",
         "prog_stress_test_out",
         "brute_stress_test_out",
-        "app"
+        "app",
+        "brute"
     ]
     for file in files:
         if fileExists(file):
@@ -34,12 +35,12 @@ def main():
     assert fileExists("gen"), "Generator must exist as ./gen"
     if fileExists("brute.cpp"):
         if not exec('./compile brute'):
-            exit(1)
+            return 1
     else:
         assert fileExists("brute"), "Brute solution must exist as ./brute"
     if fileExists(MAIN_CODE_FILE):
-        if not exec('./compile'):
-            exit(1)
+        if not exec(f'./compile {MAIN_CODE_BASE_NAME}'):
+            return 1
     else:
         assert fileExists("app"), "Main solution must exist as ./app"
 
@@ -48,17 +49,17 @@ def main():
     for test in range(1, T+1):
         executed = exec("./gen > stress_test_in")
         if not executed:
-            print(term.bold(term.red(f"[FAIl] Generator Failed")))
-            exit(1)
+            print(term.bold(term.red("[FAIl] Generator Failed")))
+            return 1
         else:
-            with open(f"stress_test_in", "r") as file:
+            with open("stress_test_in", "r") as file:
                 stressInData = file.read().strip()
         ok = exec(f"./{MAIN_CODE_BASE_NAME} < stress_test_in > prog_stress_test_out")
         if not ok:
             print(term.bold(term.red(f"[RTE] Run Time Error on {MAIN_CODE_FILE}")))
             print(term.bold(term.red("Test Data:")))
             print(stressInData)
-            exit(1)
+            return 1
         else:
             with open("prog_stress_test_out", "r") as file:
                 programOutput = "\n".join([x.strip() for x in file.read().strip().splitlines()])
@@ -67,7 +68,7 @@ def main():
             print(term.bold(term.red(f"[RTE] Run Time Error on ./brute")))
             print(term.bold(term.red("Test Data:")))
             print(stressInData)
-            exit(1)
+            return 1
         else:
             with open("brute_stress_test_out", "r") as file:
                 bruteOutput = "\n".join([x.strip() for x in file.read().strip().splitlines()])
@@ -83,7 +84,7 @@ def main():
             print(programOutput)
             system("cat stress_test_in > in")
             cleanup()
-            exit(1)
+            return 1
 
     cleanup()
 
