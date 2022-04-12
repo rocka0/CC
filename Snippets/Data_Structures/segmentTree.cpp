@@ -37,7 +37,7 @@ Node merge(const Node &left, const Node &right) {
 class SegmentTree {
 public:
     SegmentTree() : SegmentTree(0) {}
-    SegmentTree(int n) : SegmentTree(vector<int>(n, 0)) {}
+    SegmentTree(int n) : SegmentTree(vector<int>(n, IdentityNode.val)) {}
 
     SegmentTree(const vector<int> &arr) {
         int _n = arr.size();
