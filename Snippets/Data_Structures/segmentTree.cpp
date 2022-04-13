@@ -2,93 +2,174 @@
 using namespace std;
 
 /*
-    Source: https://github.com/rocka0/CC
+    Source: https://github.com/atcoder/ac-library
 
-    Usage:  SegmentTree seg(vector<int> arr);
-            seg.update(int index, int val)
-            seg.query(int l, int r) -> returns associative op on range[l, r)
+    Usage:  SegmentTree segs;
 */
 
-// TODO: Change Node of SegmentTree
-struct Node {
-    using T = int64_t;
+namespace atcoder {
 
-    T val;
+    namespace internal {
 
-    // TODO: Change default constructor to reflect Identity Node
-    Node() : Node(INT_MAX) {}
+        int ceil_pow2(int n) {
+            int x = 0;
+            while ((1U << x) < (unsigned int) (n)) x++;
+            return x;
+        }
 
-    Node(T val) {
-        this->val = val;
-    }
+        constexpr int bsf_constexpr(unsigned int n) {
+            int x = 0;
+            while (!(n & (1 << x))) x++;
+            return x;
+        }
 
-    operator T() const {
-        return val;
-    }
-};
+        int bsf(unsigned int n) {
+#ifdef _MSC_VER
+            unsigned long index;
+            _BitScanForward(&index, n);
+            return index;
+#else
+            return __builtin_ctz(n);
+#endif
+        }
 
-const Node IdentityNode;
+    }    // namespace internal
 
-// TODO: Change Associative Merge Operation of SegmentTree
-Node merge(const Node &left, const Node &right) {
-    return Node(min(left.val, right.val));
+}    // namespace atcoder
+
+namespace atcoder {
+
+    template <class S, S (*op)(S, S), S (*e)()>
+    struct segtree {
+    public:
+        segtree() : segtree(0) {}
+        explicit segtree(int n) : segtree(std::vector<S>(n, e())) {}
+        explicit segtree(const std::vector<S> &v) : _n(int(v.size())) {
+            log = internal::ceil_pow2(_n);
+            size = 1 << log;
+            d = std::vector<S>(2 * size, e());
+            for (int i = 0; i < _n; i++) d[size + i] = v[i];
+            for (int i = size - 1; i >= 1; i--) {
+                update(i);
+            }
+        }
+
+        void set(int p, S x) {
+            assert(0 <= p && p < _n);
+            p += size;
+            d[p] = x;
+            for (int i = 1; i <= log; i++) update(p >> i);
+        }
+
+        S get(int p) const {
+            assert(0 <= p && p < _n);
+            return d[p + size];
+        }
+
+        S prod(int l, int r) const {
+            assert(0 <= l && l <= r && r <= _n);
+            S sml = e(), smr = e();
+            l += size;
+            r += size;
+
+            while (l < r) {
+                if (l & 1) sml = op(sml, d[l++]);
+                if (r & 1) smr = op(d[--r], smr);
+                l >>= 1;
+                r >>= 1;
+            }
+            return op(sml, smr);
+        }
+
+        S all_prod() const {
+            return d[1];
+        }
+
+        template <bool (*f)(S)>
+        int max_right(int l) const {
+            return max_right(l, [](S x) {
+                return f(x);
+            });
+        }
+        template <class F>
+        int max_right(int l, F f) const {
+            assert(0 <= l && l <= _n);
+            assert(f(e()));
+            if (l == _n) return _n;
+            l += size;
+            S sm = e();
+            do {
+                while (l % 2 == 0) l >>= 1;
+                if (!f(op(sm, d[l]))) {
+                    while (l < size) {
+                        l = (2 * l);
+                        if (f(op(sm, d[l]))) {
+                            sm = op(sm, d[l]);
+                            l++;
+                        }
+                    }
+                    return l - size;
+                }
+                sm = op(sm, d[l]);
+                l++;
+            } while ((l & -l) != l);
+            return _n;
+        }
+
+        template <bool (*f)(S)>
+        int min_left(int r) const {
+            return min_left(r, [](S x) {
+                return f(x);
+            });
+        }
+        template <class F>
+        int min_left(int r, F f) const {
+            assert(0 <= r && r <= _n);
+            assert(f(e()));
+            if (r == 0) return 0;
+            r += size;
+            S sm = e();
+            do {
+                r--;
+                while (r > 1 && (r % 2)) r >>= 1;
+                if (!f(op(d[r], sm))) {
+                    while (r < size) {
+                        r = (2 * r + 1);
+                        if (f(op(d[r], sm))) {
+                            sm = op(d[r], sm);
+                            r--;
+                        }
+                    }
+                    return r + 1 - size;
+                }
+                sm = op(d[r], sm);
+            } while ((r & -r) != r);
+            return 0;
+        }
+
+    private:
+        int _n, size, log;
+        std::vector<S> d;
+
+        void update(int k) {
+            d[k] = op(d[2 * k], d[2 * k + 1]);
+        }
+    };
+
+}    // namespace atcoder
+
+using namespace atcoder;
+
+// Associative operation for segment tree
+template <typename T>
+T op(const T a, const T b) {
+    return a + b;
 }
 
-class SegmentTree {
-public:
-    SegmentTree() : SegmentTree(0) {}
-    SegmentTree(int n) : SegmentTree(vector<int>(n, IdentityNode.val)) {}
+// Identity element for segment tree
+template <typename T>
+T e() {
+    return static_cast<T>(0);
+}
 
-    SegmentTree(const vector<int> &arr) {
-        int _n = arr.size();
-        int log = ceil_pow2(_n);
-        n = 1 << log;
-        tree.resize(n << 1, IdentityNode);
-        for (int i = 0; i < _n; i++) {
-            // TODO: Set leaf nodes of SegmentTree from arr
-            tree[n + i] = Node(arr[i]);
-        }
-        for (int i = n - 1; i >= 1; i--) {
-            pull(i);
-        }
-    }
-
-    void update(int index, int val) {
-        tree[index += n] = Node(val);
-        while (index > 1) {
-            index >>= 1;
-            pull(index);
-        }
-    }
-
-    Node query(int l, int r, int at, int lo, int hi) const {
-        if (l <= lo and hi <= r) {
-            return tree[at];
-        } else if (hi <= l or r <= lo) {
-            return IdentityNode;
-        } else {
-            int mi = (lo + hi) >> 1;
-            Node left = query(l, r, at << 1, lo, mi);
-            Node right = query(l, r, at << 1 | 1, mi, hi);
-            return merge(left, right);
-        }
-    }
-
-    Node query(int l, int r) const {
-        return query(l, r, 1, 0, n);
-    }
-
-private:
-    int n;
-    vector<Node> tree;
-
-    void pull(int x) {
-        tree[x] = merge(tree[x << 1], tree[x << 1 | 1]);
-    }
-
-    int ceil_pow2(int t) {
-        int x = 0;
-        while ((1u << x) < (uint32_t) (t)) x++;
-        return x;
-    }
-};
+using SegmentTree = segtree<int64_t, op, e>;
