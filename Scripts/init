@@ -17,6 +17,8 @@ def main():
 	for file in files:
 		system(f"cp {ROOT_PATH}/{file} .")
 	system("touch app.cpp")
+	system("touch in")
+	system("touch out")
 	system("g++ -std=c++17 -O2 -DLOCAL tlh.hpp")
 	system("rm ./init")
 
