@@ -7,7 +7,7 @@ ROOT_PATH = "/home/tusky/Tushar/CC"
 files = [
 	'compile_flags.txt',
 	'.clang-format',
-	'Snippets/tlh.hpp',
+	'Snippets/tl.hpp',
 	'Scripts/compile',
 	'Scripts/gen',
 	'Scripts/stress_test'
@@ -19,9 +19,8 @@ def main():
 	system("touch app.cpp")
 	system("touch in")
 	system("touch out")
-	system("g++ -std=c++17 -O2 -DLOCAL tlh.hpp")
+	system("g++ -std=c++17 -O2 -DLOCAL tl.hpp")
 	system("rm ./init")
-
 	return 0
 
 if __name__ == "__main__":
