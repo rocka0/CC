@@ -2,7 +2,7 @@
 
 from os import system
 
-ROOT_PATH = "/home/tusky/Tushar/CC"
+ROOT_PATH = "/home/tushie/Tushar/CC"
 
 files = [
 	'compile_flags.txt',
