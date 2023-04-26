@@ -1,6 +1,7 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from random import randint, shuffle, choice
+
 
 def getInt(a, b):
     """
@@ -17,7 +18,8 @@ def getInt(a, b):
     b = int(b)
     return randint(a, b)
 
-def getPair(a, b, way = 1):
+
+def getPair(a, b, way=1):
     """
     Returns a random pair of integers (x,y) such that x and y lie in the range [a,b].
         Parameters:
@@ -43,28 +45,29 @@ def getPair(a, b, way = 1):
     b = int(b)
     way = int(way)
 
-    x = getInt(a,b)
+    x = getInt(a, b)
 
     if way == 1:
         y = getInt(a, b)
     elif way == 2:
         assert a < b, "a < b for strictly increasing"
-        while(x == b):
-            x = getInt(a,b)
-        y = getInt(x+1, b)
+        while x == b:
+            x = getInt(a, b)
+        y = getInt(x + 1, b)
     elif way == 3:
         y = getInt(x, b)
     elif way == 4:
         assert a < b, "a < b for strictly decreasing"
-        while(x == a):
-            x = getInt(a,b)
-        y = getInt(a, x-1)
+        while x == a:
+            x = getInt(a, b)
+        y = getInt(a, x - 1)
     elif way == 5:
         y = getInt(a, x)
     else:
         raise RuntimeError("Invalid way passed")
 
-    return (x,y)
+    return (x, y)
+
 
 def getArray(n, a, b):
     """
@@ -82,10 +85,11 @@ def getArray(n, a, b):
     b = int(b)
     arr = [0 for _ in range(n)]
     for i in range(n):
-        arr[i] = getInt(a,b)
+        arr[i] = getInt(a, b)
     return arr
 
-def getUniqueArray(n,a,b):
+
+def getUniqueArray(n, a, b):
     """
     Returns a random array of size n of random integers in [a,b] range,
     where each element occurs exactly 1 time in the array.
@@ -103,14 +107,15 @@ def getUniqueArray(n,a,b):
     assert b - a + 1 >= n, "Possible number of elements should be at least n"
     arr = []
     seen = set([])
-    while(len(arr) < n):
-        ele = getInt(a,b)
+    while len(arr) < n:
+        ele = getInt(a, b)
         if ele in seen:
             continue
         else:
             arr.append(ele)
             seen.add(ele)
     return arr
+
 
 def getPermutation(n):
     """
@@ -123,10 +128,11 @@ def getPermutation(n):
 
     n = int(n)
     arr = []
-    for i in range(1, n+1):
+    for i in range(1, n + 1):
         arr.append(i)
     shuffle(arr)
     return arr
+
 
 def printArray(arr):
     """
@@ -139,6 +145,7 @@ def printArray(arr):
 
     print(" ".join([str(x) for x in arr]))
     return
+
 
 def getMatrix(n, m, a, b):
     """
@@ -161,6 +168,7 @@ def getMatrix(n, m, a, b):
         mat.append(getArray(m, a, b))
     return mat
 
+
 def printMatrix(mat):
     """
     Prints a matrix with no leading or trailing whitespaces.
@@ -174,10 +182,12 @@ def printMatrix(mat):
         printArray(mat[i])
     return
 
+
 lowerCaseAlphabet = "abcdefghijklmnopqrstuvwxyz"
 upperCaseAlphabet = lowerCaseAlphabet.upper()
 
-def getString(n, ALLOWED = lowerCaseAlphabet):
+
+def getString(n, ALLOWED=lowerCaseAlphabet):
     """
     Returns a random string of size n consisting of only characters from ALLOWED
         Parameters:
@@ -189,11 +199,12 @@ def getString(n, ALLOWED = lowerCaseAlphabet):
 
     assert len(ALLOWED) > 0, "There must be at least one possible character"
     ans = []
-    while(len(ans) < n):
+    while len(ans) < n:
         ans.append(choice(ALLOWED))
     return "".join(ans)
 
-def getCharMatrix(n, m, ALLOWED = lowerCaseAlphabet):
+
+def getCharMatrix(n, m, ALLOWED=lowerCaseAlphabet):
     """
     Returns a random string of size n consisting of only characters from ALLOWED
         Parameters:
@@ -212,6 +223,7 @@ def getCharMatrix(n, m, ALLOWED = lowerCaseAlphabet):
         ans.append(temp)
     return ans
 
+
 def printCharMatrix(mat):
     """
     Returns a random string of size n consisting of only characters from ALLOWED
@@ -225,10 +237,12 @@ def printCharMatrix(mat):
         print("".join(mat[i]))
     return
 
+
 def main():
     # Generator code goes here
 
     return 0
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

@@ -1,27 +1,29 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from os import system
 
-ROOT_PATH = "/home/tushie/Tushar/CC"
+ROOT_PATH = "/home/tushie/CC"
 
 files = [
-	'compile_flags.txt',
-	'.clang-format',
-	'Snippets/tl.hpp',
-	'Scripts/compile',
-	'Scripts/gen',
-	'Scripts/stress_test'
+    "compile_flags.txt",
+    ".clang-format",
+    "Snippets/tl.hpp",
+    "Scripts/compile",
+    "Scripts/gen",
+    "Scripts/stress_test",
 ]
 
+
 def main():
-	for file in files:
-		system(f"cp {ROOT_PATH}/{file} .")
-	system("touch app.cpp")
-	system("touch in")
-	system("touch out")
-	system("g++ -std=c++17 -O2 -DLOCAL tl.hpp")
-	system("rm ./init")
-	return 0
+    for file in files:
+        system(f"cp {ROOT_PATH}/{file} .")
+    system("touch app.cpp")
+    system("touch in")
+    system("touch out")
+    system("g++ -std=c++17 -O2 -DLOCAL tl.hpp")
+    system("rm ./init")
+    return 0
+
 
 if __name__ == "__main__":
-	main()
+    main()

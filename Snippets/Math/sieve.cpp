@@ -7,7 +7,7 @@ using namespace std;
     Usage:  Call buildSieve() in main
 */
 
-const int sieveLimit = 2e7;
+constexpr int sieveLimit = 2e7;
 array<int, sieveLimit + 1> spf;
 vector<int> primes;
 

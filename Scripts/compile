@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 from blessings import Terminal
 from time import time
@@ -11,18 +11,23 @@ else:
     MAIN_CODE_BASE_NAME = "app"
 
 MAIN_CODE_EXTENSION = "cpp"
-MAIN_CODE_FILE = MAIN_CODE_BASE_NAME + '.' + MAIN_CODE_EXTENSION
+MAIN_CODE_FILE = MAIN_CODE_BASE_NAME + "." + MAIN_CODE_EXTENSION
 
 term = Terminal()
+
 
 def exec(cmd):
     return system(cmd) == 0
 
+
 def compile():
     start_time = time()
-    executed = exec(f"g++ -std=c++17 -O2 -DLOCAL {MAIN_CODE_FILE} -o {MAIN_CODE_BASE_NAME}")
-    delta = str(round(time()-start_time, 3)) + 's'
+    executed = exec(
+        f"g++ -std=c++17 -O2 -DLOCAL {MAIN_CODE_FILE} -o {MAIN_CODE_BASE_NAME}"
+    )
+    delta = str(round(time() - start_time, 3)) + "s"
     return (executed, delta)
+
 
 def main():
     success, compile_time = compile()
@@ -35,5 +40,6 @@ def main():
         print(term.blue("Compile Time: "), term.bold(term.green((compile_time))))
         return 0
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()
