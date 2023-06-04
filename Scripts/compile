@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from blessings import Terminal
+from rich.console import Console
 from time import time
 from os import system
 from sys import argv
@@ -13,7 +13,8 @@ else:
 MAIN_CODE_EXTENSION = "cpp"
 MAIN_CODE_FILE = MAIN_CODE_BASE_NAME + "." + MAIN_CODE_EXTENSION
 
-term = Terminal()
+
+console = Console()
 
 
 def exec(cmd):
@@ -33,11 +34,17 @@ def main():
     success, compile_time = compile()
 
     if not success:
-        print(term.bold(term.red(f"[FAIL] {MAIN_CODE_FILE} compilation failed")))
+        console.print(
+            f"[bold red][FAIL][/bold red] [bold magenta]{MAIN_CODE_FILE}[/bold magenta] compilation failed"
+        )
         return 1
     else:
-        print(term.bold(term.green(f"[OK] {MAIN_CODE_FILE} compiled")))
-        print(term.blue("Compile Time: "), term.bold(term.green((compile_time))))
+        console.print(
+            f"[bold green][OK][/bold green] [bold magenta]{MAIN_CODE_FILE}[/bold magenta] compiled"
+        )
+        console.print(
+            f"[bold blue]Compile time[/bold blue]: [bold magenta]{compile_time}[/bold magenta]"
+        )
         return 0
 
 
