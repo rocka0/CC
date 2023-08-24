@@ -1,29 +1,24 @@
-#!/usr/bin/python3
+#! /usr/bin/bash
 
-from os import system
+# Remove .git, .gitignore, and README.md
+rm -rf .git .gitignore README.md
 
-ROOT_PATH = "/home/tushie/CC"
+files=(
+    "Snippets/tl.hpp"
+    "Scripts/Makefile"
+)
 
-files = [
-    "compile_flags.txt",
-    ".clang-format",
-    "Snippets/tl.hpp",
-    "Scripts/compile",
-    "Scripts/gen",
-    "Scripts/stress_test",
-]
+# Copy each file in files to the current directory
+for file in "${files[@]}"; do
+    cp -r "$file" .
+done
 
+# Remove snippets and scripts directory
+rm -rf Snippets Scripts
 
-def main():
-    for file in files:
-        system(f"cp {ROOT_PATH}/{file} .")
-    system("touch app.cpp")
-    system("touch in")
-    system("touch out")
-    system("g++ -std=c++17 -O2 -DLOCAL tl.hpp")
-    system("rm ./init")
-    return 0
+# Precompile tl.hpp
+g++ -std=c++17 -O2 -DLOCAL tl.hpp
 
-
-if __name__ == "__main__":
-    main()
+# Create app.cpp and in
+touch app.cpp
+touch in
