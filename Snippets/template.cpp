@@ -1,9 +1,10 @@
-#ifdef LOCAL
-#include "tl.hpp"
-#else
 #include <bits/stdc++.h>
 using namespace std;
-#define debug(...) 14122021
+
+#ifdef LOCAL
+#include "dbg.h"
+#else
+#define dbg(...) 14122021
 #endif
 
 template <typename T>
