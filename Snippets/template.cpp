@@ -2,7 +2,7 @@
 using namespace std;
 
 #ifdef LOCAL
-#include "dbg.h"
+#include "tl.hpp"
 #else
 #define dbg(...) 14122021
 #endif

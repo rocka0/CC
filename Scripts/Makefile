@@ -1,6 +1,6 @@
 CPP_EXECUTABLE_NAME = app
 CPP_FILE = $(CPP_EXECUTABLE_NAME).cpp
-CPP_FLAGS = -std=c++17 -O2 -DLOCAL
+CPP_FLAGS = -std=c++17 -O2 -DLOCAL -Wall -Wextra -Wshadow
 
 all: build
 
@@ -10,3 +10,7 @@ build: $(CPP_FILE)
 run: build
 	@time -f "Run time: %E seconds." ./$(CPP_EXECUTABLE_NAME) < in
 	@rm -f $(CPP_EXECUTABLE_NAME)
+
+new:
+	@rm -f $(CPP_FILE) in
+	@touch $(CPP_FILE) in

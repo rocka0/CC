@@ -18,8 +18,8 @@ rm -rf Snippets Scripts
 # Clone dbg-macro
 git clone https://github.com/sharkdp/dbg-macro.git --depth 1
 
-# Copy dbg.h to current directory
-cp dbg-macro/dbg.h .
+# Copy dbg.h to current directory as tl.hpp
+cp dbg-macro/dbg.h tl.hpp
 
 # Remove dbg-macro repository
 rm -rf dbg-macro
