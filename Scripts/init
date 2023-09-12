@@ -1,19 +1,7 @@
 #! /usr/bin/bash
 
-# Remove .git, .gitignore, and README.md
-rm -rf .git .gitignore README.md
-
-files=(
-    "Scripts/Makefile"
-)
-
-# Copy each file in files to the current directory
-for file in "${files[@]}"; do
-    cp -r "$file" .
-done
-
-# Remove snippets and scripts directory
-rm -rf Snippets Scripts
+# Copy Makefile to the current directory
+cp "Scripts/Makefile" .
 
 # Clone dbg-macro
 git clone https://github.com/sharkdp/dbg-macro.git --depth 1
@@ -21,8 +9,8 @@ git clone https://github.com/sharkdp/dbg-macro.git --depth 1
 # Copy dbg.h to current directory as tl.hpp
 cp dbg-macro/dbg.h tl.hpp
 
-# Remove dbg-macro repository
-rm -rf dbg-macro
+# Remove unnecessary directories
+rm -rf .git .gitignore README.md Snippets Scripts dbg-macro
 
 # Create app.cpp and in
 touch app.cpp
