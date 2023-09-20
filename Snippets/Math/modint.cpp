@@ -9,279 +9,214 @@ using namespace std;
     Note:   call initModint() in main
 */
 
-namespace atcoder::internal {
+namespace atcoder {
 
-    constexpr int64_t safe_mod(int64_t x, int64_t m) {
-        x %= m;
+    namespace internal {
 
-        if (x < 0) {
-            x += m;
+        constexpr long long safe_mod(long long x, long long m) {
+            x %= m;
+            if (x < 0) x += m;
+            return x;
         }
 
-        return x;
-    }
+        struct barrett {
+            unsigned int _m;
+            unsigned long long im;
 
-    struct barrett {
-        uint32_t _m;
-        uint64_t im;
+            explicit barrett(unsigned int m) : _m(m), im((unsigned long long) (-1) / m + 1) {}
 
-        explicit barrett(uint32_t m) : _m(m), im((uint64_t) (-1) / m + 1) {}
+            unsigned int umod() const {
+                return _m;
+            }
 
-        uint32_t umod() const {
-            return _m;
-        }
-
-        uint32_t mul(uint32_t a, uint32_t b) const {
-            uint64_t z = a;
-            z *= b;
+            unsigned int mul(unsigned int a, unsigned int b) const {
+                unsigned long long z = a;
+                z *= b;
 #ifdef _MSC_VER
-            uint64_t x;
-            _umul128(z, im, &x);
+                unsigned long long x;
+                _umul128(z, im, &x);
 #else
-            auto x = (uint64_t) (((unsigned __int128) (z) *im) >> 64);
+                unsigned long long x = (unsigned long long) (((unsigned __int128) (z) *im) >> 64);
 #endif
-            auto v = (uint32_t) (z - x * _m);
-
-            if (_m <= v) {
-                v += _m;
+                unsigned long long y = x * _m;
+                return (unsigned int) (z - y + (z < y ? _m : 0));
             }
+        };
 
-            return v;
-        }
-    };
-
-    constexpr int64_t pow_mod_constexpr(int64_t x, int64_t n, int m) {
-        if (m == 1) {
-            return 0;
-        }
-
-        auto _m = (uint32_t) (m);
-        uint64_t r = 1;
-        uint64_t y = safe_mod(x, m);
-
-        while (n) {
-            if (n & 1) {
-                r = (r * y) % _m;
+        constexpr long long pow_mod_constexpr(long long x, long long n, int m) {
+            if (m == 1) return 0;
+            unsigned int _m = (unsigned int) (m);
+            unsigned long long r = 1;
+            unsigned long long y = safe_mod(x, m);
+            while (n) {
+                if (n & 1) r = (r * y) % _m;
+                y = (y * y) % _m;
+                n >>= 1;
             }
-
-            y = (y * y) % _m;
-            n >>= 1;
+            return r;
         }
 
-        return r;
-    }
-
-    constexpr bool is_prime_constexpr(int n) {
-        if (n <= 1) {
-            return false;
-        }
-
-        if (n == 2 || n == 7 || n == 61) {
+        constexpr bool is_prime_constexpr(int n) {
+            if (n <= 1) return false;
+            if (n == 2 || n == 7 || n == 61) return true;
+            if (n % 2 == 0) return false;
+            long long d = n - 1;
+            while (d % 2 == 0) d /= 2;
+            constexpr long long bases[3] = {2, 7, 61};
+            for (long long a : bases) {
+                long long t = d;
+                long long y = pow_mod_constexpr(a, t, n);
+                while (t != n - 1 && y != 1 && y != n - 1) {
+                    y = y * y % n;
+                    t <<= 1;
+                }
+                if (y != n - 1 && t % 2 == 0) {
+                    return false;
+                }
+            }
             return true;
         }
+        template <int n>
+        constexpr bool is_prime = is_prime_constexpr(n);
 
-        if (n % 2 == 0) {
-            return false;
-        }
+        constexpr std::pair<long long, long long> inv_gcd(long long a, long long b) {
+            a = safe_mod(a, b);
+            if (a == 0) return {b, 0};
 
-        int64_t d = n - 1;
+            long long s = b, t = a;
+            long long m0 = 0, m1 = 1;
 
-        while (d % 2 == 0) {
-            d /= 2;
-        }
+            while (t) {
+                long long u = s / t;
+                s -= t * u;
+                m0 -= m1 * u;    // |m1 * u| <= |m1| * s <= b
 
-        constexpr int64_t bases[3] = {2, 7, 61};
-
-        for (int64_t a : bases) {
-            int64_t t = d;
-            int64_t y = pow_mod_constexpr(a, t, n);
-
-            while (t != n - 1 && y != 1 && y != n - 1) {
-                y = y * y % n;
-                t <<= 1;
+                auto tmp = s;
+                s = t;
+                t = tmp;
+                tmp = m0;
+                m0 = m1;
+                m1 = tmp;
             }
-
-            if (y != n - 1 && t % 2 == 0) {
-                return false;
-            }
+            if (m0 < 0) m0 += b / s;
+            return {s, m0};
         }
 
-        return true;
-    }
-    template <int n>
-    constexpr bool is_prime = is_prime_constexpr(n);
-
-    constexpr std::pair<int64_t, int64_t> inv_gcd(int64_t a, int64_t b) {
-        a = safe_mod(a, b);
-
-        if (a == 0) return {b, 0};
-
-        int64_t s = b, t = a;
-
-        int64_t m0 = 0, m1 = 1;
-
-        while (t) {
-            int64_t u = s / t;
-            s -= t * u;
-            m0 -= m1 * u;    // |m1 * u| <= |m1| * s <= b
-
-            auto tmp = s;
-            s = t;
-            t = tmp;
-            tmp = m0;
-            m0 = m1;
-            m1 = tmp;
-        }
-
-        if (m0 < 0) {
-            m0 += b / s;
-        }
-
-        return {s, m0};
-    }
-
-    constexpr int primitive_root_constexpr(int m) {
-        if (m == 2) {
-            return 1;
-        }
-
-        if (m == 167772161) {
-            return 3;
-        }
-
-        if (m == 469762049) {
-            return 3;
-        }
-
-        if (m == 754974721) {
-            return 11;
-        }
-
-        if (m == 998244353) {
-            return 3;
-        }
-
-        int divs[20] = {};
-        divs[0] = 2;
-        int cnt = 1;
-        int x = (m - 1) / 2;
-
-        while (x % 2 == 0) {
-            x /= 2;
-        }
-
-        for (int i = 3; (int64_t) (i) *i <= x; i += 2) {
-            if (x % i == 0) {
-                divs[cnt++] = i;
-
-                while (x % i == 0) {
-                    x /= i;
+        constexpr int primitive_root_constexpr(int m) {
+            if (m == 2) return 1;
+            if (m == 167772161) return 3;
+            if (m == 469762049) return 3;
+            if (m == 754974721) return 11;
+            if (m == 998244353) return 3;
+            int divs[20] = {};
+            divs[0] = 2;
+            int cnt = 1;
+            int x = (m - 1) / 2;
+            while (x % 2 == 0) x /= 2;
+            for (int i = 3; (long long) (i) *i <= x; i += 2) {
+                if (x % i == 0) {
+                    divs[cnt++] = i;
+                    while (x % i == 0) {
+                        x /= i;
+                    }
                 }
             }
-        }
-
-        if (x > 1) {
-            divs[cnt++] = x;
-        }
-
-        for (int g = 2;; g++) {
-            bool ok = true;
-
-            for (int i = 0; i < cnt; i++) {
-                if (pow_mod_constexpr(g, (m - 1) / divs[i], m) == 1) {
-                    ok = false;
-                    break;
+            if (x > 1) {
+                divs[cnt++] = x;
+            }
+            for (int g = 2;; g++) {
+                bool ok = true;
+                for (int i = 0; i < cnt; i++) {
+                    if (pow_mod_constexpr(g, (m - 1) / divs[i], m) == 1) {
+                        ok = false;
+                        break;
+                    }
                 }
-            }
-
-            if (ok) {
-                return g;
+                if (ok) return g;
             }
         }
-    }
-    template <int m>
-    constexpr int primitive_root = primitive_root_constexpr(m);
+        template <int m>
+        constexpr int primitive_root = primitive_root_constexpr(m);
 
-    uint64_t floor_sum_unsigned(uint64_t n, uint64_t m, uint64_t a, uint64_t b) {
-        uint64_t ans = 0;
+        unsigned long long floor_sum_unsigned(unsigned long long n, unsigned long long m, unsigned long long a, unsigned long long b) {
+            unsigned long long ans = 0;
+            while (true) {
+                if (a >= m) {
+                    ans += n * (n - 1) / 2 * (a / m);
+                    a %= m;
+                }
+                if (b >= m) {
+                    ans += n * (b / m);
+                    b %= m;
+                }
 
-        while (true) {
-            if (a >= m) {
-                ans += n * (n - 1) / 2 * (a / m);
-                a %= m;
+                unsigned long long y_max = a * n + b;
+                if (y_max < m) break;
+                n = (unsigned long long) (y_max / m);
+                b = (unsigned long long) (y_max % m);
+                std::swap(m, a);
             }
-
-            if (b >= m) {
-                ans += n * (b / m);
-                b %= m;
-            }
-
-            uint64_t y_max = a * n + b;
-
-            if (y_max < m) {
-                break;
-            }
-
-            n = (uint64_t) (y_max / m);
-            b = (uint64_t) (y_max % m);
-            std::swap(m, a);
+            return ans;
         }
 
-        return ans;
-    }
+    }    // namespace internal
 
-}    // namespace atcoder::internal
+}    // namespace atcoder
 
-namespace atcoder::internal {
+namespace atcoder {
+
+    namespace internal {
 
 #ifndef _MSC_VER
-    template <class T>
-    using is_signed_int128 = typename std::conditional<std::is_same<T, __int128_t>::value || std::is_same<T, __int128>::value, std::true_type, std::false_type>::type;
+        template <class T>
+        using is_signed_int128 = typename std::conditional<std::is_same<T, __int128_t>::value || std::is_same<T, __int128>::value, std::true_type, std::false_type>::type;
 
-    template <class T>
-    using is_unsigned_int128 = typename std::conditional<std::is_same<T, __uint128_t>::value || std::is_same<T, unsigned __int128>::value, std::true_type, std::false_type>::type;
+        template <class T>
+        using is_unsigned_int128 = typename std::conditional<std::is_same<T, __uint128_t>::value || std::is_same<T, unsigned __int128>::value, std::true_type, std::false_type>::type;
 
-    template <class T>
-    using make_unsigned_int128 = typename std::conditional<std::is_same<T, __int128_t>::value, __uint128_t, unsigned __int128>;
+        template <class T>
+        using make_unsigned_int128 = typename std::conditional<std::is_same<T, __int128_t>::value, __uint128_t, unsigned __int128>;
 
-    template <class T>
-    using is_integral = typename std::conditional<std::is_integral<T>::value || is_signed_int128<T>::value || is_unsigned_int128<T>::value, std::true_type, std::false_type>::type;
+        template <class T>
+        using is_integral = typename std::conditional<std::is_integral<T>::value || is_signed_int128<T>::value || is_unsigned_int128<T>::value, std::true_type, std::false_type>::type;
 
-    template <class T>
-    using is_signed_int = typename std::conditional<(is_integral<T>::value && std::is_signed<T>::value) || is_signed_int128<T>::value, std::true_type, std::false_type>::type;
+        template <class T>
+        using is_signed_int = typename std::conditional<(is_integral<T>::value && std::is_signed<T>::value) || is_signed_int128<T>::value, std::true_type, std::false_type>::type;
 
-    template <class T>
-    using is_unsigned_int = typename std::conditional<(is_integral<T>::value && std::is_unsigned<T>::value) || is_unsigned_int128<T>::value, std::true_type, std::false_type>::type;
+        template <class T>
+        using is_unsigned_int = typename std::conditional<(is_integral<T>::value && std::is_unsigned<T>::value) || is_unsigned_int128<T>::value, std::true_type, std::false_type>::type;
 
-    template <class T>
-    using to_unsigned = typename std::conditional<is_signed_int128<T>::value, make_unsigned_int128<T>, typename std::conditional<std::is_signed<T>::value, std::make_unsigned<T>, std::common_type<T>>::type>::type;
+        template <class T>
+        using to_unsigned = typename std::conditional<is_signed_int128<T>::value, make_unsigned_int128<T>, typename std::conditional<std::is_signed<T>::value, std::make_unsigned<T>, std::common_type<T>>::type>::type;
 
 #else
 
-    template <class T>
-    using is_integral = typename std::is_integral<T>;
+        template <class T>
+        using is_integral = typename std::is_integral<T>;
 
-    template <class T>
-    using is_signed_int = typename std::conditional<is_integral<T>::value && std::is_signed<T>::value, std::true_type, std::false_type>::type;
+        template <class T>
+        using is_signed_int = typename std::conditional<is_integral<T>::value && std::is_signed<T>::value, std::true_type, std::false_type>::type;
 
-    template <class T>
-    using is_unsigned_int = typename std::conditional<is_integral<T>::value && std::is_unsigned<T>::value, std::true_type, std::false_type>::type;
+        template <class T>
+        using is_unsigned_int = typename std::conditional<is_integral<T>::value && std::is_unsigned<T>::value, std::true_type, std::false_type>::type;
 
-    template <class T>
-    using to_unsigned = typename std::conditional<is_signed_int<T>::value, std::make_unsigned<T>, std::common_type<T>>::type;
+        template <class T>
+        using to_unsigned = typename std::conditional<is_signed_int<T>::value, std::make_unsigned<T>, std::common_type<T>>::type;
 
 #endif
 
-    template <class T>
-    using is_signed_int_t = std::enable_if_t<is_signed_int<T>::value>;
+        template <class T>
+        using is_signed_int_t = std::enable_if_t<is_signed_int<T>::value>;
 
-    template <class T>
-    using is_unsigned_int_t = std::enable_if_t<is_unsigned_int<T>::value>;
+        template <class T>
+        using is_unsigned_int_t = std::enable_if_t<is_unsigned_int<T>::value>;
 
-    template <class T>
-    using to_unsigned_t = typename to_unsigned<T>::type;
+        template <class T>
+        using to_unsigned_t = typename to_unsigned<T>::type;
 
-}    // namespace atcoder::internal
+    }    // namespace internal
+
+}    // namespace atcoder
 
 namespace atcoder {
 
@@ -314,37 +249,26 @@ namespace atcoder {
         static_modint() : _v(0) {}
         template <class T, internal::is_signed_int_t<T>* = nullptr>
         static_modint(T v) {
-            auto x = (int64_t) (v % (int64_t) (umod()));
-
-            if (x < 0) {
-                x += umod();
-            }
-
-            _v = (uint32_t) (x);
+            long long x = (long long) (v % (long long) (umod()));
+            if (x < 0) x += umod();
+            _v = (unsigned int) (x);
         }
         template <class T, internal::is_unsigned_int_t<T>* = nullptr>
         static_modint(T v) {
-            _v = (uint32_t) (v % umod());
+            _v = (unsigned int) (v % umod());
         }
 
-        uint32_t val() const {
+        unsigned int val() const {
             return _v;
         }
 
         mint& operator++() {
             _v++;
-
-            if (_v == umod()) {
-                _v = 0;
-            }
-
+            if (_v == umod()) _v = 0;
             return *this;
         }
         mint& operator--() {
-            if (_v == 0) {
-                _v = umod();
-            }
-
+            if (_v == 0) _v = umod();
             _v--;
             return *this;
         }
@@ -361,26 +285,18 @@ namespace atcoder {
 
         mint& operator+=(const mint& rhs) {
             _v += rhs._v;
-
-            if (_v >= umod()) {
-                _v -= umod();
-            }
-
+            if (_v >= umod()) _v -= umod();
             return *this;
         }
         mint& operator-=(const mint& rhs) {
             _v -= rhs._v;
-
-            if (_v >= umod()) {
-                _v += umod();
-            }
-
+            if (_v >= umod()) _v += umod();
             return *this;
         }
         mint& operator*=(const mint& rhs) {
-            uint64_t z = _v;
+            unsigned long long z = _v;
             z *= rhs._v;
-            _v = (uint32_t) (z % umod());
+            _v = (unsigned int) (z % umod());
             return *this;
         }
         mint& operator/=(const mint& rhs) {
@@ -394,19 +310,14 @@ namespace atcoder {
             return mint() - *this;
         }
 
-        mint pow(int64_t n) const {
+        mint pow(long long n) const {
             assert(0 <= n);
             mint x = *this, r = 1;
-
             while (n) {
-                if (n & 1) {
-                    r *= x;
-                }
-
+                if (n & 1) r *= x;
                 x *= x;
                 n >>= 1;
             }
-
             return r;
         }
         mint inv() const {
@@ -440,8 +351,8 @@ namespace atcoder {
         }
 
     private:
-        uint32_t _v;
-        static constexpr uint32_t umod() {
+        unsigned int _v;
+        static constexpr unsigned int umod() {
             return m;
         }
         static constexpr bool prime = internal::is_prime<m>;
@@ -468,37 +379,26 @@ namespace atcoder {
         dynamic_modint() : _v(0) {}
         template <class T, internal::is_signed_int_t<T>* = nullptr>
         dynamic_modint(T v) {
-            auto x = (int64_t) (v % (int64_t) (mod()));
-
-            if (x < 0) {
-                x += mod();
-            }
-
-            _v = (uint32_t) (x);
+            long long x = (long long) (v % (long long) (mod()));
+            if (x < 0) x += mod();
+            _v = (unsigned int) (x);
         }
         template <class T, internal::is_unsigned_int_t<T>* = nullptr>
         dynamic_modint(T v) {
-            _v = (uint32_t) (v % mod());
+            _v = (unsigned int) (v % mod());
         }
 
-        uint32_t val() const {
+        unsigned int val() const {
             return _v;
         }
 
         mint& operator++() {
             _v++;
-
-            if (_v == umod()) {
-                _v = 0;
-            }
-
+            if (_v == umod()) _v = 0;
             return *this;
         }
         mint& operator--() {
-            if (_v == 0) {
-                _v = umod();
-            }
-
+            if (_v == 0) _v = umod();
             _v--;
             return *this;
         }
@@ -515,20 +415,12 @@ namespace atcoder {
 
         mint& operator+=(const mint& rhs) {
             _v += rhs._v;
-
-            if (_v >= umod()) {
-                _v -= umod();
-            }
-
+            if (_v >= umod()) _v -= umod();
             return *this;
         }
         mint& operator-=(const mint& rhs) {
             _v += mod() - rhs._v;
-
-            if (_v >= umod()) {
-                _v -= umod();
-            }
-
+            if (_v >= umod()) _v -= umod();
             return *this;
         }
         mint& operator*=(const mint& rhs) {
@@ -546,19 +438,14 @@ namespace atcoder {
             return mint() - *this;
         }
 
-        mint pow(int64_t n) const {
+        mint pow(long long n) const {
             assert(0 <= n);
             mint x = *this, r = 1;
-
             while (n) {
-                if (n & 1) {
-                    r *= x;
-                }
-
+                if (n & 1) r *= x;
                 x *= x;
                 n >>= 1;
             }
-
             return r;
         }
         mint inv() const {
@@ -587,9 +474,9 @@ namespace atcoder {
         }
 
     private:
-        uint32_t _v;
+        unsigned int _v;
         static internal::barrett bt;
-        static uint32_t umod() {
+        static unsigned int umod() {
             return bt.umod();
         }
     };
@@ -620,8 +507,7 @@ namespace atcoder {
 
 }    // namespace atcoder
 
-using namespace atcoder;
-using mint = modint1000000007;
+using mint = atcoder::modint1000000007;
 
 const int factorialLimit = 1e6;
 array<mint, factorialLimit + 1> fact;

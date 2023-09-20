@@ -14,18 +14,18 @@ using namespace std;
 template <typename T>
 class DisjointSparseTable {
     struct Monoid {
+        static constexpr T identity = numeric_limits<T>::max();
         constexpr T operator()(const T& lhs, const T& rhs) const {
             // TODO: Change this to any Associative Binary Operation
             return min(lhs, rhs);
         }
     };
-    const T identity = INT_MAX;
 
 public:
-    DisjointSparseTable(vector<T> arr) {
+    explicit DisjointSparseTable(vector<T> arr) {
         int cnt = max(1, ceil_pow2(arr.size()));
         int pow2 = 1 << cnt;
-        arr.resize(pow2, identity);
+        arr.resize(pow2, Monoid::identity);
         mat.resize(cnt, vector<T>(pow2));
         for (int level = 0; level < cnt; ++level) {
             for (int block = 0; block < 1 << level; ++block) {
@@ -50,9 +50,8 @@ public:
 
     // Returns operation over range [l, r]
     T query(int l, int r) const {
-        if (l > r) {
-            return identity;
-        } else if (l == r) {
+        assert(0 <= l and l <= r and r < static_cast<int>(mat.back().size()));
+        if (l == r) {
             return mat.back()[l];
         } else {
             const auto pos_diff = (sizeof(int64_t) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
