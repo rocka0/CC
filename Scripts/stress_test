@@ -1,13 +1,10 @@
 #!/usr/bin/python3
 
 from os import system
-from blessings import Terminal
 
-MAIN_CODE_BASE_NAME = "app"
-MAIN_CODE_EXTENSION = "cpp"
-MAIN_CODE_FILE = MAIN_CODE_BASE_NAME + "." + MAIN_CODE_EXTENSION
-
-term = Terminal()
+MAIN_CODE_EXECUTABLE = "app"
+BRUTE_CODE_EXECUTABLE = "brute"
+GEN_CODE_EXECUTABLE = "gen"
 
 
 def fileExists(fileName):
@@ -18,85 +15,25 @@ def fileExists(fileName):
         return False
 
 
-def exec(cmd):
-    return system(cmd) == 0
-
-
-def cleanup():
-    files = [
-        "stress_test_in",
-        "prog_stress_test_out",
-        "brute_stress_test_out",
-        "app",
-        "brute",
-    ]
-    for file in files:
-        if fileExists(file):
-            exec(f"rm {file}")
-
-
 def main():
-    assert fileExists("gen"), "Generator must exist as ./gen"
-    if fileExists("brute.cpp"):
-        if not exec("./compile brute"):
-            return 1
-    else:
-        assert fileExists("brute"), "Brute solution must exist as ./brute"
-    if fileExists(MAIN_CODE_FILE):
-        if not exec(f"./compile {MAIN_CODE_BASE_NAME}"):
-            return 1
-    else:
-        assert fileExists("app"), "Main solution must exist as ./app"
+    assert fileExists(MAIN_CODE_EXECUTABLE), f"./{MAIN_CODE_EXECUTABLE} not found"
+    assert fileExists(BRUTE_CODE_EXECUTABLE), f"./{BRUTE_CODE_EXECUTABLE} not found"
+    assert fileExists(GEN_CODE_EXECUTABLE), f"./{GEN_CODE_EXECUTABLE} not found"
 
-    T = int(input("Enter the number of tests: "))
+    tests = int(input("Enter number of tests: "))
+    for t in range(1, tests + 1):
+        system(f"./{GEN_CODE_EXECUTABLE} > in")
+        system(f"./{MAIN_CODE_EXECUTABLE} < in > out")
+        system(f"./{BRUTE_CODE_EXECUTABLE} < in > brute_out")
+        if system("wdiff out brute_out > /dev/null") != 0:
+            print(f"[WA] Test {t} failed")
+            print("Failed test case:")
+            system(f"cat in")
+            exit(1)
+        else:
+            print(f"[AC] Test {t} passed")
 
-    for test in range(1, T + 1):
-        executed = exec("./gen > stress_test_in")
-        if not executed:
-            print(term.bold(term.red("[FAIl] Generator Failed")))
-            return 1
-        else:
-            with open("stress_test_in", "r") as file:
-                stressInData = file.read().strip()
-        ok = exec(f"./{MAIN_CODE_BASE_NAME} < stress_test_in > prog_stress_test_out")
-        if not ok:
-            print(term.bold(term.red(f"[RTE] Run Time Error on {MAIN_CODE_FILE}")))
-            print(term.bold(term.red("Test Data:")))
-            print(stressInData)
-            return 1
-        else:
-            with open("prog_stress_test_out", "r") as file:
-                programOutput = "\n".join(
-                    [x.strip() for x in file.read().strip().splitlines()]
-                )
-        ok = exec(f"./brute < stress_test_in > brute_stress_test_out")
-        if not ok:
-            print(term.bold(term.red(f"[RTE] Run Time Error on ./brute")))
-            print(term.bold(term.red("Test Data:")))
-            print(stressInData)
-            return 1
-        else:
-            with open("brute_stress_test_out", "r") as file:
-                bruteOutput = "\n".join(
-                    [x.strip() for x in file.read().strip().splitlines()]
-                )
-        if bruteOutput == programOutput:
-            print(term.bold(term.green(f"[AC] Test {test}")))
-        else:
-            print(term.bold(term.red(f"[WA] Wrong Answer on Test {test}")))
-            print(term.bold(term.blue("Test Data:")))
-            print(stressInData)
-            print(term.bold(term.green("Expected Answer:")))
-            print(bruteOutput)
-            print(term.bold(term.red("Your Answer:")))
-            print(programOutput)
-            system("cat stress_test_in > in")
-            cleanup()
-            return 1
-
-    cleanup()
-
-    return 0
+    system(f"rm in out brute_out")
 
 
 if __name__ == "__main__":

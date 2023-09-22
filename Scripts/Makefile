@@ -10,7 +10,3 @@ build: $(CPP_FILE)
 run: build
 	@time -f "Run time: %E seconds." ./$(CPP_EXECUTABLE_NAME) < in
 	@rm -f $(CPP_EXECUTABLE_NAME)
-
-new:
-	@rm -f $(CPP_FILE) in
-	@touch $(CPP_FILE) in
