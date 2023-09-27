@@ -7,6 +7,7 @@ Index
 1. [Snippets](https://github.com/rocka0/CC/tree/main/Snippets)
    1. [Data Structures](/Snippets/Data_Structures/)
       * [Disjoint Sparse Table](/Snippets/Data_Structures/disjointSparseTable.cpp)
+      * [Ordered Set/Multiset](/Snippets/Data_Structures/ordered_sets.cpp)
       * [Segment Tree](/Snippets/Data_Structures/segmentTree.cpp)
    2. [Graphs](/Snippets/Graph/)
       * [Disjoint Set Union / Union Find](/Snippets/Graph/dsu.cpp)
@@ -17,7 +18,6 @@ Index
       * [Sieve of Eratosthenes](/Snippets/Math/sieve.cpp)
    4. [Miscellaneous](/Snippets/Misc/)
       * [128 Bit Int](/Snippets/Misc/int_128.cpp)
-      * [Ordered Set/Multiset](/Snippets/Misc/ordered_sets.cpp)
       * [Safe Hash](/Snippets/Misc/safe_hash.cpp)
 
 2. Scripts
