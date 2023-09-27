@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 /*
     Source: https://codeforces.com/blog/entry/79108
@@ -14,19 +13,19 @@ using namespace std;
 template <typename T>
 class DisjointSparseTable {
     struct Monoid {
-        static constexpr T identity = numeric_limits<T>::max();
+        static constexpr T identity = std::numeric_limits<T>::max();
         constexpr T operator()(const T& lhs, const T& rhs) const {
             // TODO: Change this to any Associative Binary Operation
-            return min(lhs, rhs);
+            return std::min(lhs, rhs);
         }
     };
 
 public:
-    explicit DisjointSparseTable(vector<T> arr) {
-        int cnt = max(1, ceil_pow2(arr.size()));
+    explicit DisjointSparseTable(std::vector<T> arr) {
+        int cnt = std::max(1, ceil_pow2(arr.size()));
         int pow2 = 1 << cnt;
         arr.resize(pow2, Monoid::identity);
-        mat.resize(cnt, vector<T>(pow2));
+        mat.resize(cnt, std::vector<T>(pow2));
         for (int level = 0; level < cnt; ++level) {
             for (int block = 0; block < 1 << level; ++block) {
                 const auto start = block << (cnt - level);
@@ -61,7 +60,7 @@ public:
     }
 
 private:
-    vector<vector<T>> mat;
+    std::vector<std::vector<T>> mat;
 
     int ceil_pow2(int t) {
         int x = 0;

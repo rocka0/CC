@@ -7,7 +7,7 @@ using namespace std;
 #define dbg(...) 14122021
 #endif
 
-#define int int64_t
+#define int long long
 
 template <typename T>
 bool chmax(T &x, T y) {
@@ -19,7 +19,7 @@ bool chmin(T &x, T y) {
     return x > y and (x = y, true);
 }
 
-int32_t main() {
+signed main() {
     cin.tie(nullptr)->sync_with_stdio(false);
 
     // The Legend Himself
