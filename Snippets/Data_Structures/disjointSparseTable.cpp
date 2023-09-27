@@ -1,4 +1,8 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cassert>
+#include <climits>
+#include <limits>
+#include <vector>
 
 /*
     Source: https://codeforces.com/blog/entry/79108
@@ -64,7 +68,7 @@ private:
 
     int ceil_pow2(int t) {
         int x = 0;
-        while ((1u << x) < (uint32_t) (t)) x++;
+        while ((1u << x) < (unsigned) (t)) x++;
         return x;
     }
 };

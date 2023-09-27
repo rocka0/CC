@@ -1,105 +1,122 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <iostream>
 
 /*
     Source: https://codeforces.com/blog/entry/11080
-
-    Ordered Set:
-        Usage:  OrderedSet<int> oset;
-                oset.insert(1);
-                oset.insert(2);
-                oset.insert(4);
-                oset.insert(8);
-                oset.insert(16);
-
-                oset = {1,2,4,8,16}
-                oset.find_by_order(x)    -> returns iterator to oset[x]
-                *(oset.find_by_order(1))    -> returns oset[1] = 2
-                *(oset.find_by_order(2))    -> returns oset[2] = 4
-                *(oset.find_by_order(4))    -> returns oset[4] = 16
-                oset.find_by_order(5)       -> returns oset.end()
-
-                oset = {1,2,4,8,16}
-                oset.order_of_key(x)     -> returns number of elements strictly less than x
-                oset.order_of_key(-5)       -> 0
-                oset.order_of_key(1)        -> 0
-                oset.order_of_key(3)        -> 2
-                oset.order_of_key(4)        -> 2
-                oset.order_of_key(400)      -> 5
-
-        Note:   If we want to get map but not a set,
-                the second template argument type must be declared as mapped type,
-                instead of null_type.
-
-        Note:   One can achieve OrderedMultiset using ordered_set by changing
-                less<T> to less_equal<T>.
-
-                Usage:  template <typename T>
-                        using OrderedMultiset = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
-
-                        OrderedMultiset<int> omset;
-
-                        There are some things to be noted about this OrderedMultiset:
-                            1. OrderedMultiset::erase() method doesn't work
-                            2. OrderedMultiset::lower_bound() behaves like upper_bound()
-                            3. OrderedMultiset::upper_bound() behaves like lower_bound()
-                            4. OrderedMultiset::find() always returns OrderedMultiset::end()
-                            5. OrderedMultiset::find_by_order() and OrderedMultiset::order_of_key()
-                            work normally
-
-    Ordered Multiset [built using pair<T,int>]:
-        Usage:  OrderedMultiset<int> omset;
-                omset.insert(3);
-                assert(omset.erase(3));
 */
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
-using namespace __gnu_pbds;
 
 template <typename T>
-using OrderedSet = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+struct OrderedSet {
+    int size() const {
+        return data.size();
+    }
 
+    bool insert(T element) {
+        return data.insert(element).second;
+    }
+
+    bool erase(T element) {
+        return data.erase(element);
+    }
+
+    int strictlyLess(T val) const {
+        return data.order_of_key(val);
+    }
+
+    int strictlyGreater(T val) const {
+        return data.size() - data.order_of_key(val + 1);
+    }
+
+    int strictlyEqual(T val) const {
+        return data.find(val) != data.end();
+    }
+
+    // Returns the number of elements in the inclusive range [l,r] present in the set
+    int inBetween(T l, T r) const {
+        assert(l <= r);
+        return data.order_of_key(r + 1) - data.order_of_key(l);
+    }
+
+    // Returns the element present at position "index" in the < order of elements in the set
+    T get(int index) const {
+        assert(0 <= index && index < static_cast<int>(data.size()));
+        return *data.find_by_order(index);
+    }
+
+    __gnu_pbds::tree<T, __gnu_pbds::null_type, std::less<T>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update> data;
+};
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const OrderedSet<T>& s) {
+    os << "{";
+    for (auto it = s.data.begin(); it != s.data.end(); it++) {
+        if (it != s.data.begin()) os << ", ";
+        os << *it;
+    }
+    os << "}";
+    return os;
+}
+
+/*
+ * Since we use less_equal<T> instead of less<T>, some functions of ordered_multiset are changed with respect to normal std::set:
+ * 1. insert() works normally
+ * 2. erase() doesn't work at all
+ * 3. lower_bound() works like upper_bound()
+ * 4. upper_bound() works like lower_bound()
+ */
 template <typename T>
 struct OrderedMultiset {
-    OrderedSet<pair<T, int>> data;
-    map<T, int> freq;
+    int size() const {
+        return data.size();
+    }
 
-    void insert(T x) {
-        data.insert({x, freq[x]++});
-    };
+    bool insert(T element) {
+        return data.insert(element).second;
+    }
 
-    bool erase(T x) {
-        if (freq.count(x)) {
-            int cnt = --freq[x];
-            data.erase({x, cnt});
-            if (!cnt) {
-                freq.erase(x);
-            }
+    bool erase(T element) {
+        auto it = data.upper_bound(element);
+        if (it != data.end() && *it == element) {
+            data.erase(it);
             return true;
         }
         return false;
     }
 
-    int strictlyLess(T x) {
-        return data.order_of_key({x, 0});
+    int strictlyLess(T val) const {
+        return data.order_of_key(val);
     }
 
-    int strictlyEqual(T x) {
-        return freq[x];
+    int strictlyGreater(T val) const {
+        return data.size() - data.order_of_key(val + 1);
     }
 
-    int strictlyGreater(T x) {
-        return (int) data.size() - strictlyLess(x + 1);
+    int strictlyEqual(T val) const {
+        return data.order_of_key(val + 1) - data.order_of_key(val);
     }
 
-    // Return number of elements in range [a,b]
-    int betweenInclusive(T a, T b) {
-        return strictlyLess(b + 1) - strictlyLess(a);
+    // Returns the number of elements in the range [l, r] in the multiset
+    int inBetween(T l, T r) const {
+        return data.order_of_key(r + 1) - data.order_of_key(l);
     }
 
-    T getNthElement(int n) {
-        assert(0 <= n and n < (int) data.size());
-        return data.find_by_order(n)->first;
+    // Returns the element at position "index" in the sorted < order of elements in the multiset
+    T get(int index) const {
+        assert(0 <= index && index < size());
+        return *data.find_by_order(index);
     }
+
+    __gnu_pbds::tree<T, __gnu_pbds::null_type, std::less_equal<T>, __gnu_pbds::rb_tree_tag, __gnu_pbds::tree_order_statistics_node_update> data;
 };
+
+template <typename T>
+std::ostream& operator<<(std::ostream& os, const OrderedMultiset<T>& s) {
+    os << "{";
+    for (auto it = s.data.begin(); it != s.data.end(); it++) {
+        if (it != s.data.begin()) os << ", ";
+        os << *it;
+    }
+    return os << "}";
+}

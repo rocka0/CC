@@ -1,4 +1,6 @@
-#include <bits/stdc++.h>
+#include <algorithm>
+#include <cassert>
+#include <vector>
 
 /*
     Source: https://github.com/atcoder/ac-library

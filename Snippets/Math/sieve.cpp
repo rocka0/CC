@@ -1,5 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <array>
+#include <numeric>
+#include <vector>
 
 /*
     Source: https://github.com/the-hyp0cr1t3/CC
@@ -8,11 +9,11 @@ using namespace std;
 */
 
 constexpr int sieveLimit = 2e7;
-array<int, sieveLimit + 1> spf;
-vector<int> primes;
+std::array<int, sieveLimit + 1> spf;
+std::vector<int> primes;
 
 void buildSieve() {
-    iota(spf.begin(), spf.end(), 0);
+    std::iota(spf.begin(), spf.end(), 0);
     // There are 1270607 primes less than 2e7
     primes.reserve(1270607);
     primes.push_back(2);

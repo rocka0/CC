@@ -1,5 +1,5 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <cassert>
+#include <vector>
 
 /*
     Source: https://github.com/rocka0/CC
@@ -9,7 +9,7 @@ using namespace std;
 
 template <typename T>
 class Matrix {
-    vector<vector<T>> mat;
+    std::vector<std::vector<T>> mat;
 
 public:
     int rows;
@@ -26,12 +26,12 @@ public:
         }
     }
 
-    vector<T>& operator[](int x) {
+    std::vector<T>& operator[](int x) {
         assert(x < rows);
         return mat[x];
     }
 
-    const vector<T>& operator[](int x) const {
+    const std::vector<T>& operator[](int x) const {
         assert(x < rows);
         return mat[x];
     }
@@ -90,7 +90,7 @@ public:
         return ans;
     }
 
-    Matrix power(const Matrix& M, int64_t p) const {
+    Matrix power(const Matrix& M, long long p) const {
         assert(M.rows == M.cols);
         assert(p >= 0);
         if (p == 0) {

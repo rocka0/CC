@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <vector>
 
 /*
     Source: https://github.com/rocka0/CC
@@ -54,5 +53,5 @@ struct segtree {
     }
 
     int m_n;
-    vector<node_t> m_tree;
+    std::vector<node_t> m_tree;
 };

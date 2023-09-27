@@ -1,5 +1,6 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <chrono>
+#include <cstdint>
+#include <utility>
 
 /*
     Source: https://codeforces.com/blog/entry/62393
@@ -19,15 +20,15 @@ uint64_t splitmix64(uint64_t x) {
 }
 
 struct SafeHash {
-    size_t operator()(uint64_t x) const {
-        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+    std::size_t operator()(uint64_t x) const {
+        static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
         return splitmix64(x + FIXED_RANDOM);
     }
 };
 
 struct SafeHashPairInt {
-    size_t operator()(pair<int, int> p) const {
-        static const uint64_t FIXED_RANDOM = chrono::steady_clock::now().time_since_epoch().count();
+    std::size_t operator()(std::pair<int, int> p) const {
+        static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
         return splitmix64((size_t) 487631741 * (size_t) p.first + (size_t) 436217543 * (size_t) p.second + FIXED_RANDOM);
     }
 };

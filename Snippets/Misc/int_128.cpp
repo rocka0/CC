@@ -1,5 +1,4 @@
-#include <bits/stdc++.h>
-using namespace std;
+#include <cstdio>
 
 /*
     Source: https://codeforces.com/blog/entry/62393
