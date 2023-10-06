@@ -8,5 +8,5 @@ build: $(CPP_FILE)
 	@g++ $(CPP_FLAGS) $(CPP_FILE) -o $(CPP_EXECUTABLE_NAME)
 
 run: build
-	@time -f "Run time: %E seconds." ./$(CPP_EXECUTABLE_NAME) < in
+	@time -p ./$(CPP_EXECUTABLE_NAME) < in
 	@rm -f $(CPP_EXECUTABLE_NAME)
