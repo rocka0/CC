@@ -15,7 +15,8 @@ namespace atcoder {
 
         constexpr long long safe_mod(long long x, long long m) {
             x %= m;
-            if (x < 0) x += m;
+            if (x < 0)
+                x += m;
             return x;
         }
 
@@ -44,12 +45,14 @@ namespace atcoder {
         };
 
         constexpr long long pow_mod_constexpr(long long x, long long n, int m) {
-            if (m == 1) return 0;
+            if (m == 1)
+                return 0;
             unsigned int _m = (unsigned int) (m);
             unsigned long long r = 1;
             unsigned long long y = safe_mod(x, m);
             while (n) {
-                if (n & 1) r = (r * y) % _m;
+                if (n & 1)
+                    r = (r * y) % _m;
                 y = (y * y) % _m;
                 n >>= 1;
             }
@@ -57,11 +60,15 @@ namespace atcoder {
         }
 
         constexpr bool is_prime_constexpr(int n) {
-            if (n <= 1) return false;
-            if (n == 2 || n == 7 || n == 61) return true;
-            if (n % 2 == 0) return false;
+            if (n <= 1)
+                return false;
+            if (n == 2 || n == 7 || n == 61)
+                return true;
+            if (n % 2 == 0)
+                return false;
             long long d = n - 1;
-            while (d % 2 == 0) d /= 2;
+            while (d % 2 == 0)
+                d /= 2;
             constexpr long long bases[3] = {2, 7, 61};
             for (long long a : bases) {
                 long long t = d;
@@ -81,7 +88,8 @@ namespace atcoder {
 
         constexpr std::pair<long long, long long> inv_gcd(long long a, long long b) {
             a = safe_mod(a, b);
-            if (a == 0) return {b, 0};
+            if (a == 0)
+                return {b, 0};
 
             long long s = b, t = a;
             long long m0 = 0, m1 = 1;
@@ -98,21 +106,28 @@ namespace atcoder {
                 m0 = m1;
                 m1 = tmp;
             }
-            if (m0 < 0) m0 += b / s;
+            if (m0 < 0)
+                m0 += b / s;
             return {s, m0};
         }
 
         constexpr int primitive_root_constexpr(int m) {
-            if (m == 2) return 1;
-            if (m == 167772161) return 3;
-            if (m == 469762049) return 3;
-            if (m == 754974721) return 11;
-            if (m == 998244353) return 3;
+            if (m == 2)
+                return 1;
+            if (m == 167772161)
+                return 3;
+            if (m == 469762049)
+                return 3;
+            if (m == 754974721)
+                return 11;
+            if (m == 998244353)
+                return 3;
             int divs[20] = {};
             divs[0] = 2;
             int cnt = 1;
             int x = (m - 1) / 2;
-            while (x % 2 == 0) x /= 2;
+            while (x % 2 == 0)
+                x /= 2;
             for (int i = 3; (long long) (i) *i <= x; i += 2) {
                 if (x % i == 0) {
                     divs[cnt++] = i;
@@ -132,7 +147,8 @@ namespace atcoder {
                         break;
                     }
                 }
-                if (ok) return g;
+                if (ok)
+                    return g;
             }
         }
         template <int m>
@@ -151,7 +167,8 @@ namespace atcoder {
                 }
 
                 unsigned long long y_max = a * n + b;
-                if (y_max < m) break;
+                if (y_max < m)
+                    break;
                 n = (unsigned long long) (y_max / m);
                 b = (unsigned long long) (y_max % m);
                 std::swap(m, a);
@@ -250,7 +267,8 @@ namespace atcoder {
         template <class T, internal::is_signed_int_t<T>* = nullptr>
         static_modint(T v) {
             long long x = (long long) (v % (long long) (umod()));
-            if (x < 0) x += umod();
+            if (x < 0)
+                x += umod();
             _v = (unsigned int) (x);
         }
         template <class T, internal::is_unsigned_int_t<T>* = nullptr>
@@ -264,11 +282,13 @@ namespace atcoder {
 
         mint& operator++() {
             _v++;
-            if (_v == umod()) _v = 0;
+            if (_v == umod())
+                _v = 0;
             return *this;
         }
         mint& operator--() {
-            if (_v == 0) _v = umod();
+            if (_v == 0)
+                _v = umod();
             _v--;
             return *this;
         }
@@ -285,12 +305,14 @@ namespace atcoder {
 
         mint& operator+=(const mint& rhs) {
             _v += rhs._v;
-            if (_v >= umod()) _v -= umod();
+            if (_v >= umod())
+                _v -= umod();
             return *this;
         }
         mint& operator-=(const mint& rhs) {
             _v -= rhs._v;
-            if (_v >= umod()) _v += umod();
+            if (_v >= umod())
+                _v += umod();
             return *this;
         }
         mint& operator*=(const mint& rhs) {
@@ -314,7 +336,8 @@ namespace atcoder {
             assert(0 <= n);
             mint x = *this, r = 1;
             while (n) {
-                if (n & 1) r *= x;
+                if (n & 1)
+                    r *= x;
                 x *= x;
                 n >>= 1;
             }
@@ -380,7 +403,8 @@ namespace atcoder {
         template <class T, internal::is_signed_int_t<T>* = nullptr>
         dynamic_modint(T v) {
             long long x = (long long) (v % (long long) (mod()));
-            if (x < 0) x += mod();
+            if (x < 0)
+                x += mod();
             _v = (unsigned int) (x);
         }
         template <class T, internal::is_unsigned_int_t<T>* = nullptr>
@@ -394,11 +418,13 @@ namespace atcoder {
 
         mint& operator++() {
             _v++;
-            if (_v == umod()) _v = 0;
+            if (_v == umod())
+                _v = 0;
             return *this;
         }
         mint& operator--() {
-            if (_v == 0) _v = umod();
+            if (_v == 0)
+                _v = umod();
             _v--;
             return *this;
         }
@@ -415,12 +441,14 @@ namespace atcoder {
 
         mint& operator+=(const mint& rhs) {
             _v += rhs._v;
-            if (_v >= umod()) _v -= umod();
+            if (_v >= umod())
+                _v -= umod();
             return *this;
         }
         mint& operator-=(const mint& rhs) {
             _v += mod() - rhs._v;
-            if (_v >= umod()) _v -= umod();
+            if (_v >= umod())
+                _v -= umod();
             return *this;
         }
         mint& operator*=(const mint& rhs) {
@@ -442,7 +470,8 @@ namespace atcoder {
             assert(0 <= n);
             mint x = *this, r = 1;
             while (n) {
-                if (n & 1) r *= x;
+                if (n & 1)
+                    r *= x;
                 x *= x;
                 n >>= 1;
             }

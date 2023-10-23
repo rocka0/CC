@@ -25,7 +25,8 @@ struct segtree {
 
     explicit segtree(int n) {
         m_n = 1;
-        while (m_n < n) m_n <<= 1;
+        while (m_n < n)
+            m_n <<= 1;
         m_tree.resize(2 * m_n);
     }
 

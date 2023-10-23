@@ -68,7 +68,8 @@ private:
 
     int ceil_pow2(int t) {
         int x = 0;
-        while ((1u << x) < (unsigned) (t)) x++;
+        while ((1u << x) < (unsigned) (t))
+            x++;
         return x;
     }
 };

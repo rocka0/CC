@@ -52,7 +52,8 @@ template <typename T>
 std::ostream& operator<<(std::ostream& os, const OrderedSet<T>& s) {
     os << "{";
     for (auto it = s.data.begin(); it != s.data.end(); it++) {
-        if (it != s.data.begin()) os << ", ";
+        if (it != s.data.begin())
+            os << ", ";
         os << *it;
     }
     os << "}";
@@ -115,7 +116,8 @@ template <typename T>
 std::ostream& operator<<(std::ostream& os, const OrderedMultiset<T>& s) {
     os << "{";
     for (auto it = s.data.begin(); it != s.data.end(); it++) {
-        if (it != s.data.begin()) os << ", ";
+        if (it != s.data.begin())
+            os << ", ";
         os << *it;
     }
     return os << "}";

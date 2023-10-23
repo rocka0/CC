@@ -18,7 +18,8 @@ void readBigInt(BigInt& num) {
     BigInt x = 0, f = 1;
     char ch = getchar();
     while (ch < '0' || ch > '9') {
-        if (ch == '-') f = -1;
+        if (ch == '-')
+            f = -1;
         ch = getchar();
     }
     while (ch >= '0' && ch <= '9') {
@@ -33,6 +34,7 @@ void printBigInt(BigInt x) {
         putchar('-');
         x = -x;
     }
-    if (x > 9) printBigInt(x / 10);
+    if (x > 9)
+        printBigInt(x / 10);
     putchar(x % 10 + '0');
 }

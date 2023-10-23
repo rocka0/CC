@@ -16,8 +16,10 @@ public:
         assert(0 <= a && a < _n);
         assert(0 <= b && b < _n);
         int x = leader(a), y = leader(b);
-        if (x == y) return x;
-        if (-parent_or_size[x] < -parent_or_size[y]) std::swap(x, y);
+        if (x == y)
+            return x;
+        if (-parent_or_size[x] < -parent_or_size[y])
+            std::swap(x, y);
         parent_or_size[x] += parent_or_size[y];
         parent_or_size[y] = x;
         return x;
@@ -31,7 +33,8 @@ public:
 
     int leader(int a) {
         assert(0 <= a && a < _n);
-        if (parent_or_size[a] < 0) return a;
+        if (parent_or_size[a] < 0)
+            return a;
         return parent_or_size[a] = leader(parent_or_size[a]);
     }
 
