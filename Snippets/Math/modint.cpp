@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-using namespace std;
 
 /*
     Source: https://github.com/atcoder/ac-library
@@ -539,8 +538,8 @@ namespace atcoder {
 using mint = atcoder::modint1000000007;
 
 const int factorialLimit = 1e6;
-array<mint, factorialLimit + 1> fact;
-array<mint, factorialLimit + 1> invFact;
+std::array<mint, factorialLimit + 1> fact;
+std::array<mint, factorialLimit + 1> invFact;
 bool initializationDone = false;
 
 void initModint() {
@@ -557,32 +556,28 @@ void initModint() {
 
 mint factorial(int x) {
     assert(initializationDone and x <= factorialLimit);
-    if (x < 0) {
+    if (x < 0)
         return 0;
-    }
     return fact[x];
 }
 
 mint inverseFactorial(int x) {
     assert(initializationDone and x <= factorialLimit);
-    if (x < 0) {
+    if (x < 0)
         return 0;
-    }
     return invFact[x];
 }
 
 mint nPr(int n, int r) {
     assert(initializationDone);
-    if (r < 0 or n < r) {
+    if (r < 0 or n < r)
         return 0;
-    }
     return factorial(n) * inverseFactorial(n - r);
 }
 
 mint nCr(int n, int r) {
     assert(initializationDone);
-    if (r < 0 or n < r) {
+    if (r < 0 or n < r)
         return 0;
-    }
     return nPr(n, r) * inverseFactorial(r);
 }

@@ -10,6 +10,7 @@
 
 class dsu {
 public:
+    dsu() : _n(0) {}
     explicit dsu(int n) : _n(n), parent_or_size(n, -1) {}
 
     int merge(int a, int b) {
