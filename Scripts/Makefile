@@ -1,6 +1,6 @@
 CPP_EXECUTABLE_NAME = app
 CPP_FILE = $(CPP_EXECUTABLE_NAME).cpp
-CPP_FLAGS = -std=c++17 -O2 -DLOCAL -Wall -Wextra -Wshadow
+CPP_FLAGS = -std=c++17 -DLOCAL -Wall -Wextra -O2 -Wshadow -pedantic -Wfloat-equal -Wconversion
 
 all: build
 
