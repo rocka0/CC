@@ -18,6 +18,7 @@ Index
       * [Sieve of Eratosthenes](/Snippets/Math/sieve.cpp)
    4. [Miscellaneous](/Snippets/Misc/)
       * [128 Bit Int](/Snippets/Misc/int_128.cpp)
+      * [Array/String Hash](/Snippets/Misc/arr_hash.cpp)
       * [Safe Hash](/Snippets/Misc/safe_hash.cpp)
 
 2. Scripts
