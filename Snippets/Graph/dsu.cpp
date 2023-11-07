@@ -4,8 +4,7 @@
 
 /*
     Source: https://github.com/atcoder/ac-library
-
-    Usage:  dsu UF(n)
+    Usage:  https://atcoder.github.io/ac-library/master/document_en/dsu.html
 */
 
 class dsu {

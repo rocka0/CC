@@ -3,7 +3,6 @@
 
 /*
     Source: https://github.com/rocka0/CC
-
     Usage:  Matrix<int> M(2,2)
 */
 

@@ -4,10 +4,8 @@
 
 /*
     Source: https://codeforces.com/blog/entry/62393
-
     Usage:  unordered_map <int, int, SafeHash>
             unordered_set<pair<int,int>, SafeHashPairInt>
-
     Note:   Sometimes causes slowdown of ~ (2-3)X
 */
 

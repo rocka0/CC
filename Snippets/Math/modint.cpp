@@ -2,9 +2,7 @@
 
 /*
     Source: https://github.com/atcoder/ac-library
-
-    Usage:  using mint = modint1000000007
-
+    Usage:  https://atcoder.github.io/ac-library/master/document_en/modint.html
     Note:   call initModint() in main
 */
 

@@ -1,8 +1,6 @@
 #include <iostream>
 
-/*
-    Source: https://codeforces.com/blog/entry/11080
-*/
+// Source: https://codeforces.com/blog/entry/11080
 
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>

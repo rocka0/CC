@@ -4,7 +4,6 @@
 
 /*
     Source: https://github.com/the-hyp0cr1t3/CC
-
     Usage:  Call buildSieve() in main
 */
 

@@ -6,9 +6,7 @@
 
 /*
     Source: https://codeforces.com/blog/entry/79108
-
     Usage:  DisjointSparseTable<int> ST(vector<int> arr)
-
     Note:   Change operation in Monoid to any Associative Binary Operation
             In class, identity is the identity element of the Monoid
             (e.g. 0 for addition/xor and inf for minimum)

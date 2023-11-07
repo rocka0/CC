@@ -2,7 +2,6 @@
 
 /*
     Source: https://github.com/rocka0/CC
-
     Usage:  segtree st(n);
 */
 

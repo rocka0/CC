@@ -4,9 +4,7 @@
 
 /*
     Source: https://github.com/the-hyp0cr1t3/CC/
-
     Usage:  vector<int> facs = generateFactors(pf_vector);
-
     Note:   For long, change FACTORS_MAX to 161280 and use int64_t instead of int32_t
 */
 
