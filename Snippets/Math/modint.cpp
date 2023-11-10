@@ -535,7 +535,7 @@ namespace atcoder {
 
 using mint = atcoder::modint1000000007;
 
-const int factorialLimit = 1e6;
+constexpr int factorialLimit = 1e6;
 std::array<mint, factorialLimit + 1> fact;
 std::array<mint, factorialLimit + 1> invFact;
 bool initializationDone = false;
