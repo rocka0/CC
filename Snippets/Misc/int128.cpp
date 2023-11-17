@@ -13,15 +13,15 @@ using BigInt = __int128;
 
 void readBigInt(BigInt& num) {
     BigInt x = 0, f = 1;
-    char ch = getchar();
+    char ch = static_cast<char>(getchar());
     while (ch < '0' || ch > '9') {
         if (ch == '-')
             f = -1;
-        ch = getchar();
+        ch = static_cast<char>(getchar());
     }
     while (ch >= '0' && ch <= '9') {
         x = x * 10 + ch - '0';
-        ch = getchar();
+        ch = static_cast<char>(getchar());
     }
     num = x * f;
 }
@@ -33,5 +33,5 @@ void printBigInt(BigInt x) {
     }
     if (x > 9)
         printBigInt(x / 10);
-    putchar(x % 10 + '0');
+    putchar(static_cast<int>(x % 10) + '0');
 }

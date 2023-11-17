@@ -24,7 +24,7 @@ class DisjointSparseTable {
 
 public:
     explicit DisjointSparseTable(std::vector<T> arr) {
-        int cnt = std::max(1, ceil_pow2(arr.size()));
+        int cnt = std::max(1, ceil_log2(static_cast<int>(arr.size())));
         int pow2 = 1 << cnt;
         arr.resize(pow2, Monoid::identity);
         mat.resize(cnt, std::vector<T>(pow2));
@@ -64,7 +64,7 @@ public:
 private:
     std::vector<std::vector<T>> mat;
 
-    int ceil_pow2(int t) {
+    int ceil_log2(int t) {
         int x = 0;
         while ((1u << x) < (unsigned) (t))
             x++;
