@@ -17,21 +17,22 @@ class DisjointSparseTable {
     struct Monoid {
         static constexpr T identity = std::numeric_limits<T>::max();
         constexpr T operator()(const T& lhs, const T& rhs) const {
-            // TODO: Change this to any Associative Binary Operation
             return std::min(lhs, rhs);
         }
     };
 
 public:
     explicit DisjointSparseTable(std::vector<T> arr) {
-        int cnt = std::max(1, ceil_log2(static_cast<int>(arr.size())));
-        int pow2 = 1 << cnt;
-        arr.resize(pow2, Monoid::identity);
-        mat.resize(cnt, std::vector<T>(pow2));
-        for (int level = 0; level < cnt; ++level) {
+        int N = 1;
+        while (N < arr.size())
+            N <<= 1;
+        int LG = std::max(1, std::__lg(N));
+        arr.resize(N, Monoid::identity);
+        mat.resize(LG, std::vector<T>(N));
+        for (int level = 0; level < LG; ++level) {
             for (int block = 0; block < 1 << level; ++block) {
-                const auto start = block << (cnt - level);
-                const auto end = (block + 1) << (cnt - level);
+                const auto start = block << (LG - level);
+                const auto end = (block + 1) << (LG - level);
                 const auto middle = (end + start) / 2;
                 auto val = arr[middle];
                 mat[level][middle] = val;
@@ -63,11 +64,4 @@ public:
 
 private:
     std::vector<std::vector<T>> mat;
-
-    int ceil_log2(int t) {
-        int x = 0;
-        while ((1u << x) < (unsigned) (t))
-            x++;
-        return x;
-    }
 };
