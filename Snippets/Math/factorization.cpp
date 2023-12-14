@@ -8,10 +8,10 @@
     Note:   For long, change FACTORS_MAX to 161280 and use int64_t instead of int32_t
 */
 
-constexpr int FACTORS_MAX = 2304;
+constexpr int MAX_FACTORS = 2304;
 
-std::vector<int32_t> generateFactors(const std::vector<std::pair<int32_t, int>>& prime_factors, bool sorted = false) {
-    static int32_t buffer[FACTORS_MAX];
+std::vector<int32_t> generate_factors(const std::vector<std::pair<int32_t, int>>& prime_factors, bool sorted = false) {
+    static int32_t buffer[MAX_FACTORS];
     int product = 1;
     for (auto& pf : prime_factors) {
         product *= pf.second;

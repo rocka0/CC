@@ -19,7 +19,7 @@ bool chmin(T &x, T y) {
 
 #define int long long
 
-signed main() {
+int32_t main() {
     cin.tie(nullptr)->sync_with_stdio(false);
 
     // The Legend Himself

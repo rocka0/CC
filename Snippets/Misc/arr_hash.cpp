@@ -4,9 +4,11 @@
 using mint = atcoder::modint1000000007;
 
 struct array_hash {
-    array_hash() : n(0), base(0) {}
+    array_hash()
+        : n(0), base(0) {}
 
-    array_hash(const std::vector<int>& arr, mint _b) : base(_b) {
+    array_hash(const std::vector<int>& arr, mint _b)
+        : base(_b) {
         assert(base != 0);
         n = static_cast<int>(arr.size());
 

@@ -65,8 +65,10 @@ namespace atcoder {
         using U = internal::to_unsigned_t<T>;
 
     public:
-        fenwick_tree() : _n(0) {}
-        explicit fenwick_tree(int n) : _n(n), data(n) {}
+        fenwick_tree()
+            : _n(0) {}
+        explicit fenwick_tree(int n)
+            : _n(n), data(n) {}
 
         void add(int p, T x) {
             assert(0 <= p && p < _n);

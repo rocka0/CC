@@ -9,10 +9,10 @@
             Use printf and scanf only without ios_base::sync_with_stdio(0), cin.tie(0).
 */
 
-using BigInt = __int128;
+using bigint = __int128;
 
-void readBigInt(BigInt& num) {
-    BigInt x = 0, f = 1;
+void read_bigint(bigint& num) {
+    bigint x = 0, f = 1;
     char ch = static_cast<char>(getchar());
     while (ch < '0' || ch > '9') {
         if (ch == '-')
@@ -26,12 +26,12 @@ void readBigInt(BigInt& num) {
     num = x * f;
 }
 
-void printBigInt(BigInt x) {
+void print_bigint(bigint x) {
     if (x < 0) {
         putchar('-');
         x = -x;
     }
     if (x > 9)
-        printBigInt(x / 10);
+        print_bigint(x / 10);
     putchar(static_cast<int>(x % 10) + '0');
 }

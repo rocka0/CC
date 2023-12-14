@@ -6,7 +6,7 @@
 #include <ext/pb_ds/tree_policy.hpp>
 
 template <typename T>
-struct OrderedSet {
+struct ordered_set {
     int size() const {
         return data.size();
     }
@@ -34,12 +34,12 @@ struct OrderedSet {
     // Returns the number of elements in the inclusive range [l,r] present in the set
     int inBetween(T l, T r) const {
         assert(l <= r);
-        return data.order_of_key(r + 1) - data.order_of_key(l);
+        return static_cast<int>(data.order_of_key(r + 1) - data.order_of_key(l));
     }
 
     // Returns the element present at position "index" in the < order of elements in the set
     T get(int index) const {
-        assert(0 <= index && index < static_cast<int>(data.size()));
+        assert(0 <= index && index < size());
         return *data.find_by_order(index);
     }
 
@@ -47,7 +47,7 @@ struct OrderedSet {
 };
 
 template <typename T>
-std::ostream& operator<<(std::ostream& os, const OrderedSet<T>& s) {
+std::ostream& operator<<(std::ostream& os, const ordered_set<T>& s) {
     os << "{";
     for (auto it = s.data.begin(); it != s.data.end(); it++) {
         if (it != s.data.begin())
@@ -66,7 +66,7 @@ std::ostream& operator<<(std::ostream& os, const OrderedSet<T>& s) {
  * 4. upper_bound() works like lower_bound()
  */
 template <typename T>
-struct OrderedMultiset {
+struct ordered_multiset {
     int size() const {
         return data.size();
     }
@@ -98,7 +98,8 @@ struct OrderedMultiset {
 
     // Returns the number of elements in the range [l, r] in the multiset
     int inBetween(T l, T r) const {
-        return data.order_of_key(r + 1) - data.order_of_key(l);
+        assert(l <= r);
+        return static_cast<int>(data.order_of_key(r + 1) - data.order_of_key(l));
     }
 
     // Returns the element at position "index" in the sorted < order of elements in the multiset
@@ -111,7 +112,7 @@ struct OrderedMultiset {
 };
 
 template <typename T>
-std::ostream& operator<<(std::ostream& os, const OrderedMultiset<T>& s) {
+std::ostream& operator<<(std::ostream& os, const ordered_multiset<T>& s) {
     os << "{";
     for (auto it = s.data.begin(); it != s.data.end(); it++) {
         if (it != s.data.begin())

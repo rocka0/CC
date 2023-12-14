@@ -6,45 +6,43 @@
 
 /*
     Source: https://codeforces.com/blog/entry/79108
-    Usage:  DisjointSparseTable<int> ST(vector<int> arr)
+    Usage:  disjoint_sparse_table<int> ST(vector<int> arr)
     Note:   Change operation in Monoid to any Associative Binary Operation
             In class, identity is the identity element of the Monoid
             (e.g. 0 for addition/xor and inf for minimum)
 */
 
 template <typename T>
-class DisjointSparseTable {
-    struct Monoid {
-        static constexpr T identity = std::numeric_limits<T>::max();
-        constexpr T operator()(const T& lhs, const T& rhs) const {
-            return std::min(lhs, rhs);
-        }
-    };
+class disjoint_sparse_table {
+    static constexpr T IDENTITY = std::numeric_limits<T>::max();
+    T op(const T& lhs, const T& rhs) const {
+        return std::min(lhs, rhs);
+    }
 
 public:
-    explicit DisjointSparseTable(std::vector<T> arr) {
-        int N = 1;
-        while (N < arr.size())
-            N <<= 1;
-        int LG = std::max(1, std::__lg(N));
-        arr.resize(N, Monoid::identity);
-        mat.resize(LG, std::vector<T>(N));
+    explicit disjoint_sparse_table(std::vector<T> arr) {
+        int SZ = 1;
+        while (SZ < static_cast<int>(arr.size()))
+            SZ <<= 1;
+        int LG = std::max(1, std::__lg(SZ));
+        arr.resize(SZ, IDENTITY);
+        table.resize(LG, std::vector<T>(SZ));
         for (int level = 0; level < LG; ++level) {
             for (int block = 0; block < 1 << level; ++block) {
                 const auto start = block << (LG - level);
                 const auto end = (block + 1) << (LG - level);
                 const auto middle = (end + start) / 2;
                 auto val = arr[middle];
-                mat[level][middle] = val;
+                table[level][middle] = val;
                 for (int x = middle + 1; x < end; ++x) {
-                    val = Monoid{}(val, arr[x]);
-                    mat[level][x] = val;
+                    val = op(val, arr[x]);
+                    table[level][x] = val;
                 }
                 val = arr[middle - 1];
-                mat[level][middle - 1] = val;
+                table[level][middle - 1] = val;
                 for (int x = middle - 2; x >= start; --x) {
-                    val = Monoid{}(val, arr[x]);
-                    mat[level][x] = val;
+                    val = op(val, arr[x]);
+                    table[level][x] = val;
                 }
             }
         }
@@ -52,16 +50,17 @@ public:
 
     // Returns operation over range [l, r]
     T query(int l, int r) const {
-        assert(0 <= l and l <= r and r < static_cast<int>(mat.back().size()));
+        assert(0 <= l && l <= r);
+        assert(r < static_cast<int>(table.back().size()));
         if (l == r) {
-            return mat.back()[l];
+            return table.back()[l];
         } else {
             const auto pos_diff = (sizeof(int64_t) * CHAR_BIT) - 1 - __builtin_clzll(l ^ r);
-            const auto level = static_cast<int>(mat.size()) - 1 - pos_diff;
-            return Monoid{}(mat[level][l], mat[level][r]);
+            const auto level = static_cast<int>(table.size()) - 1 - pos_diff;
+            return op(table[level][l], table[level][r]);
         }
     }
 
 private:
-    std::vector<std::vector<T>> mat;
+    std::vector<std::vector<T>> table;
 };

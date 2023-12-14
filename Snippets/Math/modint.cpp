@@ -3,7 +3,7 @@
 /*
     Source: https://github.com/atcoder/ac-library
     Usage:  https://atcoder.github.io/ac-library/master/document_en/modint.html
-    Note:   call initModint() in main
+    Note:   call setup_modint() in main
 */
 
 namespace atcoder {
@@ -21,7 +21,8 @@ namespace atcoder {
             unsigned int _m;
             unsigned long long im;
 
-            explicit barrett(unsigned int m) : _m(m), im((unsigned long long) (-1) / m + 1) {}
+            explicit barrett(unsigned int m)
+                : _m(m), im((unsigned long long) (-1) / m + 1) {}
 
             unsigned int umod() const {
                 return _m;
@@ -260,7 +261,8 @@ namespace atcoder {
             return x;
         }
 
-        static_modint() : _v(0) {}
+        static_modint()
+            : _v(0) {}
         template <class T, internal::is_signed_int_t<T>* = nullptr>
         static_modint(T v) {
             long long x = (long long) (v % (long long) (umod()));
@@ -396,7 +398,8 @@ namespace atcoder {
             return x;
         }
 
-        dynamic_modint() : _v(0) {}
+        dynamic_modint()
+            : _v(0) {}
         template <class T, internal::is_signed_int_t<T>* = nullptr>
         dynamic_modint(T v) {
             long long x = (long long) (v % (long long) (mod()));
@@ -535,47 +538,43 @@ namespace atcoder {
 
 using mint = atcoder::modint1000000007;
 
-constexpr int factorialLimit = 1e6;
-std::array<mint, factorialLimit + 1> fact;
-std::array<mint, factorialLimit + 1> invFact;
-bool initializationDone = false;
+constexpr int MAX_FACTORIAL = 1e6;
+std::array<mint, MAX_FACTORIAL + 1> fact;
+std::array<mint, MAX_FACTORIAL + 1> inv_fact;
 
-void initModint() {
+void setup_modint() {
     fact[0] = 1;
-    for (int i = 1; i <= factorialLimit; ++i) {
+    for (int i = 1; i <= MAX_FACTORIAL; ++i) {
         fact[i] = fact[i - 1] * i;
     }
-    invFact[factorialLimit] = fact[factorialLimit].inv();
-    for (int i = factorialLimit; i >= 1; --i) {
-        invFact[i - 1] = invFact[i] * i;
+    inv_fact[MAX_FACTORIAL] = fact[MAX_FACTORIAL].inv();
+    for (int i = MAX_FACTORIAL; i >= 1; --i) {
+        inv_fact[i - 1] = inv_fact[i] * i;
     }
-    initializationDone = true;
 }
 
 mint factorial(int x) {
-    assert(initializationDone and x <= factorialLimit);
+    assert(x <= MAX_FACTORIAL);
     if (x < 0)
         return 0;
     return fact[x];
 }
 
-mint inverseFactorial(int x) {
-    assert(initializationDone and x <= factorialLimit);
+mint inverse_factorial(int x) {
+    assert(x <= MAX_FACTORIAL);
     if (x < 0)
         return 0;
-    return invFact[x];
+    return inv_fact[x];
 }
 
 mint nPr(int n, int r) {
-    assert(initializationDone);
     if (r < 0 or n < r)
         return 0;
-    return factorial(n) * inverseFactorial(n - r);
+    return factorial(n) * inverse_factorial(n - r);
 }
 
 mint nCr(int n, int r) {
-    assert(initializationDone);
     if (r < 0 or n < r)
         return 0;
-    return nPr(n, r) * inverseFactorial(r);
+    return nPr(n, r) * inverse_factorial(r);
 }
