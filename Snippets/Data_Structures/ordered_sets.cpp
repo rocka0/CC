@@ -20,11 +20,11 @@ struct ordered_set {
     }
 
     int strictlyLess(T val) const {
-        return data.order_of_key(val);
+        return static_cast<int>(data.order_of_key(val));
     }
 
     int strictlyGreater(T val) const {
-        return data.size() - data.order_of_key(val + 1);
+        return static_cast<int>(data.size() - data.order_of_key(val + 1));
     }
 
     int strictlyEqual(T val) const {
@@ -85,15 +85,15 @@ struct ordered_multiset {
     }
 
     int strictlyLess(T val) const {
-        return data.order_of_key(val);
+        return static_cast<int>(data.order_of_key(val));
     }
 
     int strictlyGreater(T val) const {
-        return data.size() - data.order_of_key(val + 1);
+        return static_cast<int>(data.size() - data.order_of_key(val + 1));
     }
 
     int strictlyEqual(T val) const {
-        return data.order_of_key(val + 1) - data.order_of_key(val);
+        return static_cast<int>(data.order_of_key(val + 1) - data.order_of_key(val));
     }
 
     // Returns the number of elements in the range [l, r] in the multiset

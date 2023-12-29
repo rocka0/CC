@@ -538,30 +538,30 @@ namespace atcoder {
 
 using mint = atcoder::modint1000000007;
 
-constexpr int MAX_FACTORIAL = 1e6;
-std::array<mint, MAX_FACTORIAL + 1> fact;
-std::array<mint, MAX_FACTORIAL + 1> inv_fact;
+constexpr int FACTORIAL_LIMIT = 1e6;
+std::array<mint, FACTORIAL_LIMIT + 1> fact;
+std::array<mint, FACTORIAL_LIMIT + 1> inv_fact;
 
 void setup_modint() {
     fact[0] = 1;
-    for (int i = 1; i <= MAX_FACTORIAL; ++i) {
+    for (int i = 1; i <= FACTORIAL_LIMIT; ++i) {
         fact[i] = fact[i - 1] * i;
     }
-    inv_fact[MAX_FACTORIAL] = fact[MAX_FACTORIAL].inv();
-    for (int i = MAX_FACTORIAL; i >= 1; --i) {
+    inv_fact[FACTORIAL_LIMIT] = fact[FACTORIAL_LIMIT].inv();
+    for (int i = FACTORIAL_LIMIT; i >= 1; --i) {
         inv_fact[i - 1] = inv_fact[i] * i;
     }
 }
 
 mint factorial(int x) {
-    assert(x <= MAX_FACTORIAL);
+    assert(x <= FACTORIAL_LIMIT);
     if (x < 0)
         return 0;
     return fact[x];
 }
 
 mint inverse_factorial(int x) {
-    assert(x <= MAX_FACTORIAL);
+    assert(x <= FACTORIAL_LIMIT);
     if (x < 0)
         return 0;
     return inv_fact[x];

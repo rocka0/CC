@@ -21,12 +21,12 @@ class disjoint_sparse_table {
 
 public:
     explicit disjoint_sparse_table(std::vector<T> arr) {
-        int SZ = 1;
-        while (SZ < static_cast<int>(arr.size()))
-            SZ <<= 1;
-        int LG = std::max(1, std::__lg(SZ));
-        arr.resize(SZ, IDENTITY);
-        table.resize(LG, std::vector<T>(SZ));
+        int N = 1;
+        while (N < static_cast<int>(arr.size()))
+            N <<= 1;
+        int LG = std::max(1, std::__lg(N));
+        arr.resize(N, IDENTITY);
+        table.resize(LG, std::vector<T>(N));
         for (int level = 0; level < LG; ++level) {
             for (int block = 0; block < 1 << level; ++block) {
                 const auto start = block << (LG - level);
