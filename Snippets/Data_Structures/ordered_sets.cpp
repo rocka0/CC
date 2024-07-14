@@ -61,7 +61,7 @@ std::ostream& operator<<(std::ostream& os, const ordered_set<T>& s) {
 /*
  * Since we use less_equal<T> instead of less<T>, some functions of ordered_multiset are changed with respect to normal std::set:
  * 1. insert() works normally
- * 2. erase() doesn't work at all
+ * 2. naively calling erase() doesn't work at all
  * 3. lower_bound() works like upper_bound()
  * 4. upper_bound() works like lower_bound()
  */
