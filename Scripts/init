@@ -1,4 +1,4 @@
-#! /usr/bin/bash
+#! /bin/sh
 
 # Copy Makefile to the current directory
 cp "Scripts/Makefile" .
@@ -6,12 +6,16 @@ cp "Scripts/Makefile" .
 # Clone dbg-macro
 git clone https://github.com/sharkdp/dbg-macro.git --depth 1
 
-# Copy dbg.h to current directory as tl.hpp
-cp dbg-macro/dbg.h tl.hpp
+# Copy dbg.h to bits/stdc++.h
+mkdir bits
+cp dbg-macro/dbg.h bits/stdc++.h
+
+# Copy template into app.cpp
+cp Snippets/template.cpp app.cpp
 
 # Remove unnecessary directories
 rm -rf .git .gitignore README.md Snippets Scripts dbg-macro
 
-# Create app.cpp and in
-touch app.cpp
+# Create input file
 touch in
+

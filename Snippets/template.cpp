@@ -1,10 +1,9 @@
-#include <bits/stdc++.h>
+#include "bits/stdc++.h"
 using namespace std;
 
-#ifdef LOCAL
-#include "tl.hpp"
-#else
-#define dbg(...) 14122021
+#define int int64_t
+#ifndef LOCAL
+    #define dbg(...) 257
 #endif
 
 template <typename T>
@@ -17,10 +16,14 @@ bool chmin(T &x, T y) {
     return x > y and (x = y, true);
 }
 
-#define int long long
+void solve() {
+    //
+}
 
-int32_t main() {
+signed main() {
     cin.tie(nullptr)->sync_with_stdio(false);
-
-    // The Legend Himself
+    int T = 1;
+    cin >> T;
+    while (T--)
+        solve();
 }
