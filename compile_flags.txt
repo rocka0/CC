@@ -1,3 +1,5 @@
 -std=c++17
 -O2
 -DLOCAL
+-DDBG_MACRO_NO_WARNING
+
