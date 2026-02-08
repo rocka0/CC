@@ -8,12 +8,12 @@ using namespace std;
 
 template <typename T>
 bool chmax(T &x, T y) {
-    return x < y and (x = y, true);
+    return x < y && (x = y, true);
 }
 
 template <typename T>
 bool chmin(T &x, T y) {
-    return x > y and (x = y, true);
+    return x > y && (x = y, true);
 }
 
 void solve() {
