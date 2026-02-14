@@ -4,7 +4,7 @@ TARGET   := app
 INPUT    := in
 
 # --- Compiler Flags ---
-FLAGS    := -std=c++17 -O2 -DLOCAL -DDBG_MACRO_NO_WARNING
+CXXFLAGS := -std=c++17 -O2 -DLOCAL -DDBG_MACRO_NO_WARNING -fsanitize=address,undefined -fno-omit-frame-pointer
 
 # --- Rules ---
 .PHONY: all run clean
@@ -12,15 +12,14 @@ FLAGS    := -std=c++17 -O2 -DLOCAL -DDBG_MACRO_NO_WARNING
 all: $(TARGET)
 
 $(TARGET): $(TARGET).cpp
-	@echo "🔨 Building."
-	@$(CXX) $(FLAGS) $< -o $@
+	@echo "🔨 Building..."
+	@$(CXX) $(CXXFLAGS) $< -o $@
+	@echo "✅ Build complete."
 
 run: $(TARGET)
-	@echo "=== Output ==="
-	@./$(TARGET) < $(INPUT)
-	@echo "=============="
-	@echo "Execution Stats:"
-	@time -p ./$(TARGET) < $(INPUT) > /dev/null
+	@echo "=== Output & Execution Stats ==="
+	@time ./$(TARGET) < $(INPUT)
+	@echo "================================"
 
 clean:
 	@rm -f $(TARGET)
