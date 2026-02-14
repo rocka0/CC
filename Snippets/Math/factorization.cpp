@@ -1,3 +1,4 @@
+#include <utility>
 #include <vector>
 
 std::vector<int> generate_factors(const std::vector<std::pair<int, int>>& prime_factors) {

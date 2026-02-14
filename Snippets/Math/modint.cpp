@@ -1,4 +1,5 @@
 #include <cassert>
+#include <cstdint>
 #include <iostream>
 #include <utility>
 #include <vector>
@@ -8,7 +9,7 @@ struct Z {
     int v;
     Z() : v(0) {}
 
-    Z(long long x) : v((x % MOD + MOD) % MOD) {}
+    Z(int64_t x) : v((x % MOD + MOD) % MOD) {}
 
     Z& operator+=(const Z& o) { return v += o.v, v -= (v >= MOD ? MOD : 0), *this; }
     Z& operator-=(const Z& o) { return v -= o.v, v += (v < 0 ? MOD : 0), *this; }
@@ -28,7 +29,7 @@ struct Z {
     Z operator++(int) { return std::exchange(*this, *this + 1); }
     Z operator--(int) { return std::exchange(*this, *this - 1); }
 
-    Z pow(long long k) const {
+    Z pow(int64_t k) const {
         Z res = 1, a = *this;
         while (k) {
             if (k & 1) res *= a;
@@ -41,18 +42,19 @@ struct Z {
     Z inv() const { return pow(MOD - 2); }
 
     friend std::istream& operator>>(std::istream& is, Z& a) {
-        return [&is, &a](long long x) -> std::istream& { return is >> x, a = Z(x), is; }(0);
+        return [&is, &a](int64_t x) -> std::istream& { return is >> x, a = Z(x), is; }(0);
     }
     friend std::ostream& operator<<(std::ostream& os, const Z& a) { return os << a.v; }
 };
 
-using mint = Z<1000000007>;
+constexpr int MOD = 1e9 + 7;
+using mint = Z<MOD>;
 
 struct Combinatorics {
     int n;
     std::vector<mint> fact, inv_fact;
 
-    Combinatorics(int _n) : n(_n), fact(_n + 1, 1), inv_fact(_n + 1, 1) {
+    explicit Combinatorics(int _n) : n(_n), fact(_n + 1, 1), inv_fact(_n + 1, 1) {
         for (int i = 1; i <= n; ++i) fact[i] = fact[i - 1] * i;
         inv_fact[n] = fact[n].inv();
         for (int i = n; i >= 1; --i) inv_fact[i - 1] = inv_fact[i] * i;

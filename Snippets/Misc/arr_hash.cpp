@@ -1,7 +1,9 @@
 #include <array>
 #include <cassert>
 #include <chrono>
+#include <cstdint>
 #include <random>
+#include <utility>
 #include <vector>
 
 using mint = Z<1000000007>;
@@ -29,10 +31,10 @@ struct robust_array_hash {
     static inline bool bases_init = false;
     std::array<array_hash, K> hashes;
 
-    robust_array_hash(const std::vector<int>& arr) {
+    explicit robust_array_hash(const std::vector<int>& arr) {
         if (!bases_init) {
             std::mt19937 rng(std::chrono::steady_clock::now().time_since_epoch().count());
-            std::uniform_int_distribution<int> dist(257, mint::mod() - 1);
+            std::uniform_int_distribution<int> dist(257, MOD - 1);
             for (int i = 0; i < K; ++i) bases[i] = dist(rng);
             bases_init = true;
         }
