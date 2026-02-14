@@ -27,6 +27,6 @@ struct SafeHash {
 struct SafeHashPairInt {
     std::size_t operator()(std::pair<int, int> p) const {
         static const uint64_t FIXED_RANDOM = std::chrono::steady_clock::now().time_since_epoch().count();
-        return splitmix64((size_t) 487631741 * (size_t) p.first + (size_t) 436217543 * (size_t) p.second + FIXED_RANDOM);
+        return splitmix64((size_t)487631741 * (size_t)p.first + (size_t)436217543 * (size_t)p.second + FIXED_RANDOM);
     }
 };

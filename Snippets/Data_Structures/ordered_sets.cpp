@@ -1,35 +1,15 @@
-#include <iostream>
-
-// Source: https://codeforces.com/blog/entry/11080
-
 #include <ext/pb_ds/assoc_container.hpp>
 #include <ext/pb_ds/tree_policy.hpp>
+#include <iostream>
 
 template <typename T>
 struct ordered_set {
-    int size() const {
-        return data.size();
-    }
-
-    bool insert(T element) {
-        return data.insert(element).second;
-    }
-
-    bool erase(T element) {
-        return data.erase(element);
-    }
-
-    int strictlyLess(T val) const {
-        return static_cast<int>(data.order_of_key(val));
-    }
-
-    int strictlyGreater(T val) const {
-        return static_cast<int>(data.size() - data.order_of_key(val + 1));
-    }
-
-    int strictlyEqual(T val) const {
-        return data.find(val) != data.end();
-    }
+    int size() const { return data.size(); }
+    bool insert(T element) { return data.insert(element).second; }
+    bool erase(T element) { return data.erase(element); }
+    int strictlyLess(T val) const { return static_cast<int>(data.order_of_key(val)); }
+    int strictlyGreater(T val) const { return static_cast<int>(data.size() - data.order_of_key(val + 1)); }
+    int strictlyEqual(T val) const { return data.find(val) != data.end(); }
 
     // Returns the number of elements in the inclusive range [l,r] present in the set
     int inBetween(T l, T r) const {
@@ -50,8 +30,7 @@ template <typename T>
 std::ostream& operator<<(std::ostream& os, const ordered_set<T>& s) {
     os << "{";
     for (auto it = s.data.begin(); it != s.data.end(); it++) {
-        if (it != s.data.begin())
-            os << ", ";
+        if (it != s.data.begin()) os << ", ";
         os << *it;
     }
     os << "}";
@@ -67,13 +46,8 @@ std::ostream& operator<<(std::ostream& os, const ordered_set<T>& s) {
  */
 template <typename T>
 struct ordered_multiset {
-    int size() const {
-        return data.size();
-    }
-
-    bool insert(T element) {
-        return data.insert(element).second;
-    }
+    int size() const { return data.size(); }
+    bool insert(T element) { return data.insert(element).second; }
 
     bool erase(T element) {
         auto it = data.upper_bound(element);
@@ -84,17 +58,9 @@ struct ordered_multiset {
         return false;
     }
 
-    int strictlyLess(T val) const {
-        return static_cast<int>(data.order_of_key(val));
-    }
-
-    int strictlyGreater(T val) const {
-        return static_cast<int>(data.size() - data.order_of_key(val + 1));
-    }
-
-    int strictlyEqual(T val) const {
-        return static_cast<int>(data.order_of_key(val + 1) - data.order_of_key(val));
-    }
+    int strictlyLess(T val) const { return static_cast<int>(data.order_of_key(val)); }
+    int strictlyGreater(T val) const { return static_cast<int>(data.size() - data.order_of_key(val + 1)); }
+    int strictlyEqual(T val) const { return static_cast<int>(data.order_of_key(val + 1) - data.order_of_key(val)); }
 
     // Returns the number of elements in the range [l, r] in the multiset
     int inBetween(T l, T r) const {
@@ -115,8 +81,7 @@ template <typename T>
 std::ostream& operator<<(std::ostream& os, const ordered_multiset<T>& s) {
     os << "{";
     for (auto it = s.data.begin(); it != s.data.end(); it++) {
-        if (it != s.data.begin())
-            os << ", ";
+        if (it != s.data.begin()) os << ", ";
         os << *it;
     }
     return os << "}";

@@ -1,20 +1,15 @@
 #include "bits/stdc++.h"
+#ifndef LOCAL
+#define dbg(...) 257
+#endif
 using namespace std;
 
 #define int int64_t
-#ifndef LOCAL
-    #define dbg(...) 257
-#endif
 
 template <typename T>
-bool chmax(T &x, T y) {
-    return x < y && (x = y, true);
-}
-
+bool chmax(T& a, const T& b) { return a < b && (a = b, true); }
 template <typename T>
-bool chmin(T &x, T y) {
-    return x > y && (x = y, true);
-}
+bool chmin(T& a, const T& b) { return a > b && (a = b, true); }
 
 void solve() {
     //
@@ -24,6 +19,5 @@ signed main() {
     cin.tie(nullptr)->sync_with_stdio(false);
     int T = 1;
     cin >> T;
-    while (T--)
-        solve();
+    while (T--) solve();
 }

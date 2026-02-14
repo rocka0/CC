@@ -1,135 +1,73 @@
+# .clang-format 
+# Optimized for Competitive Programming
+# Base style: Google (Excellent default handling for C++ templates and pointers)
+
 Language: Cpp
 BasedOnStyle: Google
-AccessModifierOffset: -4
-AlignAfterOpenBracket: Align
-AlignEscapedNewlines: Left
-AlignTrailingComments: true
-AllowAllArgumentsOnNextLine: true
-AllowAllConstructorInitializersOnNextLine: true
-AllowAllParametersOfDeclarationOnNextLine: true
-AllowShortBlocksOnASingleLine: Never
-AllowShortCaseLabelsOnASingleLine: false
-AllowShortFunctionsOnASingleLine: Empty
-AllowShortLambdasOnASingleLine: Empty
-AllowShortIfStatementsOnASingleLine: Never
-AllowShortLoopsOnASingleLine: false
-AlwaysBreakAfterDefinitionReturnType: None
-AlwaysBreakAfterReturnType: None
-AlwaysBreakBeforeMultilineStrings: true
-AlwaysBreakTemplateDeclarations: Yes
-BinPackArguments: true
-BinPackParameters: true
-BraceWrapping:
-  AfterCaseLabel: false
-  AfterClass: false
-  AfterControlStatement: Never
-  AfterEnum: false
-  AfterFunction: false
-  AfterNamespace: false
-  AfterObjCDeclaration: false
-  AfterStruct: false
-  AfterUnion: false
-  AfterExternBlock: false
-  BeforeCatch: false
-  BeforeElse: false
-  IndentBraces: false
-  SplitEmptyFunction: false
-  SplitEmptyRecord: false
-  SplitEmptyNamespace: false
-BreakBeforeBinaryOperators: None
-BreakBeforeBraces: Attach
-BreakBeforeInheritanceComma: false
-BreakInheritanceList: BeforeColon
-BreakBeforeTernaryOperators: true
-BreakConstructorInitializersBeforeComma: false
-BreakAfterJavaFieldAnnotations: false
-BreakStringLiterals: true
+
+# ==============================================================================
+# Core Spacing & Line Wrapping
+# ==============================================================================
+
+# Prevents Clang from arbitrarily wrapping long lines. In CP, you don't want 
+# complex math, nested templates, or long I/O statements broken across multiple 
+# lines just because they hit an arbitrary 80-character limit.
 ColumnLimit: 0
-CompactNamespaces: false
-ConstructorInitializerAllOnOneLineOrOnePerLine: true
-ConstructorInitializerIndentWidth: 4
-ContinuationIndentWidth: 4
-Cpp11BracedListStyle: true
-DeriveLineEnding: true
-DerivePointerAlignment: true
-FixNamespaceComments: true
-IndentCaseLabels: true
-IndentGotoLabels: true
-IndentPPDirectives: BeforeHash
+
+# Overrides Google's 2-space indent to 4 spaces. This creates a stronger visual 
+# hierarchy, which is crucial when quickly scanning deeply nested loops (e.g., 
+# multi-dimensional DP, DFS/BFS graph traversals).
 IndentWidth: 4
-IndentWrappedFunctionNames: false
-JavaScriptQuotes: Leave
-JavaScriptWrapImports: true
-KeepEmptyLinesAtTheStartOfBlocks: false
-MacroBlockBegin: ''
-MacroBlockEnd: ''
-MaxEmptyLinesToKeep: 1
-NamespaceIndentation: All
-ObjCBinPackProtocolList: Never
-ObjCBlockIndentWidth: 4
-ObjCSpaceAfterProperty: false
-ObjCSpaceBeforeProtocolList: true
-PenaltyBreakAssignment: 2
-PenaltyBreakBeforeFirstCallParameter: 1
-PenaltyBreakComment: 300
-PenaltyBreakFirstLessLess: 120
-PenaltyBreakString: 1000
-PenaltyBreakTemplateDeclaration: 10
-PenaltyExcessCharacter: 1000000
-PenaltyReturnTypeOnItsOwnLine: 200
-PointerAlignment: Left
-RawStringFormats:
-  - Language: Cpp
-    Delimiters:
-      - cc
-      - CC
-      - cpp
-      - Cpp
-      - CPP
-      - 'c++'
-      - 'C++'
-    CanonicalDelimiter: ''
-    BasedOnStyle: google
-  - Language: TextProto
-    Delimiters:
-      - pb
-      - PB
-      - proto
-      - PROTO
-    EnclosingFunctions:
-      - EqualsProto
-      - EquivToProto
-      - PARSE_PARTIAL_TEXT_PROTO
-      - PARSE_TEST_PROTO
-      - PARSE_TEXT_PROTO
-      - ParseTextOrDie
-      - ParseTextProtoOrDie
-      - ParseTestProto
-      - ParsePartialTestProto
-    CanonicalDelimiter: ''
-    BasedOnStyle: google
-ReflowComments: true
-SortUsingDeclarations: true
-SpaceAfterCStyleCast: true
-SpaceAfterLogicalNot: false
-SpaceAfterTemplateKeyword: true
-SpaceBeforeAssignmentOperators: true
-SpaceBeforeCpp11BracedList: false
-SpaceBeforeCtorInitializerColon: true
-SpaceBeforeInheritanceColon: true
-SpaceBeforeParens: ControlStatements
-SpaceBeforeRangeBasedForLoopColon: true
-SpaceInEmptyBlock: false
-SpaceInEmptyParentheses: false
-SpacesBeforeTrailingComments: 4
-SpacesInAngles: false
-SpacesInConditionalStatement: false
-SpacesInContainerLiterals: true
-SpacesInCStyleCastParentheses: false
-SpacesInParentheses: false
-SpacesInSquareBrackets: false
-SpaceBeforeSquareBrackets: false
-Standard: Auto
 TabWidth: 4
-UseCRLF: false
-UseTab: Never
+
+# Pulls public/private modifiers flush with the class definition
+AccessModifierOffset: -4
+
+# ==============================================================================
+# Vertical Density & Cleanup
+# ==============================================================================
+
+# Collapses multiple blank lines into a single blank line. If you hit 'Enter' a 
+# bunch of times while thinking, this snaps the file back into a dense, readable 
+# block upon formatting.
+MaxEmptyLinesToKeep: 1
+
+# Removes extraneous blank lines immediately after an opening brace. 
+# Prevents wasted vertical space at the start of functions or loops.
+KeepEmptyLinesAtTheStartOfBlocks: false
+
+# ==============================================================================
+# Single-Line Structures (Speed & Screen Real Estate)
+# ==============================================================================
+
+# Allows empty blocks `{}` to remain on a single line.
+AllowShortBlocksOnASingleLine: Empty
+
+# Allows short, single-statement functions to stay on one line.
+# Excellent for custom comparators, struct constructors, or simple getters.
+AllowShortFunctionsOnASingleLine: All
+
+# Allows single-line lambdas (very common in modern C++ CP for custom sorting).
+AllowShortLambdasOnASingleLine: All
+
+# Allows `if (condition) statement;` on a single line to save vertical space.
+# Uses 'WithoutElse' to ensure if/else chains still break to new lines, 
+# preventing dangling-else logic bugs during high-pressure contests.
+AllowShortIfStatementsOnASingleLine: WithoutElse
+
+# Allows single-statement loops on one line.
+# Example: `for(int i=0; i<n; i++) cin >> a[i];` stays perfectly compact.
+AllowShortLoopsOnASingleLine: true
+
+# ==============================================================================
+# Alignment & Aesthetics
+# ==============================================================================
+
+# Automatically aligns the values of consecutive `#define` statements.
+# Turns messy CP boilerplate macros into a neat, easily readable column.
+AlignConsecutiveMacros: true
+
+# Automatically aligns chained inline comments (`//`) at the ends of lines.
+# Keeps variable annotations neatly organized on the right-hand side.
+AlignTrailingComments: true
+
