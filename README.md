@@ -10,11 +10,9 @@ Index
       * [Ordered Set & Multiset](/Snippets/Data_Structures/ordered_sets.cpp)
    2. [Math](/Snippets/Math/)
       * [Factorization](/Snippets/Math/factorization.cpp)
-      * [Matrix](/Snippets/Math/matrix.cpp)
       * [Modint](/Snippets/Math/modint.cpp)
       * [Sieve of Eratosthenes](/Snippets/Math/sieve.cpp)
    3. [Miscellaneous](/Snippets/Misc/)
-      * [128 Bit Int](/Snippets/Misc/int128.cpp)
       * [Array/String Hash](/Snippets/Misc/arr_hash.cpp)
       * [Safe Hash](/Snippets/Misc/safe_hash.cpp)
 
