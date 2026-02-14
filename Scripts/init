@@ -8,7 +8,7 @@ git clone https://github.com/sharkdp/dbg-macro.git --depth 1
 
 # Copy dbg.h to bits/stdc++.h
 mkdir bits
-cp dbg-macro/dbg.h bits/stdc++.h
+cp dbg-macro/dbg.h .
 
 # Copy template into app.cpp
 cp Snippets/template.cpp app.cpp

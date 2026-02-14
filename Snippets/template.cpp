@@ -1,8 +1,11 @@
-#include "bits/stdc++.h"
-#ifndef LOCAL
+#include <iostream>
+using namespace std;
+
+#ifdef LOCAL
+#include "dbg.h"
+#else
 #define dbg(...) 257
 #endif
-using namespace std;
 
 #define int int64_t
 
