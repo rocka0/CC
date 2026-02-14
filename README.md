@@ -6,7 +6,6 @@ Index
 
 1. [Snippets](https://github.com/rocka0/CC/tree/main/Snippets)
    1. [Data Structures](/Snippets/Data_Structures/)
-      * [Disjoint Sparse Table](/Snippets/Data_Structures/disjoint_sparse_table.cpp)
       * [Ordered Set & Multiset](/Snippets/Data_Structures/ordered_sets.cpp)
    2. [Math](/Snippets/Math/)
       * [Factorization](/Snippets/Math/factorization.cpp)
