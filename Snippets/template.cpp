@@ -2,12 +2,10 @@
 using namespace std;
 
 #ifdef LOCAL
-#include "dbg.h"
+#include "dbg.h"  // IWYU pragma: keep
 #else
 #define dbg(...) 257
 #endif
-
-#define int int64_t
 
 template <typename T>
 bool chmax(T& a, const T& b) { return a < b && (a = b, true); }
