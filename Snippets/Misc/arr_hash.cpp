@@ -25,7 +25,7 @@ struct array_hash {
     }
 };
 
-template <int K = 3>
+template <int K = 2>
 struct robust_array_hash {
     static inline std::array<mint, K> bases;
     static inline bool bases_init = false;
