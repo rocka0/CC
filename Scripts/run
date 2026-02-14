@@ -1,0 +1,29 @@
+#!/bin/bash
+
+SRC="app.cpp"
+INPUT="in"
+BINARY="./app"
+
+FLAGS="-O2 -std=c++17 -DLOCAL -DDBG_MACRO_NO_WARNING"
+
+TIME_CMD=(gtime -f $'\nReal: \e[1;36m%e s\e[0m\tUser: \e[1;32m%U s\e[0m\tMem: \e[1;33m%M KB\e[0m')
+
+last=""
+
+while true; do
+  change=$(stat -f "%m" "$SRC" "$INPUT" 2>/dev/null)
+  
+  if [[ "$change" != "$last" ]]; then
+    last="$change"
+    clear && tmux clear-history
+    
+    if clang++ $FLAGS "$SRC" -o "$BINARY"; then
+      "${TIME_CMD[@]}" "$BINARY" < "$INPUT"
+      rm "$BINARY"
+    else
+      echo -e "\e[1;31mCompilation failed!\e[0m"
+    fi
+  fi
+  sleep 0.1
+done
+
