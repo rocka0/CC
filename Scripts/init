@@ -1,13 +1,15 @@
 #!/bin/sh
 
+# Pull bits/stdc++.h
+mkdir -p bits
+wget -O bits/stdc++.h https://raw.githubusercontent.com/gcc-mirror/gcc/master/libstdc%2B%2B-v3/include/precompiled/stdc%2B%2B.h
+
+# Pull dbg-macro
+git clone https://github.com/sharkdp/dbg-macro.git --depth 1
+cp dbg-macro/dbg.h .
+
 # Copy runner script to the current directory
 cp Scripts/run .
-
-# Clone dbg-macro
-git clone https://github.com/sharkdp/dbg-macro.git --depth 1
-
-# Copy dbg.h to the current directory
-cp dbg-macro/dbg.h .
 
 # Copy template into app.cpp
 cp Snippets/template.cpp app.cpp
