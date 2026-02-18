@@ -18,4 +18,3 @@ Index
 2. Scripts
    * [Stress Testing](/Scripts/stress_test) 
    * [Test Case Generator](/Scripts/gen)
-

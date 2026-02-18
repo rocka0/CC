@@ -1,4 +1,4 @@
-# .clang-format 
+# .clang-format
 # Optimized for Competitive Programming
 # Base style: Google (Excellent default handling for C++ templates and pointers)
 
@@ -9,13 +9,13 @@ BasedOnStyle: Google
 # Core Spacing & Line Wrapping
 # ==============================================================================
 
-# Prevents Clang from arbitrarily wrapping long lines. In CP, you don't want 
-# complex math, nested templates, or long I/O statements broken across multiple 
+# Prevents Clang from arbitrarily wrapping long lines. In CP, you don't want
+# complex math, nested templates, or long I/O statements broken across multiple
 # lines just because they hit an arbitrary 80-character limit.
 ColumnLimit: 0
 
-# Overrides Google's 2-space indent to 4 spaces. This creates a stronger visual 
-# hierarchy, which is crucial when quickly scanning deeply nested loops (e.g., 
+# Overrides Google's 2-space indent to 4 spaces. This creates a stronger visual
+# hierarchy, which is crucial when quickly scanning deeply nested loops (e.g.,
 # multi-dimensional DP, DFS/BFS graph traversals).
 IndentWidth: 4
 TabWidth: 4
@@ -27,12 +27,12 @@ AccessModifierOffset: -4
 # Vertical Density & Cleanup
 # ==============================================================================
 
-# Collapses multiple blank lines into a single blank line. If you hit 'Enter' a 
-# bunch of times while thinking, this snaps the file back into a dense, readable 
+# Collapses multiple blank lines into a single blank line. If you hit 'Enter' a
+# bunch of times while thinking, this snaps the file back into a dense, readable
 # block upon formatting.
 MaxEmptyLinesToKeep: 1
 
-# Removes extraneous blank lines immediately after an opening brace. 
+# Removes extraneous blank lines immediately after an opening brace.
 # Prevents wasted vertical space at the start of functions or loops.
 KeepEmptyLinesAtTheStartOfBlocks: false
 
@@ -51,7 +51,7 @@ AllowShortFunctionsOnASingleLine: All
 AllowShortLambdasOnASingleLine: All
 
 # Allows `if (condition) statement;` on a single line to save vertical space.
-# Uses 'WithoutElse' to ensure if/else chains still break to new lines, 
+# Uses 'WithoutElse' to ensure if/else chains still break to new lines,
 # preventing dangling-else logic bugs during high-pressure contests.
 AllowShortIfStatementsOnASingleLine: WithoutElse
 
@@ -70,4 +70,3 @@ AlignConsecutiveMacros: true
 # Automatically aligns chained inline comments (`//`) at the ends of lines.
 # Keeps variable annotations neatly organized on the right-hand side.
 AlignTrailingComments: true
-
