@@ -12,11 +12,9 @@ last=""
 
 while true; do
   change=$(stat -f "%m" "$SRC" "$INPUT" 2>/dev/null)
-  
   if [[ "$change" != "$last" ]]; then
     last="$change"
-    clear && tmux clear-history
-    
+    clear && tput reset
     if clang++ $FLAGS "$SRC" -o "$BINARY"; then
       "${TIME_CMD[@]}" "$BINARY" < "$INPUT"
       rm "$BINARY"
@@ -26,4 +24,3 @@ while true; do
   fi
   sleep 0.1
 done
-

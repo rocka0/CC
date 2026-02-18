@@ -15,4 +15,3 @@ rm -rf .git .gitignore README.md Snippets Scripts dbg-macro
 
 # Create input file
 touch in
-
