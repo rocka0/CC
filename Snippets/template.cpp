@@ -2,7 +2,7 @@
 using namespace std;
 
 #ifdef LOCAL
-#include "dbg.h"  // IWYU pragma: keep
+#include "dbg.hpp"  // IWYU pragma: keep
 #else
 #define dbg(...) 257
 #endif

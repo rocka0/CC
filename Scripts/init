@@ -2,7 +2,7 @@
 
 # Pull dbg-macro
 git clone https://github.com/sharkdp/dbg-macro.git --depth 1
-cp dbg-macro/dbg.h .
+cp dbg-macro/dbg.h dbg.hpp
 
 # Copy runner script to the current directory
 cp Scripts/run .
