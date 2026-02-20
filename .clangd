@@ -2,11 +2,13 @@ CompileFlags:
   Remove:
     - -std=*
   Add:
-    - -std=c++17
-    - -O2
-    - -DLOCAL
     - -DDBG_MACRO_NO_WARNING
+    - -DLOCAL
     - -I/usr/local/include
+    - -Wall
+    - -Wextra
+    - -Wshadow
+    - -std=c++17
 
 Completion:
   HeaderInsertion: Never
