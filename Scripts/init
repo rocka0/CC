@@ -4,14 +4,13 @@
 git clone https://github.com/sharkdp/dbg-macro.git --depth 1
 cp dbg-macro/dbg.h dbg.hpp
 
-# Copy runner script to the current directory
-cp Scripts/run .
-
 # Copy template into app.cpp
-cp Snippets/template.cpp app.cpp
+cp Snippets/template.cpp .
+cp template.cpp app.cpp
 
 # Remove unnecessary directories
 rm -rf .git .gitignore README.md Snippets Scripts dbg-macro
 
 # Create input file
 touch in
+
