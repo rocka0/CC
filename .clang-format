@@ -20,6 +20,9 @@ ColumnLimit: 0
 IndentWidth: 4
 TabWidth: 4
 
+# Setting nested namespace indentation to match above values
+NamespaceIndentation: All
+
 # Pulls public/private modifiers flush with the class definition
 AccessModifierOffset: -4
 
